@@ -1,26 +1,80 @@
 /* Import the required font */
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700&display=swap');
 
+/* Ensure the body and HTML elements take up the full viewport */
+body, html {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background: transparent; /* Set the background color to transparent */
+}
+
+.container {
+  position: relative; 
+  height: 100%; /* Make the container take up the full viewport height */
+}
+
+.card {
+  background-color: rgba(17, 13, 13, 0.9); /* Use RGBA to set the background color of the card header with alpha transparency */
+  border-radius: 10px; 
+  box-shadow: 0px 0px 10px rgba(48, 47, 47, 0.1); 
+  color: #FFFFFF;
+
+}
+
+.card-header {
+  background-color: rgba(17, 13, 13, 0.9); /* Use RGBA to set the background color of the card header with alpha transparency */
+}
+
+.card-body {
+  padding: 20px; 
+}
+
+.background-image {
+  position: fixed; 
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('../../../../public/images/register.jpg');
+  background-size: cover;
+  filter: blur(2px);
+  z-index: -1; 
+}
+
 .custom-button {
-    font-family: 'Manrope', sans-serif;
-    font-size: 16px;
-    line-height: 26px;
-    font-weight: 400;
-    color: #FFFFFF;
-    background: #15ABFF;
-    border: none;
-    border-radius: 4px;
-    box-shadow: 0px 8px 17px #15abff, 0px 0px 2px #15abff;
-    transition: background-color 0.3s;
-  }
+  font-family: 'Manrope', sans-serif;
+  font-size: 16px;
+  line-height: 26px;
+  font-weight: 400;
+  color: #FFFFFF;
+  background: rgba(17, 13, 13, 0.7); /* Adjust RGBA values to fit the image color */
+  border: none;
+  border-radius: 4px;
+  box-shadow: 0px 8px 17px #3f4041, 0px 0px 2px #474849;
+  transition: background-color 0.3s;
+}
+
 .custom-button:hover {
-  background: #008AD9;
+  background: rgba(17, 13, 13, 0.8); /* Adjust RGBA values for hover state */
 }
 
 .custom-button:active {
-  background: #0077BC;
+  background: rgba(17, 13, 13, 0.9); /* Adjust RGBA values for active state */
 }
 
 .custom-button:disabled {
   opacity: 0.4;
+}
+
+/* Make the input fields transparent */
+.form-control {
+  background-color: transparent !important;
+  border-color: rgba(255, 255, 255, 0.5) !important; /* Set the border color with alpha transparency */
+  color: #ffffff; /* Set the text color */
+}
+
+/* Style the placeholder text */
+.form-control::placeholder {
+  color: rgba(255, 255, 255, 0.7); /* Set the placeholder text color with alpha transparency */
 }
