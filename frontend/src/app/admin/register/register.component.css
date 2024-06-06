@@ -1,29 +1,29 @@
 /* Import the required font */
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700&display=swap');
 
-/* Ensure the body and HTML elements take up the full viewport */
+
 body, html {
   height: 100%;
   margin: 0;
   padding: 0;
-  background: transparent; /* Set the background color to transparent */
+  background: transparent; 
 }
 
 .container {
   position: relative; 
-  height: 100%; /* Make the container take up the full viewport height */
+  height: 100%; 
 }
 
 .card {
-  background-color: rgba(17, 13, 13, 0.9); /* Use RGBA to set the background color of the card header with alpha transparency */
+  background-color: rgba(51, 45, 45, 0.9); 
   border-radius: 10px; 
   box-shadow: 0px 0px 10px rgba(48, 47, 47, 0.1); 
-  color: #FFFFFF;
+  color: #f7eded;
 
 }
 
 .card-header {
-  background-color: rgba(17, 13, 13, 0.9); /* Use RGBA to set the background color of the card header with alpha transparency */
+  background-color: rgba(17, 13, 13, 0.9); 
 }
 
 .card-body {
@@ -47,20 +47,20 @@ body, html {
   font-size: 16px;
   line-height: 26px;
   font-weight: 400;
-  color: #FFFFFF;
-  background: rgba(17, 13, 13, 0.7); /* Adjust RGBA values to fit the image color */
+  color: #f7eded;
+  background: rgba(17, 13, 13, 0.7); 
   border: none;
   border-radius: 4px;
-  box-shadow: 0px 8px 17px #3f4041, 0px 0px 2px #474849;
+  box-shadow: 0px 8px 17px #4e4f50, 0px 0px 2px #696a6b;
   transition: background-color 0.3s;
 }
 
 .custom-button:hover {
-  background: rgba(17, 13, 13, 0.8); /* Adjust RGBA values for hover state */
+  background: rgba(17, 13, 13, 0.8); 
 }
 
 .custom-button:active {
-  background: rgba(17, 13, 13, 0.9); /* Adjust RGBA values for active state */
+  background: rgba(17, 13, 13, 0.9); 
 }
 
 .custom-button:disabled {
@@ -70,11 +70,11 @@ body, html {
 /* Make the input fields transparent */
 .form-control {
   background-color: transparent !important;
-  border-color: rgba(255, 255, 255, 0.5) !important; /* Set the border color with alpha transparency */
-  color: #ffffff; /* Set the text color */
+  border-color: rgba(255, 255, 255, 0.5) !important;
+  color: #f7eded;
 }
 
 /* Style the placeholder text */
 .form-control::placeholder {
-  color: rgba(255, 255, 255, 0.7); /* Set the placeholder text color with alpha transparency */
+  color: rgba(255, 255, 255, 0.7); 
 }
