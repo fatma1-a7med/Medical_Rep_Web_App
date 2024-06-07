@@ -13,7 +13,18 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('first_name');
+            $table->string('last_name');
+            $table->string('state');
+            $table->string('city');
+            $table->string('street');
+            $table->string('phone_number');
+            $table->string('territory');
+            $table->string('image');
+            $table->string('gender')->nullable();
+            $table->date('birthDate')->nullable();
+            $table->foreignId('admin_id')->nullable()->constrained('admins')->onDelete('cascade');
+            $table->foreignId('location_id')->nullable()->constrained('locations')->onDelete('cascade');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
@@ -30,3 +41,5 @@ return new class extends Migration
         Schema::dropIfExists('users');
     }
 };
+
+

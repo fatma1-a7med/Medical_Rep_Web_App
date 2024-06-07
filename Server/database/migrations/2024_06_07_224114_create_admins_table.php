@@ -1,3 +1,4 @@
+
 <?php
 
 use Illuminate\Database\Migrations\Migration;
@@ -15,12 +16,12 @@ return new class extends Migration
             $table->id();
             $table->string('first_name');
             $table->string('last_name');
-            $table->string('city');
             $table->string('state');
+            $table->string('city');
             $table->string('street');
+            $table->string('phone_number');
             $table->string('territory');
-            $table->integer('phone_number');
-            $table->string('image')->nullable();
+            $table->string('image');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
@@ -37,3 +38,4 @@ return new class extends Migration
         Schema::dropIfExists('admins');
     }
 };
+
