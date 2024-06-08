@@ -27,7 +27,7 @@ class AdminAuthController extends Controller
                 'street' => 'required',
                 'phone_number' => 'required',
                 'territory' => 'required',
-                'image' => 'required',
+                'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
                 'email' => 'required|email|unique:admins,email',
                 'password' => 'required|min:6'
             ]);
@@ -40,6 +40,9 @@ class AdminAuthController extends Controller
                 ], 401);
             }
 
+            $imagePath = $request->file('image')->store('public/images');
+
+
             $admin = Admin::create([
                 'first_name' => $request->first_name,
                 'last_name' => $request->last_name,
@@ -48,7 +51,7 @@ class AdminAuthController extends Controller
                 'street' => $request->street,
                 'phone_number' => $request->phone_number,
                 'territory' => $request->territory,
-                'image' => $request->image,
+                'image' => $imagePath,
                 'email' => $request->email,
                 'password' => Hash::make($request->password)
             ]);
