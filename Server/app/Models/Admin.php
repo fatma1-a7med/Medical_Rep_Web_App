@@ -2,22 +2,15 @@
 
 namespace App\Models;
 
-use App\Notifications\ResetAdminPassword;
 use Illuminate\Contracts\Auth\CanResetPassword;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laravel\Sanctum\HasApiTokens;
-use Illuminate\Notifications\Notifiable;
 
-class Admin extends Model implements CanResetPassword
+class Admin extends Authenticatable implements CanResetPassword
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
         'first_name',
         'last_name',
@@ -29,45 +22,25 @@ class Admin extends Model implements CanResetPassword
         'phone_number',
         'territory',
         'image',
+        'remember_token'
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array
-     */
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array
-     */
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
 
-    /**
-     * Get the email address where password reset links are sent.
-     *
-     * @return string
-     */
     public function getEmailForPasswordReset()
     {
         return $this->email;
     }
 
-    /**
-     * Send the password reset notification.
-     *
-     * @param  string  $token
-     * @return void
-     */
     public function sendPasswordResetNotification($token)
     {
-        $this->notify(new ResetAdminPassword($token));
+        $this->notify(new \App\Notifications\ResetAdminPassword($token));
     }
 }

@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Api;
 use App\Models\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -42,7 +41,6 @@ class AdminAuthController extends Controller
 
             $imagePath = $request->file('image')->store('public/images');
 
-
             $admin = Admin::create([
                 'first_name' => $request->first_name,
                 'last_name' => $request->last_name,
@@ -56,11 +54,15 @@ class AdminAuthController extends Controller
                 'password' => Hash::make($request->password)
             ]);
 
+            $token = $admin->createToken("API TOKEN")->plainTextToken;
+            $admin->remember_token = $token;
+            $admin->save();
+
             return response()->json([
                 'status' => true,
                 'message' => 'Admin User Created Successfully',
                 'admin' => $admin,
-                'token' => $admin->createToken("API TOKEN")->plainTextToken
+                'token' => $token
             ], 200);
 
         } catch (\Throwable $th) {
@@ -92,19 +94,28 @@ class AdminAuthController extends Controller
                 ], 401);
             }
 
-            if (!Auth::attempt($request->only(['email', 'password']))) {
+            $admin = Admin::where('email', $request->email)->first();
+
+            if (!$admin || !Hash::check($request->password, $admin->password)) {
                 return response()->json([
                     'status' => false,
                     'message' => 'Email & Password do not match with our records.'
                 ], 401);
             }
 
-            $admin = Admin::where('email', $request->email)->first();
+            $token = $request->bearerToken();
+
+            if ($token !== $admin->remember_token) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Not authenticated or authorized'
+                ], 403); // 403 Forbidden
+            }
 
             return response()->json([
                 'status' => true,
                 'message' => 'Admin User Logged In Successfully',
-                'token' => $admin->createToken("API TOKEN")->plainTextToken
+                'token' => $token
             ], 200);
 
         } catch (\Throwable $th) {
