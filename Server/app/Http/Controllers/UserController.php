@@ -41,25 +41,25 @@ class UserController extends Controller
             'admin_id' => 'nullable|integer',
             'phone_number' => 'required|string|max:20',
             'territory' => 'required|string|max:255',
-            'image' => 'nullable|file|max:255',
+            'image' => 'nullable|file|max:1024', // Adjusted max file size
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8',
         ]);
     
-        // Check if the request contains an image file
-        if ($request->hasFile('image')) {
-            // Get the uploaded image file
-            $imageFile = $request->file('image');
-    
-            // Get the original name of the image file
-            $imageName = $imageFile->getClientOriginalName();
-    
-            // Store the image file in a publicly accessible directory
-            $imagePath = $imageFile->storeAs('public/images', $imageName);
-    
-            // Store the image path in the validated data array
-            $validatedData['image'] = $imageName;
-        }
+// Check if the request contains an image file
+if ($request->hasFile('image')) {
+    // Get the uploaded image file
+    $image = $request->file('image');
+
+    // Generate a unique name for the image
+    $imageName = time() . '.' . $image->getClientOriginalExtension();
+
+    // Store the image file in the public/images directory
+    $image->move(public_path('images'), $imageName);
+
+    // Store the image path in the validated data array
+    $validatedData['image'] = $imageName;
+}
     
         // Create the user with the validated data
         $user = User::create($validatedData);
@@ -67,8 +67,10 @@ class UserController extends Controller
         // Append the full URL of the image to the response
         // $user->image_url = asset('storage/images/' . $imageName);
     
-        return response()->json($user, 201);
+        // Return a JSON response with a success message
+        return response()->json(['message' => 'User created successfully', 'data' => $user], 201);
     }
+    
     
 
     /**
@@ -92,55 +94,51 @@ class UserController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
 
-     public function update(Request $request, $id)
-     {
-         // Validate the data
-         $validatedData = $request->validate([
-             'first_name' => 'sometimes|required|string|max:255',
-             'last_name' => 'sometimes|required|string|max:255',
-             'state' => 'sometimes|required|string|max:255',
-             'city' => 'sometimes|required|string|max:255',
-             'street' => 'sometimes|required|string|max:255',
-             'gender' => 'nullable|string|max:50',
-             'birthDate' => 'nullable|date',
-             'location_id' => 'nullable|integer',
-             'admin_id' => 'nullable|integer',
-             'phone_number' => 'sometimes|required|string|max:20',
-             'territory' => 'sometimes|required|string|max:255',
-             'image' => 'nullable|file|max:255',
-             'email' => 'sometimes|required|string|email|max:255|unique:users,email,' . $id,
-             'password' => 'sometimes|required|string|min:8',
-         ]);
-     
-         // Find the user by ID
-         $user = User::findOrFail($id);
-     
-         // Check if the request contains an image file
-         if ($request->hasFile('image')) {
-             // Get the uploaded image file
-             $imageFile = $request->file('image');
-     
-             // Get the original name of the image file
-             $imageName = $imageFile->getClientOriginalName();
-     
-             // Store the image file in a publicly accessible directory
-             $imagePath = $imageFile->storeAs('public/images', $imageName);
-     
-             // Store the image path in the validated data array
-             $validatedData['image'] = $imagePath;
-         }
-     
-         // Update the user with the validated data
-         $user->update($validatedData);
-     
-         // Return the updated user
-         return response()->json($user, 200);
-     }
+    public function update(Request $request, $id)
+{
+    // Validate the data
+    $validatedData = $request->validate([
+        'first_name' => 'sometimes|required|string|max:255',
+        'last_name' => 'sometimes|required|string|max:255',
+        'state' => 'sometimes|required|string|max:255',
+        'city' => 'sometimes|required|string|max:255',
+        'street' => 'sometimes|required|string|max:255',
+        'gender' => 'nullable|string|max:50',
+        'birthDate' => 'nullable|date',
+        'location_id' => 'nullable|integer',
+        'admin_id' => 'nullable|integer',
+        'phone_number' => 'sometimes|required|string|max:20',
+        'territory' => 'sometimes|required|string|max:255',
+        'image' => 'nullable|file|max:255',
+        'email' => 'sometimes|required|string|email|max:255|unique:users,email,' . $id,
+        'password' => 'sometimes|required|string|min:8',
+    ]);
 
-            // Create the user with the validated data
-            // $user = User::create($validatedData);
-            // return response()->json($user, 201);
+    // Find the user by ID
+    $user = User::findOrFail($id);
 
+// Check if the request contains an image file
+if ($request->hasFile('image')) {
+    // Get the uploaded image file
+    $image = $request->file('image');
+
+    // Generate a unique name for the image
+    $imageName = time() . '.' . $image->getClientOriginalExtension();
+
+    // Store the image file in the public/images directory
+    $image->move(public_path('images'), $imageName);
+
+    // Store the image path in the validated data array
+    $validatedData['image'] = $imageName;
+}
+
+    // Update the user with the validated data
+    $user->update($validatedData);
+   // Retrieve the updated user instance
+   $updatedUser = User::findOrFail($id);
+    // Return the updated user
+    return response()->json($updatedUser, 200);
+}
 
 
     /**
@@ -152,11 +150,14 @@ class UserController extends Controller
     public function destroy($id)
     {
         // Find the user
-        $user = User::findOrFail($id);
-    
+        $user = User::find($id);
+            // Check if the user exists
+    if (!$user) {
+        // Return a JSON response indicating the user has already been deleted
+        return response()->json(['message' => 'User has already been deleted'], 200);
+    }
         // Delete the user
         $user->delete();
-    
         // Return a JSON response with a success message
         return response()->json(['message' => 'User has been deleted successfully'], 200);
     }
