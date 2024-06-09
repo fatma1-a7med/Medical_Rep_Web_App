@@ -24,11 +24,15 @@ class AdminAuthController extends Controller
                 'state' => 'required',
                 'city' => 'required',
                 'street' => 'required',
-                'phone_number' => 'required',
+                'phone_number' => ['required', 'regex:/^\+?[0-9]{10,15}$/'],
                 'territory' => 'required',
                 'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
-                'email' => 'required|email|unique:admins,email',
-                'password' => 'required|min:6'
+                'email' => ['required',
+                          'email',
+                          'unique:admins',
+                          'email',
+                          'regex:/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/'],
+                'password' => 'required|min:8'
             ]);
 
             if ($validateUser->fails()) {

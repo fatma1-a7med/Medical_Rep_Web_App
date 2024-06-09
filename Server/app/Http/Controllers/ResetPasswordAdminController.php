@@ -8,9 +8,13 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Auth\Events\PasswordReset;
 
-class ResetPasswordController extends Controller
+class ResetPasswordAdminController extends Controller
 {
-     /**
+    public function __construct(){
+        $this->middleware('guest');
+    }
+
+    /**
      * Show the reset password form.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -24,6 +28,13 @@ class ResetPasswordController extends Controller
             'email' => $request->email,
         ]);
     }
+
+    /**
+     * Handle a reset password request for an admin.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function reset(Request $request)
     {
         $request->validate([
@@ -31,26 +42,28 @@ class ResetPasswordController extends Controller
             'password' => 'required|min:8|confirmed',
         ]);
 
+        // Get the token from the Authorization header
         $token = $request->bearerToken();
         if (!$token) {
             return response()->json(['message' => 'Token is required'], 400);
         }
 
-        $status = Password::reset(
-            $request->only('email', 'password', 'password_confirmation', ['token' => $token]),
-            function ($user, $password) {
-                $user->forceFill([
-                    'password' => Hash::make($password)
+ 
+        $status = Password::broker('admins')->reset(
+            array_merge($request->only('email', 'password', 'password_confirmation'), ['token' => $token]),
+            function ($admin, $password) {
+                $admin->forceFill([
+                    'password' => Hash::make($password),
                 ])->setRememberToken(Str::random(60));
 
-                $user->save();
+                $admin->save();
 
-                event(new PasswordReset($user));
+                event(new PasswordReset($admin));
             }
         );
 
         return $status == Password::PASSWORD_RESET
-                    ? response()->json(['message' => __($status)])
-                    : response()->json(['message' => __($status)], 400);
+            ? response()->json(['message' => trans($status)])
+            : response()->json(['message' => trans($status)], 400);
     }
 }
