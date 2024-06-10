@@ -35,7 +35,7 @@ class UserController extends Controller
             'state' => 'required|string|max:255',
             'city' => 'required|string|max:255',
             'street' => 'required|string|max:255',
-            'gender' => 'nullable|string|max:50',
+            'gender' => 'nullable|string|in:Male,Female|max:50',
             'birthDate' => 'nullable|date',
             'location_id' => 'nullable|integer',
             'admin_id' => 'nullable|integer',
