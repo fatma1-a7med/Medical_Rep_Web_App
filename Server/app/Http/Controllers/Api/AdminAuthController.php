@@ -24,15 +24,11 @@ class AdminAuthController extends Controller
                 'state' => 'required',
                 'city' => 'required',
                 'street' => 'required',
-                'phone_number' => ['required', 'regex:/^\+?[0-9]{10,15}$/'],
+                'phone_number' => 'required',
                 'territory' => 'required',
-                'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
-                'email' => ['required',
-                          'email',
-                          'unique:admins',
-                          'email',
-                          'regex:/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/'],
-                'password' => 'required|min:8'
+                'image' => 'required',
+                'email' => 'required|email|unique:admins,email',
+                'password' => 'required|min:3'
             ]);
 
             if ($validateUser->fails()) {
@@ -85,10 +81,9 @@ class AdminAuthController extends Controller
     public function loginAdmin(Request $request)
     {
         try {
-            // Validate the request data
             $validateUser = Validator::make($request->all(), [
-                'email' => 'required|string|email',
-                'password' => 'required|string|min:8'
+                'email' => 'required|email',
+                'password' => 'required'
             ]);
     
             if ($validateUser->fails()) {
@@ -99,23 +94,21 @@ class AdminAuthController extends Controller
                 ], 401);
             }
     
-            // Find the admin user
             $admin = Admin::where('email', $request->email)->first();
     
             if (!$admin || !Hash::check($request->password, $admin->password)) {
                 return response()->json([
                     'status' => false,
-                    'message' => 'Invalid credentials'
+                    'message' => 'Email & Password do not match with our records.'
                 ], 401);
             }
     
-            // Retrieve API token from the database
-            $token = $admin->api_token;
+            // Retrieve the token from the database
+            $token = $admin->remember_token;
     
             return response()->json([
                 'status' => true,
-                'message' => 'Admin Logged in Successfully',
-                'admin' => $admin,
+                'message' => 'Admin User Logged In Successfully',
                 'token' => $token
             ], 200);
     

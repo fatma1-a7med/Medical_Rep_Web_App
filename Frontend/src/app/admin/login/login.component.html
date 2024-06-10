@@ -1,29 +1,57 @@
-<div class="container mt-5">
-  <div class="card">
-    <div class="card-header">
-      <h2 class="text-center">Sign Up</h2>
-    </div>
-    <div class="card-body">
-  <form [formGroup]="userForm" (ngSubmit)="onLogin()"  class="row g-3 needs-validation">
-    <div>
-      <label for="email">Email</label>
-      <input class="form-control"  type="email" id="email" formControlName="email">
-      <div *ngIf="isFormSubmitted && email?.invalid" class="error-message">
-        <small *ngIf="email?.errors?.['required']">Email is required.</small>
-        <small *ngIf="email?.errors?.['email']">Email must be a valid email address.</small>
+<nav class="d-flex justify-content-between m-auto" style="width: 95vw;">
+  <div class="logo">
+    <img src="../../../assets/images/logo.png" width="80" height="80">
+  </div>
+  <div class="text-center mt-3">
+    <div class="signup-link text-center">You do not have an account? <a routerLink="/admin/register" class="loginRoute">Sign Up</a></div>
+  </div>
+</nav>
+
+<div class="page d-flex">
+  <div class="leftSide">
+    <div class="rectangle"></div>
+    <img src="../../../assets/images/Coffee 1.png" id="coffee">
+    <h4 class="first_para">Great to See you!</h4>
+    <p class="second_para">Consequat adipisicing ea do labore irure adipisicing occaecat cupidatat excepteur duis mo</p>
+  </div>
+  
+  <div class="container mt-5 rightSide">
+    <div class="card">
+
+
+      <h2 class="text-center mt-1">Login</h2>
+
+      <div class="card-body">
+        <form [formGroup]="userForm" (ngSubmit)="onLogin()" class="form row g-3 needs-validation">
+          <div class="col-12 mb-3">
+            <label for="email">Email</label>
+            <input class="form-control" type="email" placeholder="Enter your email" id="email" formControlName="email">
+            <div *ngIf="isFormSubmitted && email?.invalid" class="error-message">
+              <small *ngIf="email?.errors?.['required']">Email is required.</small>
+              <small *ngIf="email?.errors?.['email']">Email must be a valid email address.</small>
+            </div>
+          </div>
+          <div class="col-12 mb-3">
+            <label for="password">Password</label>
+            <input class="form-control" type="password" placeholder="Enter your password" id="password" formControlName="password">
+            <div *ngIf="isFormSubmitted && password?.invalid" class="error-message">
+              <small *ngIf="password?.errors?.['required']">Password is required.</small>
+              <small *ngIf="password?.errors?.['minlength']">Password must be at least 8 characters long.</small>
+            </div>
+          </div>
+          <div class="col-12 d-grid">
+            <button type="submit" class="btn custom-button text-center" [disabled]="userForm.invalid">SignIn</button>
+          </div>
+          <div *ngIf="errorMessage" class="error-message">
+            {{ errorMessage }}
+          </div>
+        </form>
       </div>
     </div>
-    <div>
-      <label for="password">Password</label>
-      <input class="form-control"  type="password" id="password" formControlName="password">
-      <div *ngIf="isFormSubmitted && password?.invalid" class="error-message">
-        <small *ngIf="password?.errors?.['required']">Password is required.</small>
-        <small *ngIf="password?.errors?.['minlength']">Password must be at least 8 characters long.</small>
-      </div>
-    </div>
-    <button type="submit" class="btn custom-button text-center">Login</button>
-    <div *ngIf="errorMessage" class="error-message">
-      {{ errorMessage }}
-    </div>
-  </form>
+  </div>
 </div>
+
+ <div class="background"></div>
+
+
+

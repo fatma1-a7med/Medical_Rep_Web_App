@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
       (response) => {
         console.log('Login successful', response);
         localStorage.setItem('token', response.token);
-        this.router.navigate(['admin']);
+        this.router.navigate(['/admin/dashboard']);
       },
       (error) => {
         console.error('Login failed', error);
