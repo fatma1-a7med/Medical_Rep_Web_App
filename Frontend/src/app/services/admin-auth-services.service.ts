@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
+
 
 // Define an interface for login data
 export interface LoginData {
@@ -17,6 +18,11 @@ export class AdminAuthServiceService {
 
   login(email: string, password: string): Observable<any> {
     return this.http.post(`http://127.0.0.1:8000/api/admin/login`, { email, password }).pipe(
+      tap((response: any) => {
+        if (response && response.token) {
+          this.saveToken(response.token); // Save the token to local storage
+        }
+      }),
       catchError((error) => {
         return throwError(error);
       })

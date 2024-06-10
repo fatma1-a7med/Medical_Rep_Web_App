@@ -10,40 +10,61 @@ body, html {
 }
 
   .container {
-    max-width: 600px;
+    max-width: 520px;
     padding: 0 20px;
-    margin: 170px auto;
-  position: relative; 
-  height: 100%; 
+    margin: 230px auto;
+    position: relative;
+     left: 25rem;
+     bottom: 2rem;
+    height: 100%; 
+
 }
 
 
 .card {
-  background-color: rgba(51, 45, 45, 0.9); 
+  
   border-radius: 10px; 
-  box-shadow: 0px 0px 10px rgba(48, 47, 47, 0.1); 
-  color: #f7eded;
+  box-shadow: 0px 0px 10px 15ABFFFF; 
+  color: black;
+  border: 2px solid #15ABFFFF;
+
 
 }
-
-.card-header {
-  background-color: rgba(17, 13, 13, 0.9); 
+.loginRoute {
+  color:#15abff;
+  text-decoration: none;
+}
+div > .form-control{
+  background-color: #F3F4F6FF !important;
+  color: black !important;
+  border:2px solid #15abff;
+}
+input::placeholder {
+  color: #BDC1CAFF !important;
 }
 
+input:focused {
+  color: black !important;
+  background: #FFFFFFFF !important;
+  }
+  .card-header {
+    background-color: rgba(17, 13, 13, 0.9); 
+  }
 .card-body {
   padding: 20px; 
 }
 
 .background-image {
-  position: fixed; 
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: url('../../../../public/images/register.jpg');
-  background-size: cover;
-  filter: blur(2px);
-  z-index: -1; 
+  position: fixed;
+  top: 500px;
+  left: -100px;
+  width: 130vh;
+  height: 90vh;
+  max-width: 800px;
+  max-height: 400px;
+  background-color: #15abff;
+  border-radius: 50%;
+
 }
 
 .custom-button {
@@ -51,17 +72,21 @@ body, html {
   font-size: 16px;
   line-height: 26px;
   font-weight: 400;
-  color: #f7eded;
-  background: rgba(17, 13, 13, 0.7); 
+  color: #FFFFFFFF;
+  background: #15ABFFFF; 
   border: none;
   border-radius: 4px;
-  box-shadow: 0px 8px 17px #4e4f50, 0px 0px 2px #696a6b;
+  box-shadow: 0px 8px 17px #15abff, 0px 0px 2px #15abff;
   transition: background-color 0.3s;
+  opacity: 1;
+
 }
 
 .custom-button:hover {
-  background: rgba(17, 13, 13, 0.8); 
+  color: #FFFFFFFF;
+  background: #008AD9FF;
 }
+
 
 .custom-button:active {
   background: rgba(17, 13, 13, 0.9); 
@@ -81,4 +106,63 @@ body, html {
 /* Style the placeholder text */
 .form-control::placeholder {
   color: rgba(255, 255, 255, 0.7); 
+}
+.row {
+  margin-bottom: 15px;
+}
+
+/* Adjust input width */
+.col input {
+  width: 100%;
+}
+
+.rectangle{
+  position: absolute;
+  top: 286px;
+  left: 32px;
+  width: 179px;
+  height: 8px;
+  background: #15ABFFFF;
+  border-radius: 4px;
+}
+#coffee{
+  position: absolute;
+  top: 190px;
+  left: 151px;
+  width: 60px;
+  height: 60px;
+}
+
+.background{
+  position: fixed;
+  top: 500px;
+  left: px;
+  left: -90px;
+  width: 100vh;
+  height: 90vh;
+  max-width: 800px;
+  max-height: 400px;
+  background-color: #15abff;
+  border-radius: 50%;
+
+}
+.first_para{
+  position: absolute;
+  top: 210px;
+  left: 295px;
+  width: 370px;
+  font-size: 43px;
+  font-weight: 400;
+  color: #9095A1FF;
+}
+
+.second_para{
+ position: absolute;
+  top: 260px;
+  left: 295px;
+  width: 348px;
+  font-size: 14px;
+  line-height: 22px;
+  font-weight: 400;
+  color: #9095A1FF;
 }
