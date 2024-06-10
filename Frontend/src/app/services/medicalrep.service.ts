@@ -9,23 +9,23 @@ export class MedicalrepService {
   constructor(private _http:HttpClient) { }
     
   addMedrep(data:any):Observable<any>{
-         return this._http.post('http://localhost:3000/medreps',data)  
+         return this._http.post('http://localhost:8000/api/users',data)  
     
   }
 
 
   getMedreplist():Observable<any>{
-    return this._http.get('http://localhost:3000/medreps')  
+    return this._http.get('http://localhost:8000/api/users')  
 
 }
 
 updatemedrip(id: number, data: any): Observable<any> {
-  return this._http.put(`http://localhost:3000/medreps/${id}`, data);
+  return this._http.put(`http://localhost:8000/api/users/${id}`, data);
 }
 
 
 deletemedrip(id:number):Observable<any>{
 
-return this._http.delete(`http://localhost:3000/medreps/${id}`);
+return this._http.delete(`http://localhost:8000/api/users/${id}`);
 }
 }
