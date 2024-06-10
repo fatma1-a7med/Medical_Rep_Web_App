@@ -1,32 +1,29 @@
-<div class="container">
-    <div class="card">
-      <div class="card-header text-center text-light">
-        Login Form
-      </div>
-      <div class="card-body">
-        <form (ngSubmit)="onSubmit()" class="row  g-3 d-flex needs-validation" [formGroup]="userForm">
-          <div class="mb-3">
-            <label for="email" class="form-label ">Email</label>
-            <input type="email" class="form-control" formControlName="email" id="email" placeholder="Enter your email" required>
-            <div class="text-danger" *ngIf="userForm.controls['email'].invalid && (isFormSubmitted || userForm.controls['email'].touched)">
-              <span *ngIf="userForm.controls['email'].errors?.['required']">Email Is Required</span>
-            </div>
-          </div>
-          <div class="mb-3">
-            <label for="password" class="form-label ">Password</label>
-            <input type="password" class="form-control" formControlName="password" id="password" placeholder="Enter your password" required>
-            <div class="text-danger" *ngIf="userForm.controls['password'].invalid && (isFormSubmitted || userForm.controls['password'].touched)">
-              <span *ngIf="userForm.controls['password'].errors?.['required']">Password Is Required</span>
-            </div>
-          </div>
-          <div class="pass"><a href="#">Forgot password?</a></div>
-          <div class="d-grid">
-            <button type="submit" class="btn custom-button text-center" [disabled]="userForm.invalid">Login</button>
-          </div>
-          <div class="signup-link">Not a member? <a routerLink="/admin/register">Signup now</a></div>
-        </form>
+<div class="container mt-5">
+  <div class="card">
+    <div class="card-header">
+      <h2 class="text-center">Sign Up</h2>
+    </div>
+    <div class="card-body">
+  <form [formGroup]="userForm" (ngSubmit)="onLogin()"  class="row g-3 needs-validation">
+    <div>
+      <label for="email">Email</label>
+      <input class="form-control"  type="email" id="email" formControlName="email">
+      <div *ngIf="isFormSubmitted && email?.invalid" class="error-message">
+        <small *ngIf="email?.errors?.['required']">Email is required.</small>
+        <small *ngIf="email?.errors?.['email']">Email must be a valid email address.</small>
       </div>
     </div>
-  </div>
-  <div class="background-image"></div>
-  
+    <div>
+      <label for="password">Password</label>
+      <input class="form-control"  type="password" id="password" formControlName="password">
+      <div *ngIf="isFormSubmitted && password?.invalid" class="error-message">
+        <small *ngIf="password?.errors?.['required']">Password is required.</small>
+        <small *ngIf="password?.errors?.['minlength']">Password must be at least 8 characters long.</small>
+      </div>
+    </div>
+    <button type="submit" class="btn custom-button text-center">Login</button>
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+  </form>
+</div>

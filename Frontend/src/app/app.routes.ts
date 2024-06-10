@@ -10,9 +10,10 @@ import { NotfoundComponent } from './notfound/notfound.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'admin/login', pathMatch: 'full' },
+  { path: 'admin/login', component: LoginComponent },
+  { path: 'admin/register', component: RegisterComponent },
   { path: '**', component: NotfoundComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
+
 
 
   {
@@ -24,7 +25,7 @@ export const routes: Routes = [
 
     ]
   },
-  { path: '', redirectTo: '/admin', pathMatch: 'full' },
+  { path: '', redirectTo: 'admin', pathMatch: 'full' },
 ];
 
 
