@@ -85,11 +85,12 @@ class AdminAuthController extends Controller
     public function loginAdmin(Request $request)
     {
         try {
+            // Validate the request data
             $validateUser = Validator::make($request->all(), [
-                'email' => 'required|email',
-                'password' => 'required'
+                'email' => 'required|string|email',
+                'password' => 'required|string|min:8'
             ]);
-
+    
             if ($validateUser->fails()) {
                 return response()->json([
                     'status' => false,
@@ -97,31 +98,27 @@ class AdminAuthController extends Controller
                     'errors' => $validateUser->errors()
                 ], 401);
             }
-
+    
+            // Find the admin user
             $admin = Admin::where('email', $request->email)->first();
-
+    
             if (!$admin || !Hash::check($request->password, $admin->password)) {
                 return response()->json([
                     'status' => false,
-                    'message' => 'Email & Password do not match with our records.'
+                    'message' => 'Invalid credentials'
                 ], 401);
             }
-
-            $token = $request->bearerToken();
-
-            if ($token !== $admin->remember_token) {
-                return response()->json([
-                    'status' => false,
-                    'message' => 'Not authenticated or authorized'
-                ], 403); // 403 Forbidden
-            }
-
+    
+            // Retrieve API token from the database
+            $token = $admin->api_token;
+    
             return response()->json([
                 'status' => true,
-                'message' => 'Admin User Logged In Successfully',
+                'message' => 'Admin Logged in Successfully',
+                'admin' => $admin,
                 'token' => $token
             ], 200);
-
+    
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => false,
@@ -129,4 +126,5 @@ class AdminAuthController extends Controller
             ], 500);
         }
     }
+    
 }
