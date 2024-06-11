@@ -70,7 +70,7 @@
                <input type="password" class="form-control" formControlName="password" id="password" placeholder="Enter your password" required>
                <div class="text-danger" *ngIf="userForm.controls['password'].invalid && (isFormSubmitted || userForm.controls['password'].touched || userForm.controls['password'].dirty)">
                  <span *ngIf="userForm.controls['password'].errors?.['required']">Password Is Required</span>
-                 <span *ngIf="userForm.controls['password'].errors?.['minlength']">Password must be at least 3 characters long.</span>
+                 <span *ngIf="userForm.controls['password'].errors?.['minlength']">Password must be at least 9 characters long.</span>
                </div>           
              </div>
        
