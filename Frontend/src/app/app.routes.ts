@@ -10,14 +10,9 @@ import { NotfoundComponent } from './notfound/notfound.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'admin/login', pathMatch: 'full' },
-  { path: 'admin/login', component: LoginComponent },
-  { path: 'admin/register', component: RegisterComponent },
-  { path: '**', component: NotfoundComponent },
-
-
 
   {
-    path: 'admin',
+    path: 'admin-dashboard',
     component: AdminDashboardComponent,
     children: [
       { path: '', component: ListallmedrepComponent },
@@ -25,7 +20,13 @@ export const routes: Routes = [
 
     ]
   },
-  { path: '', redirectTo: 'admin', pathMatch: 'full' },
+  { path: 'admin/login', component: LoginComponent },
+  { path: 'admin/register', component: RegisterComponent },
+  { path: '**', component: NotfoundComponent },
+
+
+
+  
 ];
 
 

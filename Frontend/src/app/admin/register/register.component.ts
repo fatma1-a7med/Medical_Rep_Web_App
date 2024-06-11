@@ -28,7 +28,7 @@ export class RegisterComponent {
     private Auth: AuthService
   ) {
     this.userForm = new FormGroup({
-      first_name: new FormControl("", [Validators.required, Validators.minLength(6)]),
+      first_name: new FormControl("", [Validators.required, Validators.minLength(3)]),
       last_name: new FormControl("", [Validators.required, Validators.minLength(4)]),
       email: new FormControl("", [Validators.required, Validators.email]),
       phone_number: new FormControl("", [Validators.required, Validators.pattern(/^\d{11}$/)]),
@@ -36,7 +36,7 @@ export class RegisterComponent {
       territory: new FormControl("", [Validators.required, Validators.minLength(4)]),
       city: new FormControl("", [Validators.required, Validators.minLength(4)]),
       street: new FormControl("", [Validators.required, Validators.minLength(4)]),
-      password: new FormControl("", [Validators.required, Validators.minLength(3)]),
+      password: new FormControl("", [Validators.required, Validators.minLength(9)]),
       image: new FormControl(null, Validators.required)
     });
   }

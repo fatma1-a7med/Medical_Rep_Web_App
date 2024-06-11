@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Http\Controllers\consol;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Mail;
+use App\Mail\UserCreated;
+use App\Http\Controllers\Admin;
 class UserController extends Controller
 {
     /**
@@ -18,6 +20,8 @@ class UserController extends Controller
         // Get all users
         $users = User::all();
         return response()->json($users);
+
+        
     }
 
     /**
@@ -63,6 +67,17 @@ if ($request->hasFile('image')) {
     
         // Create the user with the validated data
         $user = User::create($validatedData);
+
+
+         // Send email to the newly created user
+         Mail::to($user->email)->send(new UserCreated($user));
+    
+         return response()->json([
+             'status' => true,
+             'message' => 'User Created Successfully',
+             'user' => $user,
+             'token' => $user->createToken("API_TOKEN")->plainTextToken
+         ], 200);
     
         // Append the full URL of the image to the response
         // $user->image_url = asset('storage/images/' . $imageName);
@@ -107,7 +122,7 @@ if ($request->hasFile('image')) {
         'birthDate' => 'nullable|date',
         'location_id' => 'nullable|integer',
         'admin_id' => 'nullable|integer',
-        'phone_number' => 'sometimes|required|string|max:20',
+        'phone_number' => 'sometimes|required|integer|max:20',
         'territory' => 'sometimes|required|string|max:255',
         'image' => 'nullable|file|max:255',
         'email' => 'sometimes|required|string|email|max:255|unique:users,email,' . $id,
@@ -136,6 +151,10 @@ if ($request->hasFile('image')) {
     $user->update($validatedData);
    // Retrieve the updated user instance
    $updatedUser = User::findOrFail($id);
+
+
+
+
     // Return the updated user
     return response()->json($updatedUser, 200);
 }
