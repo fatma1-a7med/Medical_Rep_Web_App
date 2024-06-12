@@ -14,13 +14,13 @@ import { RouterLink } from '@angular/router';
 })
 export class VisitManagementComponent implements OnInit {
   visitDate: any[] = [];
-  startDate: Date | null = null; 
-  endDate: Date | null = null; 
+  startDate: Date | null = null;
+  endDate: Date | null = null;
   firstName: string = '';
   lastName: string = '';
   selectedVisit: any = null;
 
-  constructor(private http: HttpClient, private datePipe: DatePipe) { } // Inject DatePipe
+  constructor(private http: HttpClient, private datePipe: DatePipe) { }
 
   ngOnInit(): void {
     this.loadInitialData();
@@ -38,46 +38,45 @@ export class VisitManagementComponent implements OnInit {
       );
   }
 
-  performSearch() {
+
+
+  searchByDateRange() {
     if (this.startDate && this.endDate) {
-      this.searchByDateRange(this.startDate, this.endDate);
-    } else if (this.firstName.trim() !== '' || this.lastName.trim() !== '') {
-      this.searchByName(this.firstName, this.lastName);
+      const formattedStartDate = this.datePipe.transform(this.startDate, 'yyyy-MM-dd');
+      const formattedEndDate = this.datePipe.transform(this.endDate, 'yyyy-MM-dd');
+
+      const url = `http://localhost:8000/api/admin/visits/searchByDateRange/${formattedStartDate}/${formattedEndDate}`;
+
+      this.http.get<any[]>(url)
+        .subscribe(
+          data => {
+            this.visitDate = data;
+          },
+          error => {
+            console.error('Error searching by date range:', error);
+          }
+        );
     } else {
-      console.error('Invalid search criteria');
+      console.error('Invalid date range');
     }
   }
 
-  searchByDateRange(startDate: Date, endDate: Date) {
-    // Format startDate and endDate using DatePipe
-    const formattedStartDate = this.datePipe.transform(startDate, 'yyyy-MM-dd');
-    const formattedEndDate = this.datePipe.transform(endDate, 'yyyy-MM-dd');
+  searchByName() {
+    if (this.firstName.trim() !== '' || this.lastName.trim() !== '') {
+      const url = `http://localhost:8000/api/admin/visits/searchByUsername/${this.firstName}/${this.lastName}`;
 
-    const url = `http://localhost:8000/api/admin/visits/searchByDateRange/${formattedStartDate}/${formattedEndDate}`;
-    
-    this.http.get<any[]>(url)
-      .subscribe(
-        data => {
-          this.visitDate = data;
-        },
-        error => {
-          console.error('Error searching by date range:', error);
-        }
-      );
-  }
-
-  searchByName(firstName: string, lastName: string) {
-    const url = `http://localhost:8000/api/admin/visits/searchByUsername/${firstName}/${lastName}`;
-    
-    this.http.get<any[]>(url)
-      .subscribe(
-        data => {
-          this.visitDate = data;
-        },
-        error => {
-          console.error('Error searching by name:', error);
-        }
-      );
+      this.http.get<any[]>(url)
+        .subscribe(
+          data => {
+            this.visitDate = data;
+          },
+          error => {
+            console.error('Error searching by name:', error);
+          }
+        );
+    } else {
+      console.error('Invalid name criteria');
+    }
   }
 
   getDoctorNames(doctors: any[]) {

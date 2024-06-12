@@ -1,35 +1,33 @@
 <div class="container">
+  <h2 class="text-center">Visit mangment</h2>
 
-   <!-- Search Form -->
-   <form class="mb-3" (ngSubmit)="performSearch()">
-    <div class="row">
-      <!-- Date Range Search -->
-      <div class="col-md-6">
-        <label for="startDate" class="form-label">Start Date</label>
-        <input type="date" class="form-control" id="startDate" name="startDate" [(ngModel)]="startDate">
-      </div>
-      <div class="col-md-6">
-        <label for="endDate" class="form-label">End Date</label>
-        <input type="date" class="form-control" id="endDate" name="endDate" [(ngModel)]="endDate">
-      </div>
-
-  <!-- Name Search -->
-  <div class="col-md-6">
-    <label for="firstName" class="form-label">First Name</label>
-    <input type="text" class="form-control" id="firstName" name="firstName" [(ngModel)]="firstName">
-  </div>
-  <div class="col-md-6">
-    <label for="lastName" class="form-label">Last Name</label>
-    <input type="text" class="form-control" id="lastName" name="lastName" [(ngModel)]="lastName">
-  </div>
-
-
-      <!-- Submit Button -->
-      <div class="col-md-4">
-        <button type="submit" class="btn btn-primary mt-4">Search</button>
-      </div>
+  <!-- Search Form -->
+  <form class="mb-3" >
+   <div class=" container row">
+     <!-- Date Range Search -->
+     <div class="col-md-6 col-sm-6 col-lg-4">
+       <label for="startDate" class="form-label ">Start Date</label>
+       <input type="date" class="form-control" id="startDate" name="startDate" [(ngModel)]="startDate">
+     </div>
+     <div class="col-md-6 col-sm-6 col-lg-4">
+      <label for="endDate" class="form-label">End Date</label>
+       <input type="date" class="form-control" id="endDate" name="endDate" [(ngModel)]="endDate">
+     </div>
+     <button class="btn text-light  col-md-12 col-lg-2 col-sm-12 m-4" (click)="searchByDateRange()"style="background-color:#24A8EF; ">Search by Date Range</button>
     </div>
-  </form>
+ <!-- Name Search -->
+  <div class="container row">
+    <div class="col-md-6 col-sm-6 col-lg-4">
+      <label for="firstName" class="form-label">First Name</label>
+      <input type="text" class="form-control" id="firstName" name="firstName" [(ngModel)]="firstName">
+    </div>
+    <div class="col-md-6 col-lg-4 col-sm-6">
+      <label for="lastName" class="form-label">Last Name</label>
+      <input type="text" class="form-control" id="lastName" name="lastName" [(ngModel)]="lastName">
+    </div>
+    <button class="btn text-light  col-md-12 col-lg-2 col-sm-12 m-4" (click)="searchByName()" style="background-color:#24A8EF; ">Search by Name</button>
+     </div>
+  <hr class="p-2 m-2">
 
 
 
@@ -53,7 +51,7 @@
         <td>{{ getDoctorNames(visit.doctor) }}</td>
         <td>{{ visit.status }}</td>
         <td>
-          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalVisitDetails" (click)="showVisitDetails(visit.id)">
+          <button type="button" class="btn text-light" style="background-color:#24A8EF;" data-bs-toggle="modal" data-bs-target="#modalVisitDetails" (click)="showVisitDetails(visit.id)">
             Show
           </button>
         </td>
@@ -93,5 +91,4 @@
         </div>
       </div>
     </div>
-  </div>
 </div>
