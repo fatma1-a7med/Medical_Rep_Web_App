@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Tool;
+use Visit;
 
 class Doctor extends Model
 {
@@ -22,4 +24,15 @@ class Doctor extends Model
 
     ];
 
+    public function visits()
+    {
+        return $this->belongsToMany(Visit::class, 'doctors_visits');
+    }
+
+    public function tools()
+    {
+        return $this->belongsToMany(Tool::class, 'doctors_tools');
+    }
 }
+
+
