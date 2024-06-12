@@ -2,15 +2,16 @@
 
 namespace App\Models;
 
+namespace App\Models;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Tool;
-use Visit;
 
 class Doctor extends Model
 {
     use HasFactory;
-    protected $fillable =[
+    
+    protected $fillable = [
         'first_name',
         'last_name',
         'email',
@@ -21,7 +22,6 @@ class Doctor extends Model
         'territory',
         'specialization',
         'class_rate'
-
     ];
 
     public function visits()
@@ -34,5 +34,3 @@ class Doctor extends Model
         return $this->belongsToMany(Tool::class, 'doctors_tools');
     }
 }
-
-
