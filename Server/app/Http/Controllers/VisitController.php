@@ -13,8 +13,8 @@ class VisitController extends Controller
 
         $result = $visits->map(function ($visit) {
             return [
+                'id' => $visit ->id,
                 'visit_date' => $visit->visit_date,
-                'territory' => $visit->location->territory ?? null,
                 'status' => $visit->status,
                 'medical_rep_fulname' => $visit->user->first_name . ' ' . $visit->user->last_name,
                 'doctor' => $visit->doctors->map(function ($doctor) {
@@ -36,7 +36,7 @@ class VisitController extends Controller
         return response()->json($result);
     }
 
-    function getVisitInformationById($id) {
+     public  function getVisitInformationById($id) {
         $visit = Visit::with(['doctors', 'location', 'user'])->find($id);
     
         if (!$visit) {
@@ -45,6 +45,8 @@ class VisitController extends Controller
         if ($visit->doctors->isEmpty()) {
             return response()->json(['message' => 'No doctors associated with this visit'], 404);
         }
+        $id = $visit -> id;
+        $status = $visit -> status;
         $doctorName = $visit->doctors->first()->first_name . ' ' . $visit->doctors->first()->last_name;
         $territory = $visit->doctors->first()->territory;
         $city = $visit->doctors->first()->city;
@@ -53,17 +55,25 @@ class VisitController extends Controller
         $userFullName = $visit->user->first_name . ' ' . $visit->user->last_name;
     
         $visitInformation = [
+            'id' =>$id,
+            'status' => $status,
             'doctor_name' => $doctorName,
             'territory' => $territory,
             'city' => $city,
             'state' => $state,
             'location_info' => $locationInfo,
             'user_full_name' => $userFullName,
+            'tools' => $visit->doctors->flatMap(function ($doctor) {
+                return $doctor->tools->map(function ($tool) {
+                    return [
+                        'tool_name' => $tool->name,
+                    ];
+                });
+            }),
         ];
     
-        return $visitInformation;
+        return response()->json($visitInformation);
     }
-
     public function searchByUserName(Request $request, $firstName, $lastName)
     {
 
@@ -87,13 +97,20 @@ class VisitController extends Controller
                 
    
         $visits = $query->get();
+
         if ($visits->isEmpty()) {
             return response()->json(['message' => 'No visits found for the specified date range'], 404);
         }
 
+
+
         // Transform data to get the required fields
         $result = $visits->map(function ($visit) {
+            $userFullName = $visit->user->first_name . ' ' . $visit->user->last_name;
+
             return [
+                'medical_rep_fulname' => $userFullName,
+                'id' => $visit -> id,    
                 'visit_date' => $visit->visit_date,
                 'territory' => $visit->location->territory ?? null,
                 'status' => $visit->status,
@@ -118,9 +135,10 @@ class VisitController extends Controller
     }
 
     public function searchByDateRange(Request $request, $startDate, $endDate)
-{
+    {
     $startDate = \Carbon\Carbon::parse($startDate);
     $endDate = \Carbon\Carbon::parse($endDate)->endOfDay();
+
 
     $query = Visit::with(['doctors', 'user', 'location'])
                     ->whereBetween('visit_date', [$startDate, $endDate]);
@@ -131,7 +149,12 @@ class VisitController extends Controller
     }
 
     $result = $visits->map(function ($visit) {
+    $userFullName = $visit->user->first_name . ' ' . $visit->user->last_name;
+
+
         return [
+            'medical_rep_fulname' => $userFullName,
+            'id' => $visit -> id,
             'visit_date' => $visit->visit_date,
             'territory' => $visit->location->territory ?? null,
             'status' => $visit->status,

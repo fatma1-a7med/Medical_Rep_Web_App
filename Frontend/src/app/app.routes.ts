@@ -5,6 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './admin/login/login.component';
 import { RegisterComponent } from './admin/register/register.component';
 import { NotfoundComponent } from './notfound/notfound.component';
+import { VisitManagementComponent } from './admin-dashboard/visit-managment/visit-managment.component';
 
 
 
@@ -17,6 +18,8 @@ export const routes: Routes = [
     children: [
       { path: '', component: ListallmedrepComponent },
       { path: 'add-medrep', component: AddeditComponent },
+      {path: 'visit-managment', component:VisitManagementComponent},
+      
 
     ]
   },
