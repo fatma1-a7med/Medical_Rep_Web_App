@@ -20,9 +20,9 @@ return new class extends Migration
             $table->string('state');
             $table->string('street');
             $table->string('territory');
-            $table->string('phone_number');
+            $table->string('class_rate');
             $table->string('specialization');
-            $table->integer('class_rate');
+            $table->integer('phone_number');
         });
     }
 
