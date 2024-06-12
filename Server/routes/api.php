@@ -39,7 +39,9 @@ Route::prefix('admin')->group(function () {
     Route::get('password/reset/{token}', [ResetPasswordAdminController::class, 'showResetForm'])->name('password.update');
     Route::post('password/reset', [ResetPasswordAdminController::class, 'reset'])->name('password.reset');
     Route::get('visits', [VisitController::class, 'index']);
-
+    Route::get('/visit/{id}', [VisitController::class, 'getVisitInformationById']);
+    Route::get('visits/searchByUsername/{firstName}/{lastName}', [VisitController::class, 'searchByUserName']);
+    Route::get('visits/searchByDateRange/{startDate}/{endDate}', [VisitController::class, 'searchByDateRange']);
 });
 
 Route::prefix('user')->group(function () {
