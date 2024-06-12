@@ -9,8 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AdminAuthController;
 use App\Http\Controllers\UserController;
-
-
+use App\Http\Controllers\VisitController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,6 +38,7 @@ Route::prefix('admin')->group(function () {
     Route::post('password/email', [ForgotPasswordAdminController::class, 'sendResetLinkEmail'])->name('password.email');
     Route::get('password/reset/{token}', [ResetPasswordAdminController::class, 'showResetForm'])->name('password.update');
     Route::post('password/reset', [ResetPasswordAdminController::class, 'reset'])->name('password.reset');
+    Route::get('visits', [VisitController::class, 'index']);
 
 });
 
