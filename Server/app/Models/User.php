@@ -68,9 +68,6 @@ class User extends Authenticatable implements CanResetPassword
         'password' => 'hashed',
     ];
 
-    public function visits()
-    {
-        return $this->hasMany(Visit::class);
-    }
+  
 
 }
