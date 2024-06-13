@@ -17,7 +17,7 @@ class Location extends Model
         'speed',
         'direction'
     ]; 
-    public function visit (){
+    public function visits (){
         return $this->hasMany(Visit::class);
     }
 }

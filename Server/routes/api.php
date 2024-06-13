@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AdminAuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VisitController;
+use App\Http\Controllers\VisitReportingController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -56,3 +58,8 @@ Route::prefix('users')->group(function () {
     Route::put('/{id}', [UserController::class, 'update']);    // PUT /api/users/{id}
     Route::delete('/{id}', [UserController::class, 'destroy']); // DELETE /api/users/{id}
 });
+
+// visit reporting
+Route::get('/visit-reports', [VisitReportingController::class, 'getVisitReports']);
+
+
