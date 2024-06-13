@@ -10,8 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AdminAuthController;
 use App\Http\Controllers\UserController;
-
-
+use App\Http\Controllers\VisitController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,7 +34,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::prefix('admin')->group(function () {
     Route::post('register', [AdminAuthController::class, 'createAdmin']);
     Route::post('login', [AdminAuthController::class, 'loginAdmin']);
-    
+
 /*     Route::get('password/reset',[ForgotPasswordAdminController::class, 'showLinkRequestForm'])->name('password.request');
  */    Route::post('password/email', [ForgotPasswordAdminController::class, 'sendResetLinkEmail'])->name('password.email');
 /*     Route::get('password/reset/{token}', [ResetPasswordAdminController::class, 'showResetForm'])->name('password.update');*/ 
@@ -44,6 +43,12 @@ Route::prefix('admin')->group(function () {
        Route::apiResource('sales', SalesController::class);
        Route::get('users/{user}/sales', [SalesController::class,'user_sales']);
        Route::middleware('auth:api')->get('/me', [AdminAuthController::class, 'me']);
+      
+
+       Route::get('visits', [VisitController::class, 'index']);
+       Route::get('/visit/{id}', [VisitController::class, 'getVisitInformationById']);
+       Route::get('visits/searchByUsername/{firstName}/{lastName}', [VisitController::class, 'searchByUserName']);
+       Route::get('visits/searchByDateRange/{startDate}/{endDate}', [VisitController::class, 'searchByDateRange']);
 
 
 });

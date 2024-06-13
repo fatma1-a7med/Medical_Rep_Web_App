@@ -6,10 +6,12 @@ import { HttpClientModule } from '@angular/common/http';
 import {ListallmedrepComponent} from './listallmedrep/listallmedrep.component';
 import { MatDialog } from '@angular/material/dialog';
 import { AddeditComponent } from './addedit/addedit.component';
+import { VisitManagementComponent } from './visit-managment/visit-managment.component';
+import { CommonModule, DatePipe } from '@angular/common';
 @Component({
   selector: 'app-admin-dashboard',
   standalone: true,
-  imports: [RouterOutlet,NavbarComponent,HttpClientModule,ListallmedrepComponent,RouterLink],
+  imports: [RouterOutlet,NavbarComponent,HttpClientModule,ListallmedrepComponent,RouterLink, VisitManagementComponent, CommonModule, DatePipe],
   templateUrl: './admin-dashboard.component.html',
   styleUrl: './admin-dashboard.component.css'
 })
@@ -26,4 +28,5 @@ export class AdminDashboardComponent {
     },
    });
   }
+
 }
