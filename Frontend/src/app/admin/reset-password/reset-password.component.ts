@@ -30,19 +30,23 @@ export class ResetPasswordComponent implements OnInit {
     this.resetPasswordForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],
-      password_confirmation: ['', [Validators.required]]
+      password_confirmation: ['', [Validators.required]],
+      token: ['']  
     });
   }
 
   ngOnInit(): void {
     this.token = this.route.snapshot.params['token'];
+   
+    this.resetPasswordForm.patchValue({ token: this.token });
     console.log(this.token);
   }
 
   onSubmit() {
     if (this.resetPasswordForm.valid) {
-      const { email, password, password_confirmation } = this.resetPasswordForm.value;
-      this.authService.resetPassword(this.token, email, password, password_confirmation).subscribe(
+      const { email, password, password_confirmation, token } = this.resetPasswordForm.value;
+      console.log(this.token);
+      this.authService.resetPassword(token, email, password, password_confirmation).subscribe(
         response => {
           this.message = 'Password reset successfully.';
         },
