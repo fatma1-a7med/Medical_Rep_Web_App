@@ -35,6 +35,19 @@ class User extends Authenticatable implements CanResetPassword
         'password',
     ];
 
+     // Define the one-to-many relationship with Sale
+     public function sales()
+     {
+         return $this->hasMany(Sale::class, 'user_id', 'id');
+     }
+
+     public function visits()
+     {
+         return $this->hasMany(Visit::class);
+     }
+ 
+     
+
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -55,9 +68,6 @@ class User extends Authenticatable implements CanResetPassword
         'password' => 'hashed',
     ];
 
-    public function visits()
-    {
-        return $this->hasMany(Visit::class);
-    }
+  
 
 }

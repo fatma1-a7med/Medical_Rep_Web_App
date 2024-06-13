@@ -1,16 +1,22 @@
-<button mat-button class="add-med-rep"(click)="openaddeditform()">
-  <mat-icon >person_add</mat-icon>
- 
-</button>
+<div class="container">
+
+
 
 <div class="main-body">
-    <mat-form-field>
+    <mat-form-field class="w-50" style="height: 11vh;margin-left: 17rem;">
         <mat-label>Filter</mat-label>
-        <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Menna" #input>
-      </mat-form-field>
-      
+        <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Menna" #input >  
+      </mat-form-field><br>
+      <div class="d-flex justify-content-between">
+        <h3>Users List</h3>
+          <button mat-button class="add-med-rep"(click)="openaddeditform()">
+            <mat-icon >person_add</mat-icon>
+          </button>
+    </div>
+      <br>
+
       <div class="mat-elevation-z8">
-        <table mat-table [dataSource]="dataSource" matSort>
+        <table mat-table [dataSource]="dataSource" matSort class="custom-table">
       
           <!-- ID Column -->
           <ng-container matColumnDef="id">
@@ -48,10 +54,10 @@
             <th mat-header-cell *matHeaderCellDef> Actions </th>
             <td mat-cell *matCellDef="let row">
                 <button mat-icon-button color="primary" (click)="show(row)">
-                    <mat-icon>visibility</mat-icon>
+                    <mat-icon class="custom-info-icon">visibility</mat-icon>
                   </button>
                   <button mat-icon-button color="accent" (click)="openeditform(row)">
-                    <mat-icon>edit</mat-icon>
+                    <mat-icon class="custom-edit-icon">edit</mat-icon>
                   </button>
                   <button mat-icon-button color="warn" (click)="deletemedrip(row.id)">
                     <mat-icon>delete</mat-icon>
@@ -70,4 +76,5 @@
         <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
       </div>
       
+</div>
 </div>

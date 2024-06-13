@@ -28,4 +28,6 @@ deletemedrip(id:number):Observable<any>{
 
 return this._http.delete(`http://localhost:8000/api/users/${id}`);
 }
+
+
 }

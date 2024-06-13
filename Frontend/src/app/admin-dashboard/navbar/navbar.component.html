@@ -1,13 +1,14 @@
 <mat-toolbar color="primary" class="navbar">
-    <div class="logo">
-      <img src="assets/logo.png" alt="Logo" />
+    <div class="logo d-flex">
+      <img src="assets/images/first_logo.svg" alt="RepAlert" width="50" height="50"/>
+      <h4 class="logo_text">RepAlert</h4>
     </div>
     <span class="spacer"></span>
     
     <div class="user-profile">
       <button mat-button [matMenuTriggerFor]="userMenu">
         <mat-icon>account_circle</mat-icon>
-        <span>David Smith</span>
+        <span> John Doe <!-- {{ loggedInAdmin?.name }} --></span>
       </button>
       <mat-menu #userMenu="matMenu">
         <button mat-menu-item>Profile</button>
