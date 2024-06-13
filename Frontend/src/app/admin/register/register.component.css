@@ -34,7 +34,7 @@ body, html {
   border-radius: 10px;
   /* box-shadow: 0px 0px 10px #15abff; */
   color: black;
-  border: 2px solid #1CA4AC;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 .loginRoute {
@@ -84,7 +84,7 @@ input:focus {
   background: #1CA4AC;
   border: none;
   border-radius: 4px;
-  box-shadow: 0px 8px 17px #15abff, 0px 0px 2px #1CA4AC;
+  box-shadow: 0px 4px 8px #1CA4AC, 0px 0px 2px #1CA4AC;
   transition: background-color 0.3s;
 }
 

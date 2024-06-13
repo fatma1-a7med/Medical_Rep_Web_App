@@ -33,9 +33,8 @@ export const routes: Routes = [
       { path: 'sales/add', component: SalesAddComponent },
       { path: 'sales/edit/:id', component: SalesEditComponent },
       { path: 'sales/details/:id', component: SalesDetailsComponent },
-       {path: 'visit-managment', component:VisitManagementComponent},
+      {path: 'visit-managment', component:VisitManagementComponent},
     
-
     ]
   },
  

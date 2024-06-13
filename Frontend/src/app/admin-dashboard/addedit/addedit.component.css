@@ -36,7 +36,8 @@
     min-width: 100px;
   }
   .save{
-    background-color: #24A8EF;
+    background-color: #1CA4AC;
+    color: white;
   }
   @media (max-width: 768px) {
     .form-row {
