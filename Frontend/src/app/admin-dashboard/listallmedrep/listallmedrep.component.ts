@@ -45,7 +45,13 @@ console.log(data)
   ngOnInit(): void {
     this.getMedreplist();
   }
-
+  ngAfterViewInit(): void {
+  
+    if (this.dataSource) {
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+  }
+  }
 
   openaddeditform() {
     const dialogRef = this._dialog.open(AddeditComponent);
@@ -70,10 +76,7 @@ console.log(data)
     });
   }
 
-  ngAfterViewInit(): void {
-    this.dataSource.paginator! = this.paginator;
-    this.dataSource.sort! = this.sort;
-  }
+
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
