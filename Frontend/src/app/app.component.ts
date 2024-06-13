@@ -15,11 +15,7 @@ import { SideBarComponent } from './admin-dashboard/side-bar/side-bar.component'
 @Component({
   selector: 'app-root',
   standalone: true,
-<<<<<<< HEAD
   imports: [RouterLink,FormsModule,CommonModule,RouterOutlet,NavbarComponent,HttpClientModule,ListallmedrepComponent, AdminComponent, RouterLink],
-=======
-  imports: [RouterOutlet,NavbarComponent,HttpClientModule,ListallmedrepComponent, AdminComponent, RouterLink,ReactiveFormsModule,SideBarComponent],
->>>>>>> b0e649a80b081049c4ca91f66fe1aa2ffc167eaf
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

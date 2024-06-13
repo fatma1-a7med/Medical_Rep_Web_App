@@ -31,7 +31,7 @@ export const routes: Routes = [
     component: AdminDashboardComponent,
     children: [
       { path: '', component: ListallmedrepComponent },
-      { path: 'add-medrep', component: AddeditComponent }
+      { path: 'add-medrep', component: AddeditComponent },
 
       { path: 'sales', component: SalesListComponent },
       { path: 'sales/add', component: SalesAddComponent },
@@ -44,13 +44,8 @@ export const routes: Routes = [
  
   { path: 'admin/login', component: LoginComponent },
   { path: 'admin/register', component: RegisterComponent },
-<<<<<<< HEAD
   { path: 'reporting', component: ReportingComponent }, // Add this route
   { path: '**', component: NotfoundComponent }
-=======
-  
-  { path: '**', component: NotfoundComponent },
->>>>>>> b0e649a80b081049c4ca91f66fe1aa2ffc167eaf
 
 
 ];

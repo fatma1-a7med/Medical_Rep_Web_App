@@ -33,7 +33,7 @@
   }
   
   .search-button:hover {
-    background-color: #509ef8; /* Darker blue on hover */
+    background-color: #0497a7; /* Darker blue on hover */
   }
   
   .card-header {
@@ -61,7 +61,7 @@
     margin-right: 5px; /* Adjust margin to increase space between icon and text */
   }
   h1, h2, h3, p {
-    margin-bottom: 10px; /* تعديل هامش التصميم حسب الحاجة */
+    margin-bottom: 10px; 
   }
 
 
