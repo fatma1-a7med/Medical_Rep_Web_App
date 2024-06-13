@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Models\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -118,6 +119,11 @@ class AdminAuthController extends Controller
                 'message' => $th->getMessage()
             ], 500);
         }
+    }
+    public function me()
+    {
+        $admin = Auth::user(); 
+        return response()->json($admin);
     }
     
 }

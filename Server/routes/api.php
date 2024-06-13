@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\SalesController;
 use App\Http\Controllers\Api\UserAuthController;
 use App\Http\Controllers\ForgotPasswordAdminController;
 use App\Http\Controllers\ForgotPasswordController;
@@ -35,10 +36,15 @@ Route::prefix('admin')->group(function () {
     Route::post('register', [AdminAuthController::class, 'createAdmin']);
     Route::post('login', [AdminAuthController::class, 'loginAdmin']);
     
-    Route::get('password/reset',[ForgotPasswordAdminController::class, 'showLinkRequestForm'])->name('password.request');
-    Route::post('password/email', [ForgotPasswordAdminController::class, 'sendResetLinkEmail'])->name('password.email');
-    Route::get('password/reset/{token}', [ResetPasswordAdminController::class, 'showResetForm'])->name('password.update');
-    Route::post('password/reset', [ResetPasswordAdminController::class, 'reset'])->name('password.reset');
+/*     Route::get('password/reset',[ForgotPasswordAdminController::class, 'showLinkRequestForm'])->name('password.request');
+ */    Route::post('password/email', [ForgotPasswordAdminController::class, 'sendResetLinkEmail'])->name('password.email');
+/*     Route::get('password/reset/{token}', [ResetPasswordAdminController::class, 'showResetForm'])->name('password.update');*/ 
+       Route::post('password/reset/{token}', [ResetPasswordAdminController::class, 'reset'])->name('password.reset');
+    
+       Route::apiResource('sales', SalesController::class);
+       Route::get('users/{user}/sales', [SalesController::class,'user_sales']);
+       Route::middleware('auth:api')->get('/me', [AdminAuthController::class, 'me']);
+
 
 });
 

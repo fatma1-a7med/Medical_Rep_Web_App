@@ -2,12 +2,18 @@
     display: flex;
     justify-content: space-between;
     padding: 0 1rem;
-    background-color: #24A8EF;
+    background-color: #1CA4AC;
   }
   
-  .logo img {
-    height: 40px;
-    border-radius: 10px;
+
+  .logo .logo_text{
+    margin-left: 3px;
+    margin-top: 6px;
+    font-family: "Lobster Two", sans-serif;
+     font-weight: 700;
+     font-style: normal;
+    font-size: 29px;
+ 
   }
   
   .spacer {
