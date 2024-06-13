@@ -7,11 +7,12 @@ import { AdminComponent } from './admin/admin.component';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { NotfoundComponent } from './notfound/notfound.component';
+import { SideBarComponent } from './admin-dashboard/side-bar/side-bar.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet,NavbarComponent,HttpClientModule,ListallmedrepComponent, AdminComponent, RouterLink,ReactiveFormsModule],
+  imports: [RouterOutlet,NavbarComponent,HttpClientModule,ListallmedrepComponent, AdminComponent, RouterLink,ReactiveFormsModule,SideBarComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

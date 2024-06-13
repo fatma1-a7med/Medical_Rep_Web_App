@@ -1,3 +1,7 @@
+.container{
+  margin-left: 250px;
+  width: 70vw;
+}
 .main-body {
     padding-top: 20px;
     margin: 0 auto;

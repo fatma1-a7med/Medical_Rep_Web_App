@@ -8,10 +8,11 @@ import { MatDialog } from '@angular/material/dialog';
 import { AddeditComponent } from './addedit/addedit.component';
 import { VisitManagementComponent } from './visit-managment/visit-managment.component';
 import { CommonModule, DatePipe } from '@angular/common';
+import { SideBarComponent } from './side-bar/side-bar.component';
 @Component({
   selector: 'app-admin-dashboard',
   standalone: true,
-  imports: [RouterOutlet,NavbarComponent,HttpClientModule,ListallmedrepComponent,RouterLink, VisitManagementComponent, CommonModule, DatePipe],
+  imports: [RouterOutlet,NavbarComponent,HttpClientModule,ListallmedrepComponent,RouterLink, VisitManagementComponent, CommonModule, DatePipe,SideBarComponent],
   templateUrl: './admin-dashboard.component.html',
   styleUrl: './admin-dashboard.component.css'
 })

@@ -1,3 +1,7 @@
+.container{
+  margin-left: 250px;
+  width: 70vw;
+}
 .custom-table {
     border: 1px solid #1CA4AC;
   }
