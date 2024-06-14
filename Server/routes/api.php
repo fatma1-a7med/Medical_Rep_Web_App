@@ -57,7 +57,7 @@ Route::prefix('admin')->group(function () {
 
 });
 
-Route::prefix('user')->group(function () {z
+Route::prefix('user')->group(function () {
     Route::post('register', [UserAuthController::class, 'createUser']);
     Route::post('login', [UserAuthController::class, 'loginUser']);
     Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
