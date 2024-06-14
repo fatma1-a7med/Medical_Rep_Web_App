@@ -1,0 +1,10 @@
+.container{
+    margin-top: 90px;
+    margin-left: 250px;
+    width: 70vw;
+}
+#map {
+    margin: 30px auto;
+    height: 500px; 
+    width: 1000px;
+}

@@ -9,6 +9,7 @@ use App\Http\Controllers\ResetPasswordController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AdminAuthController;
+use App\Http\Controllers\Api\LoctionController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VisitController;
 use App\Http\Controllers\VisitReportingController;
@@ -53,6 +54,10 @@ Route::prefix('admin')->group(function () {
        Route::get('/visit/{id}', [VisitController::class, 'getVisitInformationById']);
        Route::get('visits/searchByUsername/{username}', [VisitController :: class, 'searchByUsername' ]);
        Route::get('visits/searchByDateRange/{startDate}/{endDate}', [VisitController::class, 'searchByDateRange']);
+
+       //admin location tracking
+       Route::get('/location',[LoctionController::class,'index']);
+
 
 
 });

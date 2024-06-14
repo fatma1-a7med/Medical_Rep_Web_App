@@ -45,6 +45,11 @@ class User extends Authenticatable implements CanResetPassword
      {
          return $this->hasMany(Visit::class);
      }
+
+     public function locations()
+    {
+        return $this->hasMany(Location::class);
+    }
  
      
 
