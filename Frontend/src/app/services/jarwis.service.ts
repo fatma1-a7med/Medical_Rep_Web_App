@@ -25,7 +25,8 @@ export class JarwisService {
     return this.http.post(`${this.baseUrl}/password/reset/${token}`, {
       email,
       password,
-      password_confirmation
+      password_confirmation,
+      token 
     });
   }
 

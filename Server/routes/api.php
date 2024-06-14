@@ -57,7 +57,7 @@ Route::prefix('admin')->group(function () {
 
 });
 
-Route::prefix('user')->group(function () {
+Route::prefix('user')->group(function () {z
     Route::post('register', [UserAuthController::class, 'createUser']);
     Route::post('login', [UserAuthController::class, 'loginUser']);
     Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
@@ -74,5 +74,4 @@ Route::prefix('users')->group(function () {
 
 // visit reporting
 Route::get('/visit-reports', [VisitReportingController::class, 'getVisitReports']);
-
 
