@@ -16,7 +16,7 @@ class VisitController extends Controller
                 'id' => $visit ->id,
                 'visit_date' => $visit->visit_date,
                 'status' => $visit->status,
-                'medical_rep_fulname' => $visit->user->first_name . ' ' . $visit->user->last_name,
+                'medical_rep_fullname' => $visit->user->first_name . ' ' . $visit->user->last_name,
                 'doctor' => $visit->doctors->map(function ($doctor) {
                     return [
                         'doctor_name' => $doctor->first_name . ' ' . $doctor->last_name,
@@ -74,53 +74,40 @@ class VisitController extends Controller
     
         return response()->json($visitInformation);
     }
-    public function searchByUserName(Request $request, $firstName, $lastName)
+    public function searchByUsername(Request $request, $username)
     {
-
         $query = Visit::with(['doctors', 'user', 'location']);
-
-
-
-        if ($firstName) {
-            $query->whereHas('user', function ($query) use ($firstName) {
-                $query->where('first_name', 'like', '%' . $firstName . '%');
+     
+        if ($username) {
+            // Concatenate first_name and last_name with a space and then search
+            $query->whereHas('user', function ($query) use ($username) {
+                $fullName = str_replace('-', ' ', $username); // Handle potential dashes
+                $query->whereRaw("CONCAT(first_name, ' ', last_name) LIKE ?", ["%$fullName%"]);
             });
         }
-        
-        if ($lastName) {
-            $query->whereHas('user', function ($query) use ($lastName) {
-                $query->where('last_name', 'like', '%' . $lastName . '%');
-            });
-        }
-        
-
-                
-   
+     
         $visits = $query->get();
-
+     
         if ($visits->isEmpty()) {
-            return response()->json(['message' => 'No visits found for the specified date range'], 404);
+            return response()->json(['message' => 'No visits found for the specified username'], 404);
         }
-
-
-
-        // Transform data to get the required fields
+     
+        // Transform data as per your needs
         $result = $visits->map(function ($visit) {
             $userFullName = $visit->user->first_name . ' ' . $visit->user->last_name;
 
+     
             return [
-                'medical_rep_fulname' => $userFullName,
-                'id' => $visit -> id,    
+                'medical_rep_fullname' => $userFullName,
+                'id' => $visit->id,
                 'visit_date' => $visit->visit_date,
                 'territory' => $visit->location->territory ?? null,
                 'status' => $visit->status,
-                'medical_rep_full_name' => $visit->user->first_name . ' ' . $visit->user->last_name,
                 'doctor' => $visit->doctors->map(function ($doctor) {
                     return [
                         'doctor_name' => $doctor->first_name . ' ' . $doctor->last_name,
                     ];
                 }),
-                // Assuming you need to manually fetch tools related to doctors
                 'tools' => $visit->doctors->flatMap(function ($doctor) {
                     return $doctor->tools->map(function ($tool) {
                         return [
@@ -130,10 +117,11 @@ class VisitController extends Controller
                 }),
             ];
         });
-
+     
         return response()->json($result);
     }
-
+        
+    
     public function searchByDateRange(Request $request, $startDate, $endDate)
     {
     $startDate = \Carbon\Carbon::parse($startDate);

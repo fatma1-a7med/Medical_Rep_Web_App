@@ -46,10 +46,12 @@ Route::prefix('admin')->group(function () {
        Route::get('users/{user}/sales', [SalesController::class,'user_sales']);
        Route::middleware('auth:api')->get('/me', [AdminAuthController::class, 'me']);
       
+       
 
+       //admin visit routes
        Route::get('visits', [VisitController::class, 'index']);
        Route::get('/visit/{id}', [VisitController::class, 'getVisitInformationById']);
-       Route::get('visits/searchByUsername/{firstName}/{lastName}', [VisitController::class, 'searchByUserName']);
+       Route::get('visits/searchByUsername/{username}', [VisitController :: class, 'searchByUsername' ]);
        Route::get('visits/searchByDateRange/{startDate}/{endDate}', [VisitController::class, 'searchByDateRange']);
 
 
