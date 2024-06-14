@@ -15,6 +15,7 @@ import { SalesAddComponent } from './admin-dashboard/sales/sales-add/sales-add.c
 import { SalesEditComponent } from './admin-dashboard/sales/sales-edit/sales-edit.component';
 import { SalesDetailsComponent } from './admin-dashboard/sales/sales-details/sales-details.component';
 import { VisitManagementComponent } from './admin-dashboard/visit-managment/visit-managment.component';
+import { LocationComponent } from './admin-dashboard/location/location.component';
 
 
 
@@ -38,6 +39,7 @@ export const routes: Routes = [
       { path: 'sales/edit/:id', component: SalesEditComponent },
       { path: 'sales/details/:id', component: SalesDetailsComponent },
       {path: 'visit-managment', component:VisitManagementComponent},
+      {path: 'loction-tracking', component:LocationComponent}
     
     ]
   },
