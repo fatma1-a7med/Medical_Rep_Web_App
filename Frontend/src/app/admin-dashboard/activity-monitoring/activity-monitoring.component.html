@@ -1,0 +1,62 @@
+<div class="activity-monitoring">
+  <h1>Activity Monitoring</h1>
+
+  <div class="centered-filters">
+    <div class="filters">
+      <mat-form-field class="user-select">
+        <mat-label>Select User</mat-label>
+        <mat-select [(value)]="selectedUser" (selectionChange)="searchVisits()">
+          <mat-option *ngFor="let user of users" [value]="user">
+            {{ user.first_name }} {{ user.last_name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div *ngIf="users.length === 0">Loading users...</div>
+
+      <mat-form-field>
+        <input matInput [matDatepicker]="picker1" placeholder="Start Date" [(ngModel)]="startDate">
+        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput [matDatepicker]="picker2" placeholder="End Date" [(ngModel)]="endDate">
+        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+        <mat-datepicker #picker2></mat-datepicker>
+      </mat-form-field>
+      <button mat-button class="filter-button" (click)="searchByDateRange()">Filter</button>
+    </div>
+
+    <div class="search-by-name">
+      <mat-form-field>
+        <input matInput placeholder="First Name" [(ngModel)]="firstName">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Last Name" [(ngModel)]="lastName">
+      </mat-form-field>
+      <button mat-button class="search-button" (click)="searchByName()">Search</button>
+    </div>
+  </div>
+
+  <div class="visit-section">
+    <div class="visit-history">
+      <h2>Visit History</h2>
+      <div class="visit-card" *ngFor="let visit of visitHistory">
+        <p class="visit-name">{{ visit.purpose }}</p>
+        <p>{{ visit.visit_date }} - {{ visit.visit_time }}</p>
+        <button mat-button (click)="readMore(visit)">Read more</button>
+      </div>
+    </div>
+
+    <div class="planned-visits">
+      <h2>Planned visits</h2>
+      <full-calendar [options]="calendarOptions"></full-calendar>
+    </div>
+  </div>
+</div>
+
+
+
+  
+
+  

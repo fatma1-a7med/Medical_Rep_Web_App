@@ -11,8 +11,6 @@ use App\Http\Controllers\Api\AdminAuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VisitController;
 
-
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -40,7 +38,10 @@ Route::prefix('admin')->group(function () {
     Route::post('password/email', [ForgotPasswordAdminController::class, 'sendResetLinkEmail'])->name('password.email');
     Route::get('password/reset/{token}', [ResetPasswordAdminController::class, 'showResetForm'])->name('password.update');
     Route::post('password/reset', [ResetPasswordAdminController::class, 'reset'])->name('password.reset');
-
+    Route::get('visits', [VisitController::class, 'index']);
+    Route::get('/visit/{id}', [VisitController::class, 'getVisitInformationById']);
+    Route::get('visits/searchByUsername/{firstName}/{lastName}', [VisitController::class, 'searchByUserName']);
+    Route::get('visits/searchByDateRange/{startDate}/{endDate}', [VisitController::class, 'searchByDateRange']);
 });
 
 Route::prefix('user')->group(function () {

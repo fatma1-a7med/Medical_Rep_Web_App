@@ -11,24 +11,24 @@ import { ActivityMonitoringComponent } from './admin-dashboard/activity-monitori
 
 export const routes: Routes = [
   { path: '', redirectTo: 'admin/login', pathMatch: 'full' },
-  { path: 'admin/login', component: LoginComponent },
-  { path: 'admin/register', component: RegisterComponent },
-
-
-
 
   {
-    path: 'admin',
+    path: 'admin-dashboard',
     component: AdminDashboardComponent,
     children: [
-      { path: 'medreps', component: ListallmedrepComponent },
-      {path :  'monitor' ,component:ActivityMonitoringComponent}
+      { path: '', component: ListallmedrepComponent },
+      { path: 'add-medrep', component: AddeditComponent },
+      {path: 'activitymonitor' , component:ActivityMonitoringComponent} 
 
     ]
   },
-  { path: '', redirectTo: 'admin', pathMatch: 'full' },
-
+  { path: 'admin/login', component: LoginComponent },
+  { path: 'admin/register', component: RegisterComponent },
   { path: '**', component: NotfoundComponent },
+
+
+
+  
 ];
 
 

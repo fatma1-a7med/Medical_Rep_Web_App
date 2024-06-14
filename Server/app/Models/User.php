@@ -54,8 +54,10 @@ class User extends Authenticatable implements CanResetPassword
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
     public function visits()
     {
-        return $this->hasMany(Visit::class, 'med_id');
+        return $this->hasMany(Visit::class);
     }
+
 }
