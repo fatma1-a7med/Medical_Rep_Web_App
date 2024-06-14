@@ -17,15 +17,15 @@ export class TokenService {
   }
 
   set(token: string) {
-    localStorage.setItem('token', token);
+    localStorage!.setItem('token', token);
   }
 
   get() {
-    return localStorage.getItem('token');
+    return localStorage!.getItem('token');
   }
 
   remove() {
-    localStorage.removeItem('token');
+    localStorage!.removeItem('token');
   }
 
   isValid() {

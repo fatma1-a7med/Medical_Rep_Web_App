@@ -39,5 +39,10 @@ export class AdminDashboardService {
     getSalesByUserId(userId: number): Observable<any[]> {
       return this.http.get<any[]>(`${this.baseUrl}/users/${userId}/sales`);
     }
+
+    //visit
+    getAllVisits(): Observable<any> {
+      return this.http.get<any>(`${this.baseUrl}/AllVisits`);
+    }
   }
 

@@ -1,5 +1,8 @@
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common'; // Import CommonModule
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { AddeditComponent } from './admin-dashboard/addedit/addedit.component';
+import { ReportingComponent } from './admin/reporting/reporting.component';
 import { ListallmedrepComponent } from './admin-dashboard/listallmedrep/listallmedrep.component';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './admin/login/login.component';
@@ -12,6 +15,7 @@ import { SalesAddComponent } from './admin-dashboard/sales/sales-add/sales-add.c
 import { SalesEditComponent } from './admin-dashboard/sales/sales-edit/sales-edit.component';
 import { SalesDetailsComponent } from './admin-dashboard/sales/sales-details/sales-details.component';
 import { VisitManagementComponent } from './admin-dashboard/visit-managment/visit-managment.component';
+
 
 
 
@@ -40,8 +44,8 @@ export const routes: Routes = [
  
   { path: 'admin/login', component: LoginComponent },
   { path: 'admin/register', component: RegisterComponent },
-  
-  { path: '**', component: NotfoundComponent },
+  { path: 'reporting', component: ReportingComponent }, // Add this route
+  { path: '**', component: NotfoundComponent }
 
 
 ];

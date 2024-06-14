@@ -4,6 +4,8 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { JarwisService } from '../../services/jarwis.service';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-reset-password',
@@ -25,7 +27,8 @@ export class ResetPasswordComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
-    private authService: JarwisService
+    private authService: JarwisService,
+    private router: Router,
   ) {
     this.resetPasswordForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -45,10 +48,11 @@ export class ResetPasswordComponent implements OnInit {
   onSubmit() {
     if (this.resetPasswordForm.valid) {
       const { email, password, password_confirmation, token } = this.resetPasswordForm.value;
-      console.log(this.token);
       this.authService.resetPassword(token, email, password, password_confirmation).subscribe(
         response => {
-          this.message = 'Password reset successfully.';
+          window.alert('Reset password successfully.');
+          // Redirect to login page after successful password reset
+          this.router.navigate(['/admin/login']);
         },
         error => {
           this.message = 'Error resetting password.';

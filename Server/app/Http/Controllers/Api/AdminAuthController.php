@@ -120,10 +120,21 @@ class AdminAuthController extends Controller
             ], 500);
         }
     }
-    public function me()
+    public function me(Request $request)
+{
+    $user = $request->user();
+
+    return response()->json([
+        'first_name' => $user->first_name,
+        'email' => $user->email,
+        'image' => $user->image, 
+    ]);
+}
+    public function logout(Request $request)
     {
-        $admin = Auth::user(); 
-        return response()->json($admin);
+        $request->user()->currentAccessToken()->delete();
+
+        return response()->json(['message' => 'Successfully logged out']);
     }
     
 }

@@ -3,6 +3,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import { AdminAuthServiceService } from '../../services/admin-auth-services.service';
 
 @Component({
   selector: 'app-visit-managment',
@@ -16,14 +17,13 @@ export class VisitManagementComponent implements OnInit {
   visitDate: any[] = [];
   startDate: Date | null = null;
   endDate: Date | null = null;
-  firstName: string = '';
-  lastName: string = '';
+  username: string = '';
   selectedVisit: any = null;
 
-  constructor(private http: HttpClient, private datePipe: DatePipe) { }
+  constructor(private http: HttpClient, private datePipe: DatePipe, private visitServices: AdminAuthServiceService) { }
 
   ngOnInit(): void {
-    this.loadInitialData();
+    this.loadInitialData()
   }
 
   loadInitialData() {
@@ -61,24 +61,24 @@ export class VisitManagementComponent implements OnInit {
     }
   }
 
-  searchByName() {
-    if (this.firstName.trim() !== '' || this.lastName.trim() !== '') {
-      const url = `http://localhost:8000/api/admin/visits/searchByUsername/${this.firstName}/${this.lastName}`;
-
+  searchByUsername() {
+    if (this.username.trim() !== '') {
+      const url = `http://localhost:8000/api/admin/visits/searchByUsername/${this.username}`;
+  
       this.http.get<any[]>(url)
         .subscribe(
           data => {
             this.visitDate = data;
           },
           error => {
-            console.error('Error searching by name:', error);
+            console.error('Error searching by username:', error);
           }
         );
     } else {
-      console.error('Invalid name criteria');
+      console.error('Invalid username criteria');
     }
   }
-
+  
   getDoctorNames(doctors: any[]) {
     return doctors.map(doctor => doctor.doctor_name).join(', ');
   }

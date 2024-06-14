@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container Visit_content">
   <h2 class="text-center">Visit mangment</h2>
 
   <!-- Search Form -->
@@ -16,16 +16,13 @@
      <button class="btn text-light  col-md-12 col-lg-2 col-sm-12 m-4" (click)="searchByDateRange()"style="background-color:#24A8EF; ">Search by Date Range</button>
     </div>
  <!-- Name Search -->
-  <div class="container row">
-    <div class="col-md-6 col-sm-6 col-lg-4">
-      <label for="firstName" class="form-label">First Name</label>
-      <input type="text" class="form-control" id="firstName" name="firstName" [(ngModel)]="firstName">
+  <div class="container row m-3">
+    <div class="col-md-12 col-sm-12 col-lg-8">
+      <label for="username" class="form-label">Full Name</label>
+      <input type="text" class="form-control" id="username" name="username" [(ngModel)]="username">
     </div>
-    <div class="col-md-6 col-lg-4 col-sm-6">
-      <label for="lastName" class="form-label">Last Name</label>
-      <input type="text" class="form-control" id="lastName" name="lastName" [(ngModel)]="lastName">
-    </div>
-    <button class="btn text-light  col-md-12 col-lg-2 col-sm-12 m-4" (click)="searchByName()" style="background-color:#24A8EF; ">Search by Name</button>
+
+    <button class="btn text-light  col-md-12 col-lg-3 col-sm-12 m-4" (click)="searchByUsername()" style="background-color:#24A8EF; ">Search by Name</button>
      </div>
   
 
@@ -46,7 +43,7 @@
     <tbody>
       <tr *ngFor="let visit of visitDate">
         <td>{{ visit.id }}</td>
-        <td>{{ visit.medical_rep_fulname }}</td>
+        <td>{{ visit.medical_rep_fullname }}</td>
         <td>{{ visit.visit_date }}</td>
         <td>{{ getDoctorNames(visit.doctor) }}</td>
         <td>{{ visit.status }}</td>
