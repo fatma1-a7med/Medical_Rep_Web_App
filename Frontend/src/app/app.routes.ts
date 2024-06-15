@@ -27,7 +27,8 @@ import { AdminAuthGuard } from './services/admin-auth-guard.service';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'admin/login', pathMatch: 'full' },
-  { path: 'user', canActivate: [UserAuthGuard], children: [
+  { path: 'user', canActivate: [UserAuthGuard], 
+    children: [
     { path: 'home', component: HomeComponent }
   ] },
 

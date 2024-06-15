@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AdminAuthController;
 use App\Http\Controllers\Api\LoctionController;
+use App\Http\Controllers\doctorController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VisitController;
 use App\Http\Controllers\VisitReportingController;
@@ -61,6 +62,15 @@ Route::prefix('admin')->group(function () {
 
 Route::prefix('user')->group(function () {
     Route::post('login', [UserAuthController::class, 'loginUser']);
+
+    //doctor Routes
+    Route::post('add-doctor', [doctorController:: class, 'AddDoctor']);
+    Route::post('get-all-doctors', [doctorController:: class, 'gettAllDoctors']);
+    Route::get('get-doctor-byId/{id}', [doctorController:: class, 'show']);
+    Route::delete('delete-doctor-byId/{id}', [doctorController:: class, 'destroy']);
+    Route::put('update-doctor-byId/{id}', [doctorController:: class, 'update']);
+
+
 });
 
 // Crud operations

@@ -50,20 +50,20 @@ class UserController extends Controller
             'password' => 'required|string|min:8',
         ]);
     
-// Check if the request contains an image file
-if ($request->hasFile('image')) {
-    // Get the uploaded image file
-    $image = $request->file('image');
+         // Check if the request contains an image file
+          if ($request->hasFile('image')) {
+          // Get the uploaded image file
+           $image = $request->file('image');
 
-    // Generate a unique name for the image
-    $imageName = time() . '.' . $image->getClientOriginalExtension();
+        // Generate a unique name for the image
+           $imageName = time() . '.' . $image->getClientOriginalExtension();
 
-    // Store the image file in the public/images directory
-    $image->move(public_path('images'), $imageName);
+         // Store the image file in the public/images directory
+        $image->move(public_path('images'), $imageName);
 
-    // Store the image path in the validated data array
-    $validatedData['image'] = $imageName;
-}
+      // Store the image path in the validated data array
+       $validatedData['image'] = $imageName;
+    }
     
         // Create the user with the validated data
         $user = User::create($validatedData);
