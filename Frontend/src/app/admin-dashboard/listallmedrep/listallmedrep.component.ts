@@ -7,10 +7,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialog } from '@angular/material/dialog';
+import {MatDialog} from '@angular/material/dialog'
 import { AddeditComponent } from '../addedit/addedit.component';
 import { MedrepDetailComponent } from '../medrep-detail/medrep-detail.component';
-
 @Component({
   selector: 'app-listallmedrep',
   standalone: true,
@@ -23,23 +22,29 @@ import { MedrepDetailComponent } from '../medrep-detail/medrep-detail.component'
     MatIconModule,
     MatButtonModule,
     MedrepDetailComponent
+
   ],
   templateUrl: './listallmedrep.component.html',
   styleUrls: ['./listallmedrep.component.css']
 })
 export class ListallmedrepComponent implements OnInit, AfterViewInit {
-  displayedColumns: string[] = ['id', 'first_name', 'last_name', 'email', 'phone_number', 'actions'];
-  dataSource: MatTableDataSource<any> = new MatTableDataSource();
+
+
+onShow(data: any) {
+console.log(data)
+}
+
+  displayedColumns: string[] = ['id', 'first_name', 'last_name', 'email', 'phone_number','actions' ];
+  dataSource!: MatTableDataSource<any> ;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private _medrepservice: MedicalrepService, private _dialog: MatDialog) { }
+  constructor(private _medrepservice: MedicalrepService,private _dialog : MatDialog) {}
 
   ngOnInit(): void {
     this.getMedreplist();
   }
-
   ngAfterViewInit(): void {
   
     if (this.dataSource) {
@@ -58,6 +63,18 @@ export class ListallmedrepComponent implements OnInit, AfterViewInit {
         },
     });
 }
+  getMedreplist(): void {
+    this._medrepservice.getMedreplist().subscribe({
+      next: (res) => {
+        this.dataSource = new MatTableDataSource(res);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+      },
+      error: (err) => {
+        console.error(err);
+      }
+    });
+  }
 
 
   applyFilter(event: Event) {
@@ -69,50 +86,36 @@ export class ListallmedrepComponent implements OnInit, AfterViewInit {
     }
   }
 
-  getMedreplist(): void {
-    this._medrepservice.getMedreplist().subscribe({
-      next: (res) => {
-        this.dataSource.data = res;
-        if (this.paginator && this.sort) {
-          this.dataSource.paginator = this.paginator;
-          this.dataSource.sort = this.sort;
-        }
-      },
-      error: (err) => {
-        console.error(err);
-      }
-    });
-  }
-
-
-
-  openeditform(data: any) {
-    const dialogRef = this._dialog.open(AddeditComponent, {
-      data,
-    });
-    dialogRef.afterClosed().subscribe({
-      next: (val) => {
-        if (val) {
-          this.getMedreplist();
-        }
-      }
-    });
-  }
-
-  deletemedrip(id: number) {
+  deletemedrip(id:number){
     this._medrepservice.deletemedrip(id).subscribe({
-      next: (res) => {
-        alert('Medrep deleted successfully');
-        this.getMedreplist();
+      next:(res) => {
+          alert('Medrep deleted successfully');
+          this.getMedreplist();
       },
-      error: console.log,
-    });
+      error:console.log,
+
+
+    })
   }
 
-  show(data: any) {
-    this._dialog.open(MedrepDetailComponent, {
-      data,
-      width: '400px'  // Adjust width as needed
-    });
-  }
+
+openeditform(data:any) {
+  const dialogRef=this._dialog.open(AddeditComponent, {
+    data,
+  });
+  dialogRef.afterClosed().subscribe({
+    next: (val) => {
+      if (val) {
+        this.getMedreplist();
+      }
+    },
+  });
+ 
+}
+show(data: any) {
+  this._dialog.open(MedrepDetailComponent, {
+    data,
+    width: '400px'  // Adjust width as needed
+  });
+}
 }

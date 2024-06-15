@@ -31,8 +31,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-// routes/api.php
 
+// routes/api.php
+Route::middleware('auth:api')->get('/admin', function (Request $request) {
+    return $request->user(); // This will return the authenticated admin details
+});
 
 
 Route::prefix('admin')->group(function () {
@@ -58,6 +61,10 @@ Route::prefix('admin')->group(function () {
 
 
     
+    Route::get('visits/history/{user_id}', [VisitController::class, 'getVisitHistory']);
+    Route::get('visits/planned/{user_id}', [VisitController::class, 'getPlannedVisits']);
+   
+    Route::get('/visits/recent', [VisitController::class, 'recent']);
 });
 
 Route::prefix('user')->group(function () {
@@ -65,7 +72,7 @@ Route::prefix('user')->group(function () {
 
     //doctor Routes
     Route::post('add-doctor', [doctorController:: class, 'AddDoctor']);
-    Route::post('get-all-doctors', [doctorController:: class, 'gettAllDoctors']);
+    Route::get('get-all-doctors', [doctorController:: class, 'gettAllDoctors']);
     Route::get('get-doctor-byId/{id}', [doctorController:: class, 'show']);
     Route::delete('delete-doctor-byId/{id}', [doctorController:: class, 'destroy']);
     Route::put('update-doctor-byId/{id}', [doctorController:: class, 'update']);
@@ -73,7 +80,6 @@ Route::prefix('user')->group(function () {
 
 });
 
-// Crud operations
 Route::prefix('users')->group(function () {
     Route::get('/', [UserController::class, 'index']);         // GET /api/users
     Route::post('/', [UserController::class, 'store']);        // POST /api/users
@@ -84,4 +90,7 @@ Route::prefix('users')->group(function () {
 
 // visit reporting
 Route::get('/visit-reports', [VisitReportingController::class, 'getVisitReports']);
+
+
+
 

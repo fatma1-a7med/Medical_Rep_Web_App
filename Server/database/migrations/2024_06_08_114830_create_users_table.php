@@ -20,12 +20,12 @@ return new class extends Migration
             $table->string('street');
             $table->string('phone_number');
             $table->string('territory');
-            $table->binary('image')->nullable(); // Example using LONGBLOB
+            $table->binary('image')->nullable();
             $table->string('gender')->nullable();
             $table->date('birthDate')->nullable();
             $table->foreignId('admin_id')->nullable()->constrained('admins')->onDelete('cascade');
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at');
+            $table->timestamp('email_verified_at')->nullable();;
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();

@@ -8,6 +8,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './admin/login/login.component';
 import { RegisterComponent } from './admin/register/register.component';
 import { NotfoundComponent } from './notfound/notfound.component';
+import { ActivityMonitoringComponent } from './admin-dashboard/activity-monitoring/activity-monitoring.component';
 import { ForgetpasswordComponent } from './admin/forgetpassword/forgetpassword.component';
 import { ResetPasswordComponent } from './admin/reset-password/reset-password.component';
 import { SalesListComponent } from './admin-dashboard/sales/sales-list/sales-list.component';
@@ -17,10 +18,9 @@ import { SalesDetailsComponent } from './admin-dashboard/sales/sales-details/sal
 import { VisitManagementComponent } from './admin-dashboard/visit-managment/visit-managment.component';
 import { LocationComponent } from './admin-dashboard/location/location.component';
 import { UserLoginComponent } from './user-auth/user-login/user-login.component';
-import { HomeComponent } from './user/home/home.component';
-import { UserComponent } from './user/user.component';
-import { UserAuthGuard } from './services/user-auth-gard.service';
 import { AdminAuthGuard } from './services/admin-auth-guard.service';
+import { UserAuthGuard } from './services/user-auth-gard.service';
+import { HomeComponent } from './user/home/home.component';
 
 
 
@@ -44,13 +44,17 @@ export const routes: Routes = [
     children: [
       { path: '', component: ListallmedrepComponent },
       { path: 'add-medrep', component: AddeditComponent },
+      {path: 'activitymonitor' , component:ActivityMonitoringComponent} ,
 
       { path: 'sales', component: SalesListComponent },
       { path: 'sales/add', component: SalesAddComponent },
       { path: 'sales/edit/:id', component: SalesEditComponent },
       { path: 'sales/details/:id', component: SalesDetailsComponent },
       {path: 'visit-managment', component:VisitManagementComponent},
-      {path: 'loction-tracking', component:LocationComponent}
+      {path: 'loction-tracking', component:LocationComponent},
+
+     
+
     
     ]
   },
@@ -60,10 +64,9 @@ export const routes: Routes = [
   { path: 'admin/register', component: RegisterComponent },
   { path:'user/login', component:UserLoginComponent},
   { path: 'reporting', component: ReportingComponent }, // Add this route
-
   { path: '**', component: NotfoundComponent }
-
-
+   
+ 
 ];
 
 

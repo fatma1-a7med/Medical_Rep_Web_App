@@ -46,6 +46,19 @@ export class NavbarComponent {
   logout() {
     this.authService.logout();
   }
+
+  getLoggedInAdmin(): void {
+    this.authService.getLoggedInAdmin()
+      .subscribe(
+        (data) => {
+          this.loggedInAdmin = data;
+          console.log(this.loggedInAdmin); // Log the logged-in admin details
+        },
+        (error) => {
+          console.error('Error fetching logged-in admin:', error);
+        }
+      );
+  }
   /* ngOnInit(): void {
     this.loadLoggedInAdmin();
   } */

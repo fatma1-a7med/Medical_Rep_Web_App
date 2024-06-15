@@ -1,7 +1,7 @@
 // JarwisService.ts
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable,of } from 'rxjs';
 import { Router } from '@angular/router';
 
 
@@ -12,7 +12,9 @@ export class JarwisService {
   private baseUrl = 'http://localhost:8000/api/admin';
 
   constructor(private http: HttpClient , private router: Router) {}
-
+  private isBrowser(): boolean {
+    return typeof window !== 'undefined' && typeof localStorage !== 'undefined';
+  }
   signup(data: any): Observable<any> {
     return this.http.post(`${this.baseUrl}/register`, data);
   }
@@ -48,12 +50,20 @@ export class JarwisService {
     );
   }
   getUser(): Observable<any> {
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
-    });
+    if (this.isBrowser()) {
+      const token = localStorage.getItem('token');
+      const headers = new HttpHeaders({
+        'Authorization': `Bearer ${token}`
+      });
 
-    return this.http.get(`${this.baseUrl}/me`, { headers });
+      return this.http.get(`${this.baseUrl}/me`, { headers });
+    } else {
+      console.error('Cannot access localStorage in non-browser environment');
+      return of(null); 
+    }
+  }
+  getLoggedInAdmin(): Observable<any> {
+    return this.http.get<any>(this.baseUrl);
   }
 
 }
