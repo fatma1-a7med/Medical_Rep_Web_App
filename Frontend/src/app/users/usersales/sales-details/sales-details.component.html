@@ -1,28 +1,49 @@
-
-
-<div *ngIf="sale" class="container card shadow p-4 mb-5 bg-white rounded">
-    <h3 class="">Sales Details</h3>
-<hr class=" custom-hr">
-    <h3 class="text-primary mb-4">{{ sale.product_name }}</h3>
-    <div class="row">
-        <div class="col-md-6">
-            <p><strong>Total Units:</strong> {{ sale.total_units }}</p>
-            <p><strong>Unit Price:</strong> {{ sale.unit_price | currency }}</p>
-            <p><strong>Target Units:</strong> {{ sale.target_units }}</p>
-            <p><strong>Target Unit Price:</strong> {{ sale.unit_target_price | currency }}</p>
+<div class="container mt-4">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h1 class="card-title text-center mb-4">{{ sale.product_name }}</h1>
+  
+        <div class="row mb-4">
+          <div class="col-md-6">
+            <div class="card bg-light border-0">
+              <div class="card-body the-card">
+                <ul class="list-unstyled">
+                  <li><strong>Total Units:</strong> {{ sale.total_units }}</li>
+                  <li><strong>Unit Price:</strong> {{ sale.unit_price | currency }}</li>
+                  <li><strong>Target Units:</strong> {{ sale.target_units }}</li>
+                  <li><strong>Admin ID:</strong> {{ sale.admin_id }}</li>
+                  <li><strong>User ID:</strong> {{ sale.user_id }}</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-md-6">
+            <div class="card bg-light border-0">
+              <div class="card-body the-card">
+                <ul class="list-unstyled">
+                  <li><strong>Unit Target Price:</strong> {{ sale.unit_target_price | currency }}</li>
+                  <li><strong>Total Target Price:</strong> {{ sale.total_target_price | currency }}</li>
+                  <li><strong>Total Actual Price:</strong> {{ sale.total_actual_price | currency }}</li>
+                  <li><strong>Start Date:</strong> {{ sale.start_date | date }}</li>
+                  <li><strong>End Date:</strong> {{ sale.end_date | date }}</li>
+                </ul>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="col-md-6">
-            <p><strong>Total Actual Price:</strong> {{ sale.total_actual_price | currency }}</p>
-            <p><strong>Total Target Price:</strong> {{ sale.total_target_price | currency }}</p>
-            <p><strong>Start Date:</strong> {{ sale.start_date | date }}</p>
-            <p><strong>End Date:</strong> {{ sale.end_date | date }}</p>
+  
+        <div class="text-center mt-4">
+          <a routerLink="../../../../user/sales" class="btn btn-primary">Back to Sales List</a>
         </div>
+      </div>
     </div>
-</div>
-
-<div *ngIf="!sale" class="container text-center">
+  </div>
+  
+  <div *ngIf="!sale" class="container text-center mt-5">
     <div class="spinner-border text-primary" role="status">
-        <span class="sr-only">Loading...</span>
+      <span class="sr-only">Loading...</span>
     </div>
-    <p>Loading...</p>
-</div>
+    <p class="mt-3">Loading...</p>
+  </div>
+  

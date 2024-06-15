@@ -131,12 +131,17 @@ class AdminAuthController extends Controller
       'status' => true,
       'admin' => $admin
   ], 200);
-}
+  }
     public function logout(Request $request)
     {
         $request->user()->currentAccessToken()->delete();
 
         return response()->json(['message' => 'Successfully logged out']);
+    }
+
+    public function getLoggedInAdmin(Request $request)
+    {
+        return $request->user(); // Returns the authenticated admin details
     }
     
 }

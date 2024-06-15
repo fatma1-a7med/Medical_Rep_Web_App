@@ -1,6 +1,8 @@
-<h1>Sales Overview</h1>
-
+<div class="container">
+    <h3>Sales Overview</h3>
+    <hr class=" custom-hr">
 <div *ngIf="sales && sales.length > 0" class="container">
+
     <table class="table table-striped custom-table">
         <thead>
             <tr>
@@ -24,9 +26,9 @@
                 <td>{{ sale.total_actual_price | currency }}</td>
                 <td>{{ sale.total_target_price | currency }}</td>
                 <td>
-                    <button (click)="showDetails(sale)" class="btn btn-link">
-                        <mat-icon class="custom-info-icon">info</mat-icon>
-                    </button>
+                    <a [routerLink]="'../sales/details/' + sale.sales_id">
+                        <mat-icon class="custom-info-icon">visibility</mat-icon>
+                    </a>
                 </td>
             </tr>
         </tbody>
@@ -34,7 +36,7 @@
 </div>
 
 <div *ngIf="sales && sales.length === 0" class="container">
-    <p>No sales data available.</p>
+    <h3 class="alert alert-info">No sales data available.</h3>
 </div>
 
 <div *ngIf="!sales" class="container">

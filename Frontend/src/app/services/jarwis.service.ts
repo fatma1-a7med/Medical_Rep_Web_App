@@ -62,5 +62,8 @@ export class JarwisService {
       return of(null); 
     }
   }
+  getLoggedInAdmin(): Observable<any> {
+    return this.http.get<any>(this.baseUrl);
+  }
 
 }

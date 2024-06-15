@@ -6,22 +6,20 @@
     <span class="spacer"></span>
     
     <div class="user-profile">
-  <!--     <button mat-button [matMenuTriggerFor]="userMenu">
+      <button mat-button [matMenuTriggerFor]="userMenu">
         <mat-icon>account_circle</mat-icon>
-         <img [src]="user.image" alt="User Image" />
+<!--          <img [src]="user.image" alt="User Image" />
         <span>{{ user.first_name }}</span>
-      </button> -->
-      <div *ngIf="loading">
-        Loading...
+ -->      </button>
+    
+      
+      <button *ngIf="user" (click)="logout()">Logout</button>
+
+      <div *ngIf="loggedInAdmin">
+        <h2>Welcome, {{ loggedInAdmin.first_name }}</h2>
+        <p>Email: {{ loggedInAdmin.email }}</p>
+        <!-- Display other admin details as needed -->
       </div>
-      <div *ngIf="!loading && user">
-        <img [src]="user.image" alt="User Image" /> <!-- Display user's image -->
-        <span>{{ user.first_name }}</span> <!-- Display user's full name -->
-      </div>
-      <div *ngIf="!loading && !user">
-        User data not available.
-      </div>
-      <button *ngIf="!loading && user" (click)="logout()">Logout</button>
       <mat-menu #userMenu="matMenu">
         <button mat-menu-item>Profile</button>
         <li class="navbar-item">

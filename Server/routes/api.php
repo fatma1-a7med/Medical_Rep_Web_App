@@ -31,7 +31,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 // routes/api.php
-
+Route::middleware('auth:api')->get('/admin', function (Request $request) {
+    return $request->user(); // This will return the authenticated admin details
+});
 
 
 Route::prefix('admin')->group(function () {
