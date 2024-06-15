@@ -30,6 +30,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+
 // routes/api.php
 Route::middleware('auth:api')->get('/admin', function (Request $request) {
     return $request->user(); // This will return the authenticated admin details
@@ -59,6 +60,10 @@ Route::prefix('admin')->group(function () {
 
 
     
+    Route::get('visits/history/{user_id}', [VisitController::class, 'getVisitHistory']);
+    Route::get('visits/planned/{user_id}', [VisitController::class, 'getPlannedVisits']);
+   
+    Route::get('/visits/recent', [VisitController::class, 'recent']);
 });
 
 Route::prefix('user')->group(function () {
@@ -66,7 +71,6 @@ Route::prefix('user')->group(function () {
     Route::apiResource('sales', SalesController::class);
 });
 
-// Crud operations
 Route::prefix('users')->group(function () {
     Route::get('/', [UserController::class, 'index']);         // GET /api/users
     Route::post('/', [UserController::class, 'store']);        // POST /api/users
@@ -77,4 +81,7 @@ Route::prefix('users')->group(function () {
 
 // visit reporting
 Route::get('/visit-reports', [VisitReportingController::class, 'getVisitReports']);
+
+
+
 

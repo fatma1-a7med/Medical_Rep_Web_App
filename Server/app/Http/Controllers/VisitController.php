@@ -167,6 +167,26 @@ class VisitController extends Controller
 
 }
 
+public function getVisitHistory($user_id)
+{
+    $visitHistory = Visit::where('user_id', $user_id)
+                         ->whereIn('status', ['closed', 'done'])
+                         ->get();
+    return response()->json($visitHistory);
+}
+
+public function getPlannedVisits($user_id)
+{
+    $visits = Visit::where('user_id', $user_id)
+                   ->where('status', 'ongoing')
+                   ->get();
+    return response()->json($visits);
+}
+public function recent()
+{
+    $recentVisits = Visit::orderBy('created_at', 'desc')->take(5)->get();
+    return response()->json($recentVisits);
+}
     
 
 

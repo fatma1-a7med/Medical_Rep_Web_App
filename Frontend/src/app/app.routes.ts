@@ -8,6 +8,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './admin/login/login.component';
 import { RegisterComponent } from './admin/register/register.component';
 import { NotfoundComponent } from './notfound/notfound.component';
+import { ActivityMonitoringComponent } from './admin-dashboard/activity-monitoring/activity-monitoring.component';
 import { ForgetpasswordComponent } from './admin/forgetpassword/forgetpassword.component';
 import { ResetPasswordComponent } from './admin/reset-password/reset-password.component';
 import { SalesListComponent } from './admin-dashboard/sales/sales-list/sales-list.component';
@@ -36,6 +37,7 @@ export const routes: Routes = [
     children: [
       { path: '', component: ListallmedrepComponent },
       { path: 'add-medrep', component: AddeditComponent },
+      {path: 'activitymonitor' , component:ActivityMonitoringComponent} ,
 
       { path: 'sales', component: SalesListComponent },
       { path: 'sales/add', component: SalesAddComponent },
