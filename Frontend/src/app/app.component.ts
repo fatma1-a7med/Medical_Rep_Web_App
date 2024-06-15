@@ -25,8 +25,6 @@ import { UsersComponent } from './users/users.component';
     AdminComponent,
     RouterLink,
     FullCalendarModule,
-    
-    
   UsersComponent],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
