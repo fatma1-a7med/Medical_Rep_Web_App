@@ -37,7 +37,7 @@ export const routes: Routes = [
     children: [
       { path: '', component: ListallmedrepComponent },
       { path: 'add-medrep', component: AddeditComponent },
-      {path: 'activitymonitor' , component:ActivityMonitoringComponent} 
+      {path: 'activitymonitor' , component:ActivityMonitoringComponent} ,
 
       { path: 'sales', component: SalesListComponent },
       { path: 'sales/add', component: SalesAddComponent },
