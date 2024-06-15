@@ -1,6 +1,6 @@
-import { CUSTOM_ELEMENTS_SCHEMA, Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, Component, Inject, OnInit, PLATFORM_ID, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { CommonModule, DatePipe } from '@angular/common';
+import { CommonModule, DatePipe, isPlatformBrowser } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -16,23 +16,20 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';  // Import MatSelectModule
 import { VisitService } from '../../services/visit.service';
 
-
-
 @Component({
   selector: 'app-activity-monitoring',
   standalone: true,
   imports: [
-    CommonModule, FormsModule, MatButtonModule, MatCardModule, MatDatepickerModule, MatDialogModule, MatFormFieldModule, 
-    MatInputModule, MatNativeDateModule, MatSelectModule,FullCalendarModule
+    CommonModule, FormsModule, MatButtonModule, MatCardModule, MatDatepickerModule, MatDialogModule, MatFormFieldModule,
+    MatInputModule, MatNativeDateModule, MatSelectModule, FullCalendarModule
   ],
   templateUrl: './activity-monitoring.component.html',
   styleUrls: ['./activity-monitoring.component.css'],
   providers: [DatePipe],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  encapsulation: ViewEncapsulation.None 
+  encapsulation: ViewEncapsulation.None
 })
-export class ActivityMonitoringComponent implements OnInit  {
-
+export class ActivityMonitoringComponent implements OnInit {
 
   users: any[] = [];
   visitHistory: VisitModelTs[] = [];
@@ -43,15 +40,21 @@ export class ActivityMonitoringComponent implements OnInit  {
   endDate: string = '';
   firstName: string = '';
   lastName: string = '';
-
+  private isBrowser: boolean;
   calendarOptions: CalendarOptions = {
     plugins: [dayGridPlugin],
     initialView: 'dayGridMonth',
     events: []
   };
 
-  constructor(public visitService: VisitService, public datePipe: DatePipe, public dialog: MatDialog) {}
-  token: any;
+  constructor(
+    @Inject(PLATFORM_ID) platformId: Object,
+    private visitService: VisitService,
+    private datePipe: DatePipe,
+    private dialog: MatDialog
+  ) {
+    this.isBrowser = isPlatformBrowser(platformId);
+  }
 
   ngOnInit(): void {
     this.loadUsers();
@@ -61,7 +64,6 @@ export class ActivityMonitoringComponent implements OnInit  {
     this.visitService.getMedreplist().subscribe(
       (data: any[]) => {
         this.users = data;
-      //console.log('Loaded users:', data);
       },
       (error) => {
         console.error('Error loading users:', error);
@@ -131,6 +133,10 @@ export class ActivityMonitoringComponent implements OnInit  {
   }
 
   loadPlannedVisits(userId: number) {
+    if (!this.isBrowser) {
+      return;
+    }
+    
     this.visitService.getPlannedVisits(userId).subscribe(
       (data: VisitModelTs[]) => {
         const events = data.map((visit: VisitModelTs) => ({
@@ -146,7 +152,6 @@ export class ActivityMonitoringComponent implements OnInit  {
     );
   }
 
-
   groupByDate(visits: VisitModelTs[]): GroupedVisits {
     return visits.reduce((acc: GroupedVisits, visit: VisitModelTs) => {
       const date = visit.visit_date;
@@ -157,7 +162,6 @@ export class ActivityMonitoringComponent implements OnInit  {
       return acc;
     }, {});
   }
-
 
   readMore(visit: VisitModelTs) {
     this.visitService.getVisitDetailsById(visit.id).subscribe(
@@ -172,3 +176,4 @@ export class ActivityMonitoringComponent implements OnInit  {
     );
   }
 }
+
