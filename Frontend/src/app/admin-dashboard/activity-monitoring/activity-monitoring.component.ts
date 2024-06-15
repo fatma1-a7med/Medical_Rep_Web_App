@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { CommonModule, DatePipe } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { FormsModule } from '@angular/forms';
+import { VisitDetailsDialogComponent } from '../visit-details-dialog/visit-details-dialog.component.js';
 import { CalendarOptions } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
-
 import { VisitModelTs, GroupedVisits } from '../../models/visit.model.ts';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatCardModule } from '@angular/material/card';
@@ -15,21 +15,23 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';  // Import MatSelectModule
 import { VisitService } from '../../services/visit.service';
-import { VisitDetailsDialogComponent } from '../visit-details-dialog/visit-details-dialog.component.js';
+
 
 
 @Component({
   selector: 'app-activity-monitoring',
   standalone: true,
   imports: [
-    CommonModule, FormsModule, MatFormFieldModule, MatButtonModule, MatInputModule,MatSelectModule,MatCardModule,MatDatepickerModule,
-    MatNativeDateModule,FullCalendarModule,MatDialogModule
+    CommonModule, FormsModule, MatButtonModule, MatCardModule, MatDatepickerModule, MatDialogModule, MatFormFieldModule, 
+    MatInputModule, MatNativeDateModule, MatSelectModule,FullCalendarModule
   ],
   templateUrl: './activity-monitoring.component.html',
   styleUrls: ['./activity-monitoring.component.css'],
-  providers: [DatePipe]
+  providers: [DatePipe],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  encapsulation: ViewEncapsulation.None 
 })
-export class ActivityMonitoringComponent implements OnInit {
+export class ActivityMonitoringComponent implements OnInit  {
 
 
   users: any[] = [];
@@ -48,7 +50,8 @@ export class ActivityMonitoringComponent implements OnInit {
     events: []
   };
 
-  constructor(private visitService: VisitService, private datePipe: DatePipe, private dialog: MatDialog) {}
+  constructor(public visitService: VisitService, public datePipe: DatePipe, public dialog: MatDialog) {}
+  token: any;
 
   ngOnInit(): void {
     this.loadUsers();
@@ -132,7 +135,8 @@ export class ActivityMonitoringComponent implements OnInit {
       (data: VisitModelTs[]) => {
         const events = data.map((visit: VisitModelTs) => ({
           title: visit.purpose,
-          start: `${visit.visit_date}T${visit.visit_time}`
+          start: `${visit.visit_date}T${visit.visit_time}`,
+          classNames: ['custom-event-class']
         }));
         this.calendarOptions.events = events;
       },
@@ -141,6 +145,7 @@ export class ActivityMonitoringComponent implements OnInit {
       }
     );
   }
+
 
   groupByDate(visits: VisitModelTs[]): GroupedVisits {
     return visits.reduce((acc: GroupedVisits, visit: VisitModelTs) => {
@@ -167,4 +172,3 @@ export class ActivityMonitoringComponent implements OnInit {
     );
   }
 }
-

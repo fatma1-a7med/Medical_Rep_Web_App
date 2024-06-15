@@ -1,3 +1,12 @@
+.fc-event-time, .fc-event-title {
+  display: block; /* Ensure they are block elements to appear one above the other */
+  font-size: 0.47em; /* Adjust the size as needed */
+  color: rgb(0, 255, 149); /* Customize the color if necessary */
+  line-height: 1.2em; /* Adjust line height if necessary for spacing */
+  margin: 0; /* Remove any default margin */
+  padding: 0; /* Remove any default padding */
+}
+
 .activity-monitoring {
   font-family: Arial, sans-serif;
   padding: 20px;
@@ -26,6 +35,14 @@
   background-color: #2196F3;
   color: white;
   margin-left: 20px; /* Adds space between button and previous element */
+}
+
+.filters .mat-form-field:first-child {
+  margin-right: 40px; 
+}
+
+.search-by-name .mat-form-field:first-child {
+  margin-right: 40px; /* Adds more space between first name and last name fields */
 }
 
 .visit-section {
@@ -72,3 +89,5 @@ h1, h2 {
   height: 100%;
   width: 100%;
 }
+
+

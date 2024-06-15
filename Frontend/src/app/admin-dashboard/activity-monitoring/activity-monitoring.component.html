@@ -34,7 +34,7 @@
       <mat-form-field>
         <input matInput placeholder="Last Name" [(ngModel)]="lastName">
       </mat-form-field>
-      <button mat-button class="search-button" (click)="searchByName()">Search</button>
+       <button mat-button class="search-button" (click)="searchByName()">Search</button> 
     </div>
   </div>
 
@@ -44,19 +44,15 @@
       <div class="visit-card" *ngFor="let visit of visitHistory">
         <p class="visit-name">{{ visit.purpose }}</p>
         <p>{{ visit.visit_date }} - {{ visit.visit_time }}</p>
-        <button mat-button (click)="readMore(visit)">Read more</button>
+        <button mat-button (click)="readMore(visit)">Read more</button> 
       </div>
     </div>
 
     <div class="planned-visits">
       <h2>Planned visits</h2>
-      <full-calendar [options]="calendarOptions"></full-calendar>
-    </div>
+       <full-calendar [options]="calendarOptions" *ngIf="calendarOptions"></full-calendar>  </div>
   </div>
 </div>
 
-
-
   
 
-  
