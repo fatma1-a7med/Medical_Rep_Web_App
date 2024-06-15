@@ -155,17 +155,17 @@ class VisitController extends Controller
 }
 
 
-public function getVisitHistory($med_id)
+public function getVisitHistory($user_id)
 {
-    $visitHistory = Visit::where('med_id', $med_id)
+    $visitHistory = Visit::where('user_id', $user_id)
                          ->whereIn('status', ['closed', 'done'])
                          ->get();
     return response()->json($visitHistory);
 }
 
-public function getPlannedVisits($med_id)
+public function getPlannedVisits($user_id)
 {
-    $visits = Visit::where('med_id', $med_id)
+    $visits = Visit::where('user_id', $user_id)
                    ->where('status', 'ongoing')
                    ->get();
     return response()->json($visits);

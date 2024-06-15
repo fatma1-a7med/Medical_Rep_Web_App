@@ -26,7 +26,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-// routes/api.php
+
 
 
 
@@ -42,6 +42,10 @@ Route::prefix('admin')->group(function () {
     Route::get('/visit/{id}', [VisitController::class, 'getVisitInformationById']);
     Route::get('visits/searchByUsername/{firstName}/{lastName}', [VisitController::class, 'searchByUserName']);
     Route::get('visits/searchByDateRange/{startDate}/{endDate}', [VisitController::class, 'searchByDateRange']);
+    Route::get('visits/history/{user_id}', [VisitController::class, 'getVisitHistory']);
+    Route::get('visits/planned/{user_id}', [VisitController::class, 'getPlannedVisits']);
+   
+    Route::get('/visits/recent', [VisitController::class, 'recent']);
 });
 
 Route::prefix('user')->group(function () {
@@ -58,10 +62,5 @@ Route::prefix('users')->group(function () {
     Route::delete('/{id}', [UserController::class, 'destroy']); // DELETE /api/users/{id}
 });
 
-//activity track
 
 
-Route::get('visits/history/{med_id}', [VisitController::class, 'getVisitHistory']);
-Route::get('visits/planned/{med_id}', [VisitController::class, 'getPlannedVisits']);
-Route::get('/visits', [VisitController::class, 'index']);
-Route::get('/visits/recent', [VisitController::class, 'recent']);
