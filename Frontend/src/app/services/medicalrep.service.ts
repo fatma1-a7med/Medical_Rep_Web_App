@@ -20,7 +20,7 @@ export class MedicalrepService {
 }
 
 updatemedrip(id: number, data: any): Observable<any> {
-  return this._http.put(`http://localhost:8000/api/users/${id}`, data);
+  return this._http.post(`http://localhost:8000/api/users/${id}?_method=PUT`, data);
 }
 
 

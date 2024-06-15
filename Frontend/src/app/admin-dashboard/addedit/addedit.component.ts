@@ -154,7 +154,6 @@ export class AddeditComponent implements OnInit {
       street: ['', [Validators.required, Validators.maxLength(255)]],
       gender: ['', [Validators.required, Validators.pattern(/^(Male|Female)$/)]],
       birthDate: [null, [Validators.required]],
-      location_id: [''],
       admin_id: [''],
       phone_number: ['', [Validators.required, Validators.maxLength(20)]],
       territory: ['', [Validators.required, Validators.maxLength(255)]],
@@ -170,34 +169,47 @@ export class AddeditComponent implements OnInit {
     }
   }
 
+
   onSubmit() {
     if (this.userForm.valid) {
       const formattedDate = this.datePipe.transform(this.userForm.value.birthDate, 'yyyy-MM-dd');
       this.userForm.patchValue({ birthDate: formattedDate });
-      
+  
+      const formData = this.userForm.value;
+      console.log('Form Data:', formData);
+  
       if (this.data) {
-        this._medrepservice.updatemedrip(this.data.id, this.userForm.value).subscribe({
+        this._medrepservice.updatemedrip(this.data.id, formData).subscribe({
           next: (val: any) => {
             alert('Medical rep details updated successfully');
             this._dialogRef.close(true);
           },
           error: (err: any) => {
-            console.error(err);
-            alert('Failed to update medical rep details');
+            console.error('Update Error:', err);
+            if (err.status === 422) {
+              alert('Failed to update medical rep details. Please check the input data.');
+            } else {
+              alert('An unexpected error occurred. Please try again.');
+            }
           }
         });
       } else {
-        this._medrepservice.addMedrep(this.userForm.value).subscribe({
+        this._medrepservice.addMedrep(formData).subscribe({
           next: (val: any) => {
             alert('Medical rep added successfully');
             this._dialogRef.close(true);
           },
           error: (err: any) => {
-            console.error(err);
-            alert('Failed to add medical rep');
+            console.error('Add Error:', err);
+            if (err.status === 422) {
+              alert('Failed to add medical rep. Please check the input data.');
+            } else {
+              alert('An unexpected error occurred. Please try again.');
+            }
           }
         });
       }
     }
   }
+
 }
