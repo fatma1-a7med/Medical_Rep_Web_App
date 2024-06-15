@@ -42,7 +42,7 @@ Route::prefix('admin')->group(function () {
     
     Route::apiResource('sales', SalesController::class);
     Route::get('users/{user}/sales', [SalesController::class,'user_sales']);
-    Route::middleware('auth:sanctum')->get('me', [AdminAuthController::class, 'me']);
+    Route::get('me', [AdminAuthController::class, 'me']);
       
     Route::middleware('auth:sanctum')->post('logout', [AdminAuthController::class, 'logout']);
 
@@ -61,6 +61,7 @@ Route::prefix('admin')->group(function () {
 
 Route::prefix('user')->group(function () {
     Route::post('login', [UserAuthController::class, 'loginUser']);
+    Route::apiResource('sales', SalesController::class);
 });
 
 // Crud operations

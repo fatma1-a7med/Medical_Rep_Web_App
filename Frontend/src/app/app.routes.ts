@@ -16,6 +16,9 @@ import { SalesEditComponent } from './admin-dashboard/sales/sales-edit/sales-edi
 import { SalesDetailsComponent } from './admin-dashboard/sales/sales-details/sales-details.component';
 import { VisitManagementComponent } from './admin-dashboard/visit-managment/visit-managment.component';
 import { LocationComponent } from './admin-dashboard/location/location.component';
+import { ListAllSalesComponent } from './users/usersales/list-all-sales/list-all-sales.component';
+import { UsersComponent } from './users/users.component';
+import { SalesUserDetailsComponent } from './users/usersales/sales-details/sales-details.component';
 
 
 
@@ -39,7 +42,10 @@ export const routes: Routes = [
       { path: 'sales/edit/:id', component: SalesEditComponent },
       { path: 'sales/details/:id', component: SalesDetailsComponent },
       {path: 'visit-managment', component:VisitManagementComponent},
-      {path: 'loction-tracking', component:LocationComponent}
+      {path: 'loction-tracking', component:LocationComponent},
+
+     
+
     
     ]
   },
@@ -47,9 +53,21 @@ export const routes: Routes = [
   { path: 'admin/login', component: LoginComponent },
   { path: 'admin/register', component: RegisterComponent },
   { path: 'reporting', component: ReportingComponent }, // Add this route
+
+  {
+    path: 'user',
+    component: UsersComponent,
+    children: [
+      { path: '', component: UsersComponent },
+      { path: 'sales', component: ListAllSalesComponent },
+      { path: 'sales/details/:id', component: SalesUserDetailsComponent }
+
+    ]
+  },
+
   { path: '**', component: NotfoundComponent }
-
-
+   
+ 
 ];
 
 

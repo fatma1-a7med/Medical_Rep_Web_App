@@ -11,11 +11,12 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { NotfoundComponent } from './notfound/notfound.component';
 import { SideBarComponent } from './admin-dashboard/side-bar/side-bar.component';
+import { UsersComponent } from './users/users.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterLink,FormsModule,CommonModule,RouterOutlet,NavbarComponent,HttpClientModule,ListallmedrepComponent, AdminComponent, RouterLink],
+  imports: [RouterLink,FormsModule,CommonModule,RouterOutlet,NavbarComponent,HttpClientModule,ListallmedrepComponent, AdminComponent, RouterLink,UsersComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

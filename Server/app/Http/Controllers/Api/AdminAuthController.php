@@ -110,7 +110,8 @@ class AdminAuthController extends Controller
             return response()->json([
                 'status' => true,
                 'message' => 'Admin User Logged In Successfully',
-                'token' => $token
+                'token' => $token,
+                'admin' => $admin
             ], 200);
     
         } catch (\Throwable $th) {
@@ -122,13 +123,14 @@ class AdminAuthController extends Controller
     }
     public function me(Request $request)
 {
-    $user = $request->user();
+  // Retrieve the authenticated admin
+  $admin = $request->user();
 
-    return response()->json([
-        'first_name' => $user->first_name,
-        'email' => $user->email,
-        'image' => $user->image, 
-    ]);
+  // Return the admin data in the response
+  return response()->json([
+      'status' => true,
+      'admin' => $admin
+  ], 200);
 }
     public function logout(Request $request)
     {
