@@ -2,25 +2,22 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
-
-
-// Define an interface for login data
 export interface LoginData {
   email: string;
   password: string;
 }
-
 @Injectable({
   providedIn: 'root'
 })
-export class AdminAuthServiceService {
+export class UserAuthServicesService {
+
   constructor(private http: HttpClient) { }
 
   login(email: string, password: string): Observable<any> {
-    return this.http.post(`http://127.0.0.1:8000/api/admin/login`, { email, password }).pipe(
+    return this.http.post(`http://127.0.0.1:8000/api/user/login`, { email, password }).pipe(
       tap((response: any) => {
         if (response && response.token) {
-          this.saveToken(response.token); // Save the token to local storage
+          localStorage.setItem('token', response.token); // Save token to localStorage
         }
       }),
       catchError((error) => {
@@ -29,9 +26,6 @@ export class AdminAuthServiceService {
     );
   }
 
-  register(adminData: any): Observable<any> {
-    return this.http.post(`http://127.0.0.1:8000/api/admin/register`, adminData);
-  }
 
   saveToken(token: string) {
     localStorage.setItem('token', token);
@@ -40,10 +34,15 @@ export class AdminAuthServiceService {
   getToken(): string | null {
     return localStorage.getItem('token');
   }
-  isAdmin(): boolean {
-    // Check if user is admin (implement based on your logic)
+
+  logout() {
+    localStorage.removeItem('token');
+  }
+
+  isUser(): boolean {
+    // Check if user is regular user (implement based on your logic)
     const role = localStorage.getItem('role');
-    return role === 'admin';
+    return role === 'user';
   }
 
   isLoggedIn(): boolean {

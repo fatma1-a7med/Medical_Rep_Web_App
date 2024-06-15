@@ -16,19 +16,29 @@ import { SalesEditComponent } from './admin-dashboard/sales/sales-edit/sales-edi
 import { SalesDetailsComponent } from './admin-dashboard/sales/sales-details/sales-details.component';
 import { VisitManagementComponent } from './admin-dashboard/visit-managment/visit-managment.component';
 import { LocationComponent } from './admin-dashboard/location/location.component';
+import { UserLoginComponent } from './user-auth/user-login/user-login.component';
+import { HomeComponent } from './user/home/home.component';
+import { UserComponent } from './user/user.component';
+import { UserAuthGuard } from './services/user-auth-gard.service';
+import { AdminAuthGuard } from './services/admin-auth-guard.service';
 
 
 
 
 export const routes: Routes = [
+  { path: '', redirectTo: 'admin/login', pathMatch: 'full' },
+  { path: 'user', canActivate: [UserAuthGuard], children: [
+    { path: 'home', component: HomeComponent }
+  ] },
+
+  { path: 'admin/login', component: LoginComponent },  
   { path: 'password/email', component: ForgetpasswordComponent },
   { path: 'password/reset/:token', component: ResetPasswordComponent }, 
 
 
-  { path: '', redirectTo: 'admin/login', pathMatch: 'full' },
-
   {
     path: 'admin-dashboard',
+    canActivate:[AdminAuthGuard],
     component: AdminDashboardComponent,
     children: [
       { path: '', component: ListallmedrepComponent },
@@ -43,10 +53,13 @@ export const routes: Routes = [
     
     ]
   },
+  
  
   { path: 'admin/login', component: LoginComponent },
   { path: 'admin/register', component: RegisterComponent },
+  { path:'user/login', component:UserLoginComponent},
   { path: 'reporting', component: ReportingComponent }, // Add this route
+
   { path: '**', component: NotfoundComponent }
 
 
@@ -54,3 +67,8 @@ export const routes: Routes = [
 
 
 
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }

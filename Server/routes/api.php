@@ -40,10 +40,10 @@ Route::prefix('admin')->group(function () {
     Route::post('password/email', [ForgotPasswordAdminController::class, 'sendResetLinkEmail'])->name('password.email');
     Route::post('password/reset/{token}', [ResetPasswordAdminController::class, 'reset'])->name('password.reset');
     
+    //sales
     Route::apiResource('sales', SalesController::class);
     Route::get('users/{user}/sales', [SalesController::class,'user_sales']);
     Route::middleware('auth:sanctum')->get('me', [AdminAuthController::class, 'me']);
-      
     Route::middleware('auth:sanctum')->post('logout', [AdminAuthController::class, 'logout']);
 
     //admin visit routes

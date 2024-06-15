@@ -11,11 +11,23 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { NotfoundComponent } from './notfound/notfound.component';
 import { SideBarComponent } from './admin-dashboard/side-bar/side-bar.component';
+import { UserLoginComponent } from './user-auth/user-login/user-login.component';
+import { UserComponent } from './user/user.component';
+import { UserAuthComponent } from './user-auth/user-auth.component';
+import { UserAuthGuard } from './services/user-auth-gard.service';
+import { AdminAuthGuard } from './services/admin-auth-guard.service';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterLink,FormsModule,CommonModule,RouterOutlet,NavbarComponent,HttpClientModule,ListallmedrepComponent, AdminComponent, RouterLink],
+  imports: [
+    RouterLink,FormsModule,CommonModule,RouterOutlet,NavbarComponent,HttpClientModule,RouterLink
+    ,ListallmedrepComponent, AdminComponent,UserAuthComponent,UserComponent
+   ],
+  providers: [
+    UserAuthGuard,
+    AdminAuthGuard 
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
