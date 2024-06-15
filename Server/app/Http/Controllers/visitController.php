@@ -170,7 +170,11 @@ public function getPlannedVisits($user_id)
                    ->get();
     return response()->json($visits);
 }
-
+public function recent()
+{
+    $recentVisits = Visit::orderBy('created_at', 'desc')->take(5)->get();
+    return response()->json($recentVisits);
+}
 }
 
     
