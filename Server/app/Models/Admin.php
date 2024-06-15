@@ -35,6 +35,12 @@ class Admin extends Authenticatable implements CanResetPassword
         'email_verified_at' => 'datetime',
     ];
 
+    // Define the one-to-many relationship with Sale
+    public function sales()
+    {
+        return $this->hasMany(Sale::class, 'admin_id', 'id');
+    }
+    
     public function getEmailForPasswordReset()
     {
         return $this->email;

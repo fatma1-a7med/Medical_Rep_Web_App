@@ -38,19 +38,15 @@ class ResetPasswordAdminController extends Controller
     public function reset(Request $request)
     {
         $request->validate([
+            'token' => 'required',
             'email' => 'required|email',
             'password' => 'required|min:8|confirmed',
         ]);
 
-        // Get the token from the Authorization header
-        $token = $request->bearerToken();
-        if (!$token) {
-            return response()->json(['message' => 'Token is required'], 400);
-        }
-
+  
  
         $status = Password::broker('admins')->reset(
-            array_merge($request->only('email', 'password', 'password_confirmation'), ['token' => $token]),
+            array_merge($request->only('email', 'password', 'password_confirmation','token')),
             function ($admin, $password) {
                 $admin->forceFill([
                     'password' => Hash::make($password),

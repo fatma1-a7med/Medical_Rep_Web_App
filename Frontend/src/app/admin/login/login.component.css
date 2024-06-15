@@ -8,7 +8,7 @@ body, html {
 
 
 .container {
-  max-width: 520px;
+  max-width: 470px;
   padding: 0 20px;
   margin: 230px auto;
   position: relative;
@@ -17,14 +17,31 @@ body, html {
   height: 100%;
 }
 
+
+.logo .logo_text{
+  margin-left: 3px;
+  margin-top: 12px;
+  font-family: "Lobster Two", sans-serif;
+   font-weight: 700;
+   font-style: normal;
+  font-size: 29px;
+  color: #1CA4AC;
+
+}
+.forgetPss a{
+  color: #1CA4AC;
+}
+
 .card {
   border-radius: 10px;
   color: black;
-  border: 2px solid #15abff;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  padding: 12px;
+  height: 69vh;
 }
 
 .loginRoute {
-  color: #15abff;
+  color: #1CA4AC;
   text-decoration: none;
 }
 
@@ -67,16 +84,16 @@ input:focus {
   line-height: 26px;
   font-weight: 400;
   color: #fff;
-  background: #15abff;
+  background: #1CA4AC;
   border: none;
   border-radius: 4px;
-  box-shadow: 0px 8px 17px #15abff, 0px 0px 2px #15abff;
+  box-shadow: 0px 4px 8px #1CA4AC, 0px 0px 2px #1CA4AC;
   transition: background-color 0.3s;
 }
 
 .custom-button:hover {
   color: #fff;
-  background: #008ad9;
+  background: #1CA4AC;
 }
 
 .custom-button:active {
@@ -93,7 +110,7 @@ input:focus {
   left: 32px;
   width: 179px;
   height: 8px;
-  background: #15abff;
+  background: #1CA4AC;
   border-radius: 4px;
 }
 
@@ -113,7 +130,7 @@ input:focus {
   height: 90vh;
   max-width: 800px;
   max-height: 400px;
-  background-color: #15abff;
+  background-color: #1CA4AC;
   border-radius: 50%;
 }
 

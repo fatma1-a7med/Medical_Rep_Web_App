@@ -11,13 +11,12 @@ class Location extends Model
     protected $filable = [
         'latitude',
         'longitude',
-        'timestamp',
-        'altitude',
-        'accuracy',
-        'speed',
-        'direction'
     ]; 
-    public function visit (){
+    public function users()
+    {
+        return $this->belongsToMany(User::class);
+    }
+    public function visits (){
         return $this->hasMany(Visit::class);
     }
 }

@@ -4,10 +4,10 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_NATIVE_DATE_FORMATS, NativeDateAdapt
 import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { provideHttpClient } from '@angular/common/http';
-
+import { provideHttpClient, withFetch } from '@angular/common/http';
 export const appConfig: ApplicationConfig = {
   providers: [provideRouter(routes), provideClientHydration(), provideAnimationsAsync(), provideAnimationsAsync(), provideHttpClient(),
+    provideHttpClient(withFetch()),
   
       { provide: DateAdapter, useClass: NativeDateAdapter },
       { provide: MAT_DATE_FORMATS, useValue: MAT_NATIVE_DATE_FORMATS },

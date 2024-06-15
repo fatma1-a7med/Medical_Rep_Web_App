@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\SalesController;
 use App\Http\Controllers\Api\UserAuthController;
 use App\Http\Controllers\ForgotPasswordAdminController;
 use App\Http\Controllers\ForgotPasswordController;
@@ -8,8 +9,11 @@ use App\Http\Controllers\ResetPasswordController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AdminAuthController;
+use App\Http\Controllers\Api\LoctionController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VisitController;
+use App\Http\Controllers\VisitReportingController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -32,16 +36,27 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::prefix('admin')->group(function () {
     Route::post('register', [AdminAuthController::class, 'createAdmin']);
-    Route::post('login', [AdminAuthController::class, 'loginAdmin']);
-    
-    Route::get('password/reset',[ForgotPasswordAdminController::class, 'showLinkRequestForm'])->name('password.request');
+    Route::post('login', [AdminAuthController::class, 'loginAdmin'])->name('loginAdmin');
     Route::post('password/email', [ForgotPasswordAdminController::class, 'sendResetLinkEmail'])->name('password.email');
-    Route::get('password/reset/{token}', [ResetPasswordAdminController::class, 'showResetForm'])->name('password.update');
-    Route::post('password/reset', [ResetPasswordAdminController::class, 'reset'])->name('password.reset');
+    Route::post('password/reset/{token}', [ResetPasswordAdminController::class, 'reset'])->name('password.reset');
+    
+    Route::apiResource('sales', SalesController::class);
+    Route::get('users/{user}/sales', [SalesController::class,'user_sales']);
+    Route::get('me', [AdminAuthController::class, 'me']);
+      
+    Route::middleware('auth:sanctum')->post('logout', [AdminAuthController::class, 'logout']);
+
+    //admin visit routes
     Route::get('visits', [VisitController::class, 'index']);
     Route::get('/visit/{id}', [VisitController::class, 'getVisitInformationById']);
-    Route::get('visits/searchByUsername/{firstName}/{lastName}', [VisitController::class, 'searchByUserName']);
+    Route::get('visits/searchByUsername/{username}', [VisitController :: class, 'searchByUsername' ]);
     Route::get('visits/searchByDateRange/{startDate}/{endDate}', [VisitController::class, 'searchByDateRange']);
+
+    //admin location tracking
+    Route::get('/location',[LoctionController::class,'index']);
+
+
+    
     Route::get('visits/history/{user_id}', [VisitController::class, 'getVisitHistory']);
     Route::get('visits/planned/{user_id}', [VisitController::class, 'getPlannedVisits']);
    
@@ -49,9 +64,8 @@ Route::prefix('admin')->group(function () {
 });
 
 Route::prefix('user')->group(function () {
-    Route::post('register', [UserAuthController::class, 'createUser']);
     Route::post('login', [UserAuthController::class, 'loginUser']);
-    Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+    Route::apiResource('sales', SalesController::class);
 });
 
 Route::prefix('users')->group(function () {
@@ -61,6 +75,10 @@ Route::prefix('users')->group(function () {
     Route::put('/{id}', [UserController::class, 'update']);    // PUT /api/users/{id}
     Route::delete('/{id}', [UserController::class, 'destroy']); // DELETE /api/users/{id}
 });
+
+// visit reporting
+Route::get('/visit-reports', [VisitReportingController::class, 'getVisitReports']);
+
 
 
 

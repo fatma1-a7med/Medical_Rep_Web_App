@@ -42,9 +42,9 @@ return [
         ],
 
         'api' => [
-            'driver' => 'token',
-            'provider' => 'users',
-        ],
+        'driver' => 'sanctum',
+        'provider' => 'admins',
+    ],
 
         'admin' => [
             'driver' => 'session',
@@ -55,7 +55,9 @@ return [
             'driver' => 'token',
             'provider' => 'admins',
         ],
+   
     ],
+
 
     /*
     |--------------------------------------------------------------------------

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Models\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -109,7 +110,8 @@ class AdminAuthController extends Controller
             return response()->json([
                 'status' => true,
                 'message' => 'Admin User Logged In Successfully',
-                'token' => $token
+                'token' => $token,
+                'admin' => $admin
             ], 200);
     
         } catch (\Throwable $th) {
@@ -118,6 +120,23 @@ class AdminAuthController extends Controller
                 'message' => $th->getMessage()
             ], 500);
         }
+    }
+    public function me(Request $request)
+{
+  // Retrieve the authenticated admin
+  $admin = $request->user();
+
+  // Return the admin data in the response
+  return response()->json([
+      'status' => true,
+      'admin' => $admin
+  ], 200);
+}
+    public function logout(Request $request)
+    {
+        $request->user()->currentAccessToken()->delete();
+
+        return response()->json(['message' => 'Successfully logged out']);
     }
     
 }
