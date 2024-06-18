@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('territory');
             $table->string('class_rate');
             $table->string('specialization');
-            $table->integer('phone_number');
+            $table->string('phone_number');
         });
     }
 

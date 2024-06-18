@@ -49,14 +49,19 @@ export class JarwisService {
       }
     );
   }
+  
   getUser(): Observable<any> {
     if (this.isBrowser()) {
       const token = localStorage.getItem('token');
-      const headers = new HttpHeaders({
-        'Authorization': `Bearer ${token}`
-      });
-
-      return this.http.get(`${this.baseUrl}/me`, { headers });
+      if (token) {
+        const headers = new HttpHeaders({
+          'Authorization': `Bearer ${token}`
+        });
+        return this.http.get(`${this.baseUrl}/me`, { headers });
+      } else {
+        console.error('No token found in localStorage');
+        return of(null);
+      }
     } else {
       console.error('Cannot access localStorage in non-browser environment');
       return of(null); 

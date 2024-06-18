@@ -82,4 +82,9 @@
   .add-med-rep:hover {
     background-color: #139b9f;
   }
+  .custom-hr {
+    border-top: 3px solid #1CA4AC; 
+    width: 100%; 
+   margin-top: -.2rem;
+  }
   

@@ -52,6 +52,7 @@ export const routes: Routes = [
       { path: 'sales/details/:id', component: SalesDetailsComponent },
       {path: 'visit-managment', component:VisitManagementComponent},
       {path: 'loction-tracking', component:LocationComponent},
+      { path: 'reporting', component: ReportingComponent },
 
      
 
@@ -63,7 +64,6 @@ export const routes: Routes = [
   { path: 'admin/login', component: LoginComponent },
   { path: 'admin/register', component: RegisterComponent },
   { path:'user/login', component:UserLoginComponent},
-  { path: 'reporting', component: ReportingComponent }, // Add this route
   { path: '**', component: NotfoundComponent }
    
  

@@ -47,8 +47,14 @@ Route::prefix('admin')->group(function () {
     //sales
     Route::apiResource('sales', SalesController::class);
     Route::get('users/{user}/sales', [SalesController::class,'user_sales']);
-    Route::middleware('auth:sanctum')->get('me', [AdminAuthController::class, 'me']);
-    Route::middleware('auth:sanctum')->post('logout', [AdminAuthController::class, 'logout']);
+    // Route::middleware('auth:sanctum')->get('me', [AdminAuthController::class, 'me']);
+    // Route::middleware('auth:sanctum')->post('logout', [AdminAuthController::class, 'logout']);
+
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::get('me', [AdminAuthController::class, 'me']);
+        Route::post('logout', [AdminAuthController::class, 'logout']);
+        Route::get('logged-in-admin', [AdminAuthController::class, 'getLoggedInAdmin']);
+    });
 
     //admin visit routes
     Route::get('visits', [VisitController::class, 'index']);
