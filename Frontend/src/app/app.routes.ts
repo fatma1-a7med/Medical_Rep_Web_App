@@ -1,3 +1,4 @@
+import { UserLocationComponent } from './user/user-location/user-location.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common'; // Import CommonModule
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
@@ -29,9 +30,11 @@ export const routes: Routes = [
   { path: '', redirectTo: 'admin/login', pathMatch: 'full' },
   { path: 'user', canActivate: [UserAuthGuard], 
     children: [
-    { path: 'home', component: HomeComponent }
+    { path: 'home', component: HomeComponent },
+    {path:'userLocation', component:UserLocationComponent},
+    
   ] },
-
+ 
   { path: 'admin/login', component: LoginComponent },  
   { path: 'password/email', component: ForgetpasswordComponent },
   { path: 'password/reset/:token', component: ResetPasswordComponent }, 

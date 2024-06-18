@@ -10,6 +10,7 @@ import { MatButtonModule } from '@angular/material/button';
 import {MatDialog} from '@angular/material/dialog'
 import { AddeditComponent } from '../addedit/addedit.component';
 import { MedrepDetailComponent } from '../medrep-detail/medrep-detail.component';
+import { AuthService } from '../../services/auth.service';
 @Component({
   selector: 'app-listallmedrep',
   standalone: true,
@@ -28,6 +29,7 @@ import { MedrepDetailComponent } from '../medrep-detail/medrep-detail.component'
   styleUrls: ['./listallmedrep.component.css']
 })
 export class ListallmedrepComponent implements OnInit, AfterViewInit {
+  userId: number | null = null;
 
 
 onShow(data: any) {
@@ -40,10 +42,11 @@ console.log(data)
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private _medrepservice: MedicalrepService,private _dialog : MatDialog) {}
+  constructor(private _medrepservice: MedicalrepService,private _dialog : MatDialog,private authService: AuthService) {}
 
   ngOnInit(): void {
     this.getMedreplist();
+    console.log('id',this.userId = this.authService.getUserId());
   }
   ngAfterViewInit(): void {
   

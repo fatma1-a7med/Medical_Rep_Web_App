@@ -21,6 +21,18 @@ export class AuthService {
   changeAuthStatus(value: boolean): void {
     this.loggedIn.next(value);
   }
+  getUserId(): number | null {
+    const token = this.Token.get();
+    if (token) {
+      const payload = this.Token.payload(token);
+      return payload ? payload.sub : null; // Assuming 'sub' contains user ID in the payload
+    }
+    return null;
+  }
+
+  isLoggedIn(): boolean {
+    return this.Token.isValid();
+  }
 }
 
 

@@ -102,7 +102,8 @@ class UserAuthController extends Controller
             return response()->json([
                 'status' => true,
                 'message' => 'User Logged In Successfully',
-                'token' => $token
+                'token' => $token,
+                'user' => $user
             ], 200);
     
         } catch (\Throwable $th) {
@@ -120,9 +121,12 @@ class UserAuthController extends Controller
     {
         try {
             $user = Auth::user();
+            $userId = $user->id;
+            $userName = $user->first_name;
             return response()->json([
                 'status' => true,
-                'user' => $user
+                'user_id' => $userId,
+                'user_name' =>$userName
             ], 200);
         } catch (\Throwable $th) {
             return response()->json([

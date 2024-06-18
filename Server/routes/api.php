@@ -64,6 +64,8 @@ Route::prefix('admin')->group(function () {
 
     //admin location tracking
     Route::get('/location',[LoctionController::class,'index']);
+    Route::post('/location', [LoctionController::class, 'store']);
+
 
 
     
@@ -75,6 +77,7 @@ Route::prefix('admin')->group(function () {
 
 Route::prefix('user')->group(function () {
     Route::post('login', [UserAuthController::class, 'loginUser']);
+    Route::middleware('auth:sanctum')->get('info',[UserAuthController::class, 'getUser']);
 
     //doctor Routes
     Route::post('add-doctor', [doctorController:: class, 'AddDoctor']);
