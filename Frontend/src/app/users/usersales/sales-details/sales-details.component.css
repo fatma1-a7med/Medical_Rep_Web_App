@@ -43,7 +43,9 @@ body {
     font-size: 1.2rem;
     margin-bottom: 10px;
   }
-  
+  p,span{
+    color: black;
+  }
   .btn-primary {
     background-color: #1CA4AC;
     border-color: #1CA4AC;

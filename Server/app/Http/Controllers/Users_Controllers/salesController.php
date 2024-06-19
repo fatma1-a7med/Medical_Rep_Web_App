@@ -20,15 +20,15 @@ class salesController extends Controller
 
     public function show($id)
     {
-         
-          $user = Auth::user();
-          $sale = Sale::where('user_id', $user->id)->where('id', $id)->first();
-  
-          if (!$sale) {
-              return response()->json(['error' => 'Sale not found'], 404);
-          }
-  
-          return response()->json(['sale' => $sale], 200);
-      
+        $user = Auth::user();
+        
+        // Fetch sale with the given ID and user_id
+        $sale = Sale::where('user_id', $user->id)->where('sales_id', $id)->first();
+
+        if (!$sale) {
+            return response()->json(['error' => 'Sale not found'], 404);
+        }
+
+        return response()->json(['sale' => $sale], 200);
     }
 }

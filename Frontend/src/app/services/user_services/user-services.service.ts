@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { Observable, catchError, map, throwError } from 'rxjs';
+import { Router } from '@angular/router'; 
 
 @Injectable({
   providedIn: 'root'
@@ -8,14 +9,87 @@ import { Observable } from 'rxjs';
 export class UserService {
   private baseUrl = 'http://localhost:8000/api/user';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,private router: Router) {}
+  private getAuthHeaders(): HttpHeaders {
+    const token = localStorage.getItem('token');
+    return new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+  }
 
-  getAllSales(): Observable<any> {
-    return this.http.get(`${this.baseUrl}/sales`);
+  getAllSales(): Observable<any[]> {
+    const headers = this.getAuthHeaders();
+    return this.http.get<{ sales: any[] }>(`${this.baseUrl}/sales`, { headers })
+    .pipe(
+      map(response => response.sales),
+      catchError(error => {
+        console.error('Failed to fetch sales data', error);
+        return throwError(error);
+      })
+    );
+  }
+
+  getSaleDetails(id: number): Observable<any> {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      // Handle scenario where token is missing
+      return throwError('No token available');
+    }
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+
+    return this.http.get<any>(`${this.baseUrl}/sales/${id}`, { headers }).pipe(
+      catchError(error => {
+        console.error('Error fetching sale details:', error);
+        return throwError(error);
+      })
+    );
   }
 
   getSaleById(id: number): Observable<any> {
-    return this.http.get(`${this.baseUrl}/sales/${id}`);
+    const headers = this.getAuthHeaders();
+    return this.http.get(`${this.baseUrl}/sales/${id}`, { headers })
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  getCurrentUserId(): Observable<{ user_id: string }> {
+    const headers = this.getAuthHeaders();
+    return this.http.get<{ user_id: string }>(`${this.baseUrl}/info`, { headers })
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  getCurrentUser(): Observable<{ user: any }> {
+    const headers = this.getAuthHeaders();
+    return this.http.get<{ user: any }>(`${this.baseUrl}/UserInfo`, { headers })
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  logout() {
+    const headers = this.getAuthHeaders();
+    return this.http.post(`${this.baseUrl}/logout`, {}, { headers }).subscribe(
+      () => {
+        localStorage.removeItem('token');
+        this.router.navigate(['/user/login']);
+      },
+      (error) => {
+        console.error('Logout failed', error);
+      }
+    );
+  }
+
+  private handleError(error: HttpErrorResponse) {
+    console.error('An error occurred:', error.message);
+    return throwError('Something bad happened; please try again later.');
   }
 
   //doctor
@@ -39,3 +113,4 @@ export class UserService {
     return this.http.delete<any>(`${this.baseUrl}/delete-doctor-byId/${id}`)
   }
 }
+

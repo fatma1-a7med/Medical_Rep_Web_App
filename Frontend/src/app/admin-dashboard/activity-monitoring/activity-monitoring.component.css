@@ -1,3 +1,8 @@
+.container{
+  margin-top: 15px;
+  margin-left: 250px;
+  width: 70vw;
+}
 .fc-event-time, .fc-event-title {
   display: block; /* Ensure they are block elements to appear one above the other */
   font-size: 0.47em; /* Adjust the size as needed */
@@ -88,6 +93,11 @@ h1, h2 {
 .full-calendar {
   height: 100%;
   width: 100%;
+}
+.custom-hr {
+  border-top: 3px solid #1CA4AC; 
+  width: 23%; 
+ margin-top: -.2rem;
 }
 
 

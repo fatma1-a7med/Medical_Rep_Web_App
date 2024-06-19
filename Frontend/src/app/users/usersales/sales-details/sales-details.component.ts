@@ -21,10 +21,17 @@ export class SalesUserDetailsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const saleId = this.route.snapshot.params['id'];
-    this.salesService.getSaleById(saleId).subscribe(
+    const saleId = this.route.snapshot.paramMap.get('id');
+    if (saleId) {
+      this.loadSaleDetails(parseInt(saleId, 10));
+    }
+  }
+
+  loadSaleDetails(saleId: number) {
+    this.salesService.getSaleDetails(saleId).subscribe(
       (data) => {
-        this.sale = data;
+        this.sale = data.sale; // Assign the fetched sale data
+        console.log('Sale details:', this.sale);
       },
       (error) => {
         console.error('Failed to fetch sale details', error);

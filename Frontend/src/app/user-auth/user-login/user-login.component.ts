@@ -37,7 +37,7 @@ export class UserLoginComponent {
       (response) => {
         console.log('Login successful', response);
         localStorage.setItem('token', response.token);
-        this.router.navigate(['/user/home']); // Navigate to user home after login
+        this.router.navigate(['/user']); 
       },
       (error) => {
         console.error('Login failed', error);

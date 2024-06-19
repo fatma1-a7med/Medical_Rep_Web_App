@@ -22,4 +22,9 @@
   .custom-table tr:hover {
     background-color: #e6f7f8;
   }
+  .custom-hr {
+    border-top: 3px solid #1CA4AC; 
+    width: 20%; 
+   margin-top: -.2rem;
+  }
   

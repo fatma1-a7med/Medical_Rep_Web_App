@@ -25,17 +25,17 @@ export class ListAllSalesComponent implements OnInit {
     this.salesService.getAllSales().subscribe(
       (data) => {
         this.sales = data;
-        console.log(data);
+        console.log('data:', data);
       },
       (error) => {
         console.error('Failed to fetch sales data', error);
+        this.sales = [];
       }
     );
   }
 
   showDetails(sale: any) {
     console.log('Sale details:', sale); // You can replace this with your desired logic to show details
- 
   }
 
 }

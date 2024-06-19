@@ -102,7 +102,8 @@ class UserAuthController extends Controller
             return response()->json([
                 'status' => true,
                 'message' => 'User Logged In Successfully',
-                'token' => $token
+                'token' => $token,
+                'user' => $user
             ], 200);
     
         } catch (\Throwable $th) {
@@ -116,13 +117,29 @@ class UserAuthController extends Controller
      * Get the authenticated user
      * @return \Illuminate\Http\JsonResponse
      */
+    public function getUserId()
+    {
+        try {
+            $user = Auth::user();
+            $userId = $user->id;
+            return response()->json([
+                'status' => true,
+                'user_id' => $userId,
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => false,
+                'message' => $th->getMessage()
+            ], 500);
+        }
+    }
     public function getUser()
     {
         try {
             $user = Auth::user();
             return response()->json([
                 'status' => true,
-                'user' => $user
+                'user' => $user,
             ], 200);
         } catch (\Throwable $th) {
             return response()->json([

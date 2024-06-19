@@ -46,9 +46,13 @@ Route::prefix('admin')->group(function () {
     
     //sales
     Route::apiResource('sales', SalesController::class);
+<<<<<<< HEAD
     Route::get('users/{user}/sales', [SalesController::class,'user_sales']);
     // Route::middleware('auth:sanctum')->get('me', [AdminAuthController::class, 'me']);
     // Route::middleware('auth:sanctum')->post('logout', [AdminAuthController::class, 'logout']);
+=======
+    // Route::get('users/{user}/sales', [SalesController::class,'user_sales']);
+>>>>>>> 77f7364b29662f215efd9130e90835ed6fed6a08
 
     Route::middleware('auth:sanctum')->group(function () {
         Route::get('me', [AdminAuthController::class, 'me']);
@@ -77,7 +81,16 @@ Route::prefix('admin')->group(function () {
 
 Route::prefix('user')->group(function () {
     Route::post('login', [UserAuthController::class, 'loginUser']);
+<<<<<<< HEAD
     Route::middleware('auth:sanctum')->get('info',[UserAuthController::class, 'getUser']);
+=======
+    Route::middleware('auth:sanctum')->get('info',[UserAuthController::class, 'getUserId']);
+    Route::middleware('auth:sanctum')->get('UserInfo',[UserAuthController::class, 'getUser']);
+    Route::middleware('auth:sanctum')->post('/logout', [UserAuthController::class, 'logoutUser']);
+    Route::middleware('auth:sanctum')->get('/sales', [\App\Http\Controllers\Users_Controllers\salesController::class, 'index']);
+    Route::middleware('auth:sanctum')->get('/sales/{id}', [\App\Http\Controllers\Users_Controllers\salesController::class, 'show']);
+
+>>>>>>> 77f7364b29662f215efd9130e90835ed6fed6a08
 
     //doctor Routes
     Route::post('add-doctor', [doctorController:: class, 'AddDoctor']);

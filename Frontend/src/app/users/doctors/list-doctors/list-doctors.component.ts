@@ -14,12 +14,13 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { NavbarComponent } from '../../../user/navbar/navbar.component';
 
 
 @Component({
   selector: 'app-list-doctors',
   standalone: true,
-  imports: [CommonModule, RouterLink, MatIcon,FormsModule],
+  imports: [CommonModule, RouterLink, MatIcon,FormsModule, NavbarComponent],
   templateUrl: './list-doctors.component.html',
   styleUrl: './list-doctors.component.css'
 })

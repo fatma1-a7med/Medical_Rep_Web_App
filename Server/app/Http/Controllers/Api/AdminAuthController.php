@@ -8,19 +8,17 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Database\Eloquent\Factories\HasFactory; // If applicable
-use Laravel\Sanctum\HasApiTokens; 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Laravel\Sanctum\HasApiTokens;
 
 class AdminAuthController extends Controller
 {
     use HasFactory, HasApiTokens;
 
-
     protected $guard = 'admin';
     protected $hidden = [
         'password', 'remember_token',
     ];
- 
 
     /**
      * Create Admin User
@@ -30,6 +28,7 @@ class AdminAuthController extends Controller
     public function createAdmin(Request $request)
     {
         try {
+            // Validate the incoming request data
             $validateUser = Validator::make($request->all(), [
                 'first_name' => 'required',
                 'last_name' => 'required',
@@ -38,7 +37,7 @@ class AdminAuthController extends Controller
                 'street' => 'required',
                 'phone_number' => 'required',
                 'territory' => 'required',
-                'image' => 'required',
+                'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
                 'email' => 'required|email|unique:admins,email',
                 'password' => 'required|min:3'
             ]);
@@ -51,8 +50,17 @@ class AdminAuthController extends Controller
                 ], 401);
             }
 
-            $imagePath = $request->file('image')->store('public/images');
+            // Handle image upload manually
+            if ($request->hasFile('image')) {
+                $image = $request->file('image');
+                $imageName = time() . '_' . $image->getClientOriginalName();
+                $image->move(public_path('images'), $imageName);
+                $imagePath = 'images/' . $imageName;
+            } else {
+                $imagePath = null;
+            }
 
+            // Create the admin with the provided data
             $admin = Admin::create([
                 'first_name' => $request->first_name,
                 'last_name' => $request->last_name,
@@ -66,10 +74,12 @@ class AdminAuthController extends Controller
                 'password' => Hash::make($request->password)
             ]);
 
+            // Generate an API token for the admin
             $token = $admin->createToken("API TOKEN")->plainTextToken;
             $admin->remember_token = $token;
             $admin->save();
 
+            // Return a successful response with the admin data and token
             return response()->json([
                 'status' => true,
                 'message' => 'Admin User Created Successfully',
@@ -85,70 +95,100 @@ class AdminAuthController extends Controller
         }
     }
 
-/**
- * Admin User Login
- * @param Request $request
- * @return \Illuminate\Http\JsonResponse
- */
-public function loginAdmin(Request $request)
-{
-    try {
-        // Validate incoming request
-        $validateUser = Validator::make($request->all(), [
-            'email' => 'required|email',
-            'password' => 'required'
-        ]);
+    /**
+     * Admin User Login
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function loginAdmin(Request $request)
+    {
+        try {
+            // Validate incoming request
+            $validateUser = Validator::make($request->all(), [
+                'email' => 'required|email',
+                'password' => 'required'
+            ]);
 
-        // Check for validation failure
-        if ($validateUser->fails()) {
+            if ($validateUser->fails()) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Validation error',
+                    'errors' => $validateUser->errors()
+                ], 401);
+            }
+
+            $admin = Admin::where('email', $request->email)->first();
+
+            if (!$admin || !Hash::check($request->password, $admin->password)) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Email & Password do not match with our records.'
+                ], 401);
+            }
+
+            // Retrieve the token from the database
+            $token = $admin->createToken("API TOKEN")->plainTextToken;
+            $admin->remember_token = $token;
+            $admin->save();
+
+            return response()->json([
+                'status' => true,
+                'message' => 'Admin User Logged In Successfully',
+                'token' => $token,
+                'admin' => $admin
+            ], 200);
+
+        } catch (\Throwable $th) {
             return response()->json([
                 'status' => false,
-                'message' => 'Validation error',
-                'errors' => $validateUser->errors()
-            ], 401);
+                'message' => $th->getMessage()
+            ], 500);
         }
+    }
 
-        // Find the admin by email
-        $admin = Admin::where('email', $request->email)->first();
+    /**
+     * Get the logged-in admin user
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function me(Request $request)
+    {
+        // Retrieve the authenticated admin
+        $admin = $request->user();
 
-        // Verify if admin exists and check password
-        if (!$admin || !Hash::check($request->password, $admin->password)) {
-            return response()->json([
-                'status' => false,
-                'message' => 'Email & Password do not match with our records.'
-            ], 401);
-        }
-
-        // Generate a new token for the admin
-        $token = $admin->createToken('admin-access-token')->plainTextToken;
-
-        // Return response with token and admin data if needed
+        // Return the admin data in the response
         return response()->json([
             'status' => true,
-            'message' => 'Admin User Logged In Successfully',
-            'token' => $token,
-            'admin' => $admin  // You can include admin data in the response if needed
+            'admin' => $admin
         ], 200);
-
-    } catch (\Throwable $th) {
-        // Handle exceptions
-        return response()->json([
-            'status' => false,
-            'message' => $th->getMessage()
-        ], 500);
     }
-}
 
-  public function logout(Request $request)
+    /**
+     * Log out the authenticated admin
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function logout(Request $request)
     {
+        // Delete the current access token
         $request->user()->currentAccessToken()->delete();
 
-        return response()->json(['message' => 'Successfully logged out']);
+        return response()->json([
+            'status' => true,
+            'message' => 'Successfully logged out'
+        ]);
     }
 
+    /**
+     * Get the details of the logged-in admin user
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getLoggedInAdmin(Request $request)
     {
-        return $request->user(); // Returns the authenticated admin details
+        return response()->json([
+            'status' => true,
+            'admin' => $request->user()
+        ]);
     }
-    
 }

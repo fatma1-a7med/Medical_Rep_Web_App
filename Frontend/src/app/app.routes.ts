@@ -23,6 +23,8 @@ import { AddDoctorComponent } from './users/doctors/add-doctor/add-doctor.compon
 import { ShowDoctorComponent } from './users/doctors/show-doctor/show-doctor.component';
 import { UserAuthGuard } from './services/auth/userAuthGuard.service';
 import { AdminGuard } from './services/auth/admin-auh-guard.guard';
+import { HomeComponent } from './user/home/home.component';
+import { UserLocationComponent } from './user/user-location/user-location.component';
 
 
 
@@ -47,6 +49,10 @@ export const routes: Routes = [
       path: 'user',
       canActivate: [UserAuthGuard],
       children: [
+        { path: 'home', component: HomeComponent },
+        {path:'userLocation', component:UserLocationComponent},
+        
+        //doctor
         { path: 'list-All-Doctors', component: ListDoctorsComponent },
         { path: 'show-doctor/:id', component: ShowDoctorComponent },
         { path: 'add-doctor', component: AddDoctorComponent },

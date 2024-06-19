@@ -21,4 +21,17 @@ class LoctionController extends Controller
         });
         return response()->json($locations);
     }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'user_id' => 'required|exists:users,id',
+            'latitude' => 'required|numeric',
+            'longitude' => 'required|numeric',
+        ]);
+
+        $location = Location::create($request->all());
+
+        return response()->json($location, 201);
+    }
 }
