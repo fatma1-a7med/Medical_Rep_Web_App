@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
-import { SalesService } from '../../../services/user_services/user-services.service';
 import { MatIcon } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { UserService } from '../../../services/user_services/user-services.service';
 
 @Component({
   selector: 'app-sales-user-details',
@@ -17,7 +17,7 @@ export class SalesUserDetailsComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private salesService: SalesService
+    private salesService: UserService
   ) {}
 
   ngOnInit(): void {

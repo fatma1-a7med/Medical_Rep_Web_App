@@ -88,7 +88,7 @@ export class VisitManagementComponent implements OnInit {
   }
 
   showVisitDetails(visitId: number) {
-    this.http.get<any>(`http://localhost:8000/api/admin/visits/${visitId}`)
+    this.http.get<any>(`http://localhost:8000/api/admin/visit/${visitId}`)
       .subscribe(
         (data: any) => {
           this.selectedVisit = data;

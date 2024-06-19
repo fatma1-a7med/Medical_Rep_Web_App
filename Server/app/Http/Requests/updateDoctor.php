@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class updateDoctor extends FormRequest
 {
@@ -27,12 +28,17 @@ class updateDoctor extends FormRequest
             'state' => 'sometimes|string|max:255',
             'city' => 'sometimes|string|max:255',
             'street' => 'sometimes|string|max:255',
-            'phone_number' => 'sometimes|integer',
+            'phone_number' => 'sometimes|string',
             'territory' => 'sometimes|string|max:255',
-            'email' => 'sometimes|string|email|max:255|unique:doctors',
+            'email' => [
+                'sometimes',
+                'string',
+                'email',
+                'max:255',
+                Rule::unique('doctors')->ignore($this->route('id')),
+            ],
             'specialization' => 'sometimes|string|max:225',
             'class_rate' => 'nullable|string|in:A,B,C',
-
         ];
     }
 }

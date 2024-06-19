@@ -20,23 +20,41 @@ import { LocationComponent } from './admin-dashboard/location/location.component
 import { UserLoginComponent } from './user-auth/user-login/user-login.component';
 import { AdminAuthGuard } from './services/admin-auth-guard.service';
 import { UserAuthGuard } from './services/user-auth-gard.service';
-import { HomeComponent } from './user/home/home.component';
+import { ListDoctorsComponent } from './users/doctors/list-doctors/list-doctors.component';
+import { AddDoctorComponent } from './users/doctors/add-doctor/add-doctor.component';
+import { ShowDoctorComponent } from './users/doctors/show-doctor/show-doctor.component';
 
 
 
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'admin/login', pathMatch: 'full' },
-  { path: 'user', canActivate: [UserAuthGuard], 
+    { path: '', redirectTo: 'admin/login', pathMatch: 'full' },
+
+    //admin auth
+    { path: 'admin/login', component: LoginComponent },  
+    { path: 'admin/register', component: RegisterComponent },
+    { path: 'password/email', component: ForgetpasswordComponent },
+    { path: 'password/reset/:token', component: ResetPasswordComponent }, 
+    { path: 'reporting', component: ReportingComponent }, 
+  
+     //user auth
+     { path:'user/login', component:UserLoginComponent},
+  
+  
+
+    //user routes
+   { path: 'user', canActivate: [UserAuthGuard], 
     children: [
-    { path: 'home', component: HomeComponent }
+
+    //doctor routes
+    { path: 'list-All-Doctors', component: ListDoctorsComponent },
+    { path: 'show-doctor/:id', component: ShowDoctorComponent },
+    {path:'add-doctor', component:AddDoctorComponent},
+
+
   ] },
 
-  { path: 'admin/login', component: LoginComponent },  
-  { path: 'password/email', component: ForgetpasswordComponent },
-  { path: 'password/reset/:token', component: ResetPasswordComponent }, 
-
-
+  //admin routes
   {
     path: 'admin-dashboard',
     canActivate:[AdminAuthGuard],
@@ -52,18 +70,9 @@ export const routes: Routes = [
       { path: 'sales/details/:id', component: SalesDetailsComponent },
       {path: 'visit-managment', component:VisitManagementComponent},
       {path: 'loction-tracking', component:LocationComponent},
-
-     
-
-    
     ]
   },
   
- 
-  { path: 'admin/login', component: LoginComponent },
-  { path: 'admin/register', component: RegisterComponent },
-  { path:'user/login', component:UserLoginComponent},
-  { path: 'reporting', component: ReportingComponent }, // Add this route
   { path: '**', component: NotfoundComponent }
    
  
