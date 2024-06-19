@@ -1,23 +1,18 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
-
-
-// Define an interface for login data
-export interface LoginData {
-  email: string;
-  password: string;
-}
 
 @Injectable({
   providedIn: 'root'
 })
 export class AdminAuthServiceService {
+  private apiUrl = 'http://127.0.0.1:8000/api/admin'; // Assuming this is your API base URL
+
   constructor(private http: HttpClient) { }
 
   login(email: string, password: string): Observable<any> {
-    return this.http.post(`http://127.0.0.1:8000/api/admin/login`, { email, password }).pipe(
+    return this.http.post(`${this.apiUrl}/login`, { email, password }).pipe(
       tap((response: any) => {
         if (response && response.token) {
           this.saveToken(response.token); // Save the token to local storage
@@ -30,7 +25,7 @@ export class AdminAuthServiceService {
   }
 
   register(adminData: any): Observable<any> {
-    return this.http.post(`http://127.0.0.1:8000/api/admin/register`, adminData);
+    return this.http.post(`${this.apiUrl}/register`, adminData);
   }
 
   saveToken(token: string) {
@@ -40,13 +35,25 @@ export class AdminAuthServiceService {
   getToken(): string | null {
     return localStorage.getItem('token');
   }
+
+  getHeaders(): HttpHeaders {
+    const token = this.getToken();
+    return new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+  }
+
   isAdmin(): boolean {
-    // Check if user is admin (implement based on your logic)
+    // Implement based on your logic to determine if the user is an admin
+    // Example: Check if a role attribute exists in local storage or make a server request
     const role = localStorage.getItem('role');
     return role === 'admin';
   }
 
   isLoggedIn(): boolean {
-    return !!localStorage.getItem('token');
+    return !!this.getToken();
   }
 }
+
+
+

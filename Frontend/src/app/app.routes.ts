@@ -18,11 +18,11 @@ import { SalesDetailsComponent } from './admin-dashboard/sales/sales-details/sal
 import { VisitManagementComponent } from './admin-dashboard/visit-managment/visit-managment.component';
 import { LocationComponent } from './admin-dashboard/location/location.component';
 import { UserLoginComponent } from './user-auth/user-login/user-login.component';
-import { AdminAuthGuard } from './services/admin-auth-guard.service';
-import { UserAuthGuard } from './services/user-auth-gard.service';
 import { ListDoctorsComponent } from './users/doctors/list-doctors/list-doctors.component';
 import { AddDoctorComponent } from './users/doctors/add-doctor/add-doctor.component';
 import { ShowDoctorComponent } from './users/doctors/show-doctor/show-doctor.component';
+import { UserAuthGuard } from './services/auth/userAuthGuard.service';
+import { AdminGuard } from './services/auth/admin-auh-guard.guard';
 
 
 
@@ -43,21 +43,21 @@ export const routes: Routes = [
   
 
     //user routes
-   { path: 'user', canActivate: [UserAuthGuard], 
-    children: [
-
-    //doctor routes
-    { path: 'list-All-Doctors', component: ListDoctorsComponent },
-    { path: 'show-doctor/:id', component: ShowDoctorComponent },
-    {path:'add-doctor', component:AddDoctorComponent},
-
-
-  ] },
+    {
+      path: 'user',
+      canActivate: [UserAuthGuard],
+      children: [
+        { path: 'list-All-Doctors', component: ListDoctorsComponent },
+        { path: 'show-doctor/:id', component: ShowDoctorComponent },
+        { path: 'add-doctor', component: AddDoctorComponent },
+      ]
+    },
+  
 
   //admin routes
   {
     path: 'admin-dashboard',
-    canActivate:[AdminAuthGuard],
+    canActivate:[AdminGuard],
     component: AdminDashboardComponent,
     children: [
       { path: '', component: ListallmedrepComponent },

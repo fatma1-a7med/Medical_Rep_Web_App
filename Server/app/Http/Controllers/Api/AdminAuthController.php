@@ -5,12 +5,23 @@ namespace App\Http\Controllers\Api;
 use App\Models\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Database\Eloquent\Factories\HasFactory; // If applicable
+use Laravel\Sanctum\HasApiTokens; 
 
 class AdminAuthController extends Controller
 {
+    use HasFactory, HasApiTokens;
+
+
+    protected $guard = 'admin';
+    protected $hidden = [
+        'password', 'remember_token',
+    ];
+ 
+
     /**
      * Create Admin User
      * @param Request $request
@@ -74,65 +85,61 @@ class AdminAuthController extends Controller
         }
     }
 
-    /**
-     * Admin User Login
-     * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function loginAdmin(Request $request)
-    {
-        try {
-            $validateUser = Validator::make($request->all(), [
-                'email' => 'required|email',
-                'password' => 'required'
-            ]);
-    
-            if ($validateUser->fails()) {
-                return response()->json([
-                    'status' => false,
-                    'message' => 'Validation error',
-                    'errors' => $validateUser->errors()
-                ], 401);
-            }
-    
-            $admin = Admin::where('email', $request->email)->first();
-    
-            if (!$admin || !Hash::check($request->password, $admin->password)) {
-                return response()->json([
-                    'status' => false,
-                    'message' => 'Email & Password do not match with our records.'
-                ], 401);
-            }
-    
-            // Retrieve the token from the database
-            $token = $admin->remember_token;
-    
-            return response()->json([
-                'status' => true,
-                'message' => 'Admin User Logged In Successfully',
-                'token' => $token,
-                'admin' => $admin
-            ], 200);
-    
-        } catch (\Throwable $th) {
+/**
+ * Admin User Login
+ * @param Request $request
+ * @return \Illuminate\Http\JsonResponse
+ */
+public function loginAdmin(Request $request)
+{
+    try {
+        // Validate incoming request
+        $validateUser = Validator::make($request->all(), [
+            'email' => 'required|email',
+            'password' => 'required'
+        ]);
+
+        // Check for validation failure
+        if ($validateUser->fails()) {
             return response()->json([
                 'status' => false,
-                'message' => $th->getMessage()
-            ], 500);
+                'message' => 'Validation error',
+                'errors' => $validateUser->errors()
+            ], 401);
         }
-    }
-    public function me(Request $request)
-{
-  // Retrieve the authenticated admin
-  $admin = $request->user();
 
-  // Return the admin data in the response
-  return response()->json([
-      'status' => true,
-      'admin' => $admin
-  ], 200);
-  }
-    public function logout(Request $request)
+        // Find the admin by email
+        $admin = Admin::where('email', $request->email)->first();
+
+        // Verify if admin exists and check password
+        if (!$admin || !Hash::check($request->password, $admin->password)) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Email & Password do not match with our records.'
+            ], 401);
+        }
+
+        // Generate a new token for the admin
+        $token = $admin->createToken('admin-access-token')->plainTextToken;
+
+        // Return response with token and admin data if needed
+        return response()->json([
+            'status' => true,
+            'message' => 'Admin User Logged In Successfully',
+            'token' => $token,
+            'admin' => $admin  // You can include admin data in the response if needed
+        ], 200);
+
+    } catch (\Throwable $th) {
+        // Handle exceptions
+        return response()->json([
+            'status' => false,
+            'message' => $th->getMessage()
+        ], 500);
+    }
+}
+
+  public function logout(Request $request)
     {
         $request->user()->currentAccessToken()->delete();
 
