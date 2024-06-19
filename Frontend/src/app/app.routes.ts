@@ -22,16 +22,25 @@ import { UserLoginComponent } from './user-auth/user-login/user-login.component'
 import { AdminAuthGuard } from './services/admin-auth-guard.service';
 import { UserAuthGuard } from './services/user-auth-gard.service';
 import { HomeComponent } from './user/home/home.component';
+import { UserComponent } from './user/user.component';
+import { WelcomeComponent } from './welcome/welcome.component';
+import { ListAllSalesComponent } from './users/usersales/list-all-sales/list-all-sales.component';
+import { SalesUserDetailsComponent } from './users/usersales/sales-details/sales-details.component';
 
 
 
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'admin/login', pathMatch: 'full' },
-  { path: 'user', canActivate: [UserAuthGuard], 
+  {path:'',component:WelcomeComponent},
+  { path: 'user',
+    canActivate: [UserAuthGuard],
+    component:UserComponent, 
     children: [
+    { path: '', component: HomeComponent },
     { path: 'home', component: HomeComponent },
     {path:'userLocation', component:UserLocationComponent},
+    {path:'sales',component:ListAllSalesComponent},
+    {path:'sales/details/:id',component:SalesUserDetailsComponent}
     
   ] },
  

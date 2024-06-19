@@ -23,8 +23,10 @@
   .user-profile {
     display: flex;
     align-items: center;
+    margin-right: 150px;
   }
   
   .user-profile mat-icon {
     margin-right: 8px;
   }
+  

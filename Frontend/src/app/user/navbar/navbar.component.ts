@@ -3,27 +3,23 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatMenuModule } from '@angular/material/menu';
-import { HttpClientModule } from '@angular/common/http'; 
-import {MatDialog} from '@angular/material/dialog'
-import { AdminDashboardService } from '../../services/admin-dashboard.service';
-import { MatMenuTrigger } from '@angular/material/menu'
-import { JarwisService } from '../../services/jarwis.service';
 import { CommonModule } from '@angular/common';
+import { SalesService } from '../../services/user_services/user-services.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [MatToolbarModule, MatButtonModule, MatIconModule, MatMenuModule,CommonModule],
+  imports: [MatToolbarModule, MatButtonModule, MatIconModule, MatMenuModule,CommonModule,RouterLink],
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent {
   medreps: any[] = [];
-  loggedInAdmin: any;
-  user: any;
+  first_name:string='';
   loading: boolean = true; 
 
-  constructor(private _dialog: MatDialog,private adminService: AdminDashboardService,private authService: JarwisService) {}
+  constructor(private userService:SalesService) {}
 
 
   ngOnInit(): void {
@@ -31,36 +27,18 @@ export class NavbarComponent {
   }
 
   fetchUser() {
-    this.authService.getUser().subscribe(
-      (response) => {
-        this.user = response;
-        this.loading = false; // Set loading to false when data is fetched
+    this.userService.getCurrentUser().subscribe(
+      response => {
+        this.first_name = response.user.first_name;
+        console.log('First Name:', this.first_name);
       },
-      (error) => {
-        console.error('Failed to fetch user data', error);
-        this.loading = false; // Set loading to false even on error
+      error => {
+        console.error('Error:', error);
       }
     );
   }
   logout() {
-    this.authService.logout();
+    this.userService.logout();
   }
-  /* ngOnInit(): void {
-    this.loadLoggedInAdmin();
-  } */
-
-  /* loadLoggedInAdmin(): void {
-    this.adminService.getLoggedInAdmin().subscribe(
-      admin => {
-        this.loggedInAdmin = admin;
-      },
-      error => {
-        console.error('Error fetching admin details:', error);
-        // Handle error appropriately (e.g., show error message)
-      }
-    );
-  } */
- 
-   
   }
 
