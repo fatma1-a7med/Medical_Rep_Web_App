@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
-
 export interface LoginData {
   email: string;
   password: string;
@@ -19,17 +18,12 @@ export class UserAuthServicesService {
       tap((response: any) => {
         if (response && response.token) {
           localStorage.setItem('token', response.token); // Save token to localStorage
-          localStorage.setItem('user_id', response.user_id);
         }
       }),
       catchError((error) => {
         return throwError(error);
       })
     );
-  }
-
-  isAuthenticated(): boolean {
-    return localStorage.getItem('token') !== null;
   }
 
 
@@ -43,9 +37,15 @@ export class UserAuthServicesService {
 
   logout() {
     localStorage.removeItem('token');
-    localStorage.removeItem('user_id');
   }
 
-  
+  isUser(): boolean {
+    // Check if user is regular user (implement based on your logic)
+    const role = localStorage.getItem('role');
+    return role === 'user';
+  }
 
+  isLoggedIn(): boolean {
+    return !!localStorage.getItem('token');
+  }
 }

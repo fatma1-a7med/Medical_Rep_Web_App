@@ -40,29 +40,21 @@ class doctorController extends Controller
      * @param  int  $id
      *     
       */
-      public function update(UpdateDoctor $request, $id)
-      {
-          $validatedData = $request->validated();
-          $doctor = Doctor::find($id);
-      
-          if (!$doctor) {
-              return response()->json(['message' => 'Doctor not found'], 404);
-          }
-      
-          try {
-              $doctor->update($validatedData);
-          } catch (\Exception $e) {
-              return response()->json(['error' => $e->getMessage()], 422);
-          }
-      
-          $updatedDoctor = Doctor::findOrFail($id);
-      
-          return response()->json([
-              'message' => 'Doctor updated successfully',
-              'data' => $updatedDoctor
-          ], 200);
+      public function update(updateDoctor $request,$id){
+        $validatedData = $request-> validated();
+        $doctor = Doctor::find($id);
+        if(!$doctor){
+            return response()->json(['massage'=>'Doctor not found'],200);
+        }else{
+            $doctor->update($validatedData);
+            $updateddoctor = Doctor::findOrFail($id);
+        }
+        return response()->json($updateddoctor, 200);
+
+
+
       }
-      
+
 
 
 

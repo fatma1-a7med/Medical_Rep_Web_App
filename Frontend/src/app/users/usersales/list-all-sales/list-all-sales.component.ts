@@ -1,5 +1,5 @@
-import { UserService } from './../../../services/user_services/user-services.service';
 import { Component, OnInit } from '@angular/core';
+import { SalesService } from '../../../services/user_services/user-services.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatIcon } from '@angular/material/icon';
@@ -15,7 +15,7 @@ import { RouterLink } from '@angular/router';
 export class ListAllSalesComponent implements OnInit {
   sales: any[] = [];
 
-  constructor(private salesService: UserService) {}
+  constructor(private salesService: SalesService) {}
 
   ngOnInit(): void {
     this.loadSales();
