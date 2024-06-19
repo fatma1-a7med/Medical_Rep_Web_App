@@ -1,0 +1,98 @@
+<h1 mat-dialog-title>{{  'Add Visit' }}</h1>
+<div mat-dialog-content>
+  <form [formGroup]="visitForm">
+    <mat-form-field>
+      <mat-label>Visit Date</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="visit_date">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Visit Time</mat-label>
+      <input matInput formControlName="visit_time" type="time">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Purpose</mat-label>
+      <input matInput formControlName="purpose">
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Status</mat-label>
+        <mat-select formControlName="status">
+          <mat-option *ngFor="let status of statusOptions" [value]="status">
+            {{ status }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    <mat-form-field>
+      <mat-label>Doctor</mat-label>
+      <mat-select formControlName="doctor_id">
+        <mat-option *ngFor="let doctor of doctors" [value]="doctor.id">
+            {{ doctor.first_name }} {{ doctor.last_name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Location</mat-label>
+        <mat-select formControlName="location_id" required>
+          <mat-option *ngFor="let location of locations" [value]="location.id">{{ location.name }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-button (click)="onSave()">Save</button>
+</div>
+
+
+
+ <!-- <h1 mat-dialog-title>Add Visit</h1>
+<div mat-dialog-content>
+  <form [formGroup]="visitForm">
+    <mat-form-field>
+      <mat-label>Visit Date</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="visit_date">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Visit Time</mat-label>
+      <input matInput formControlName="visit_time" type="time">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Purpose</mat-label>
+      <input matInput formControlName="purpose">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Status</mat-label>
+      <mat-select formControlName="status">
+        <mat-option *ngFor="let status of statusOptions" [value]="status">
+          {{ status }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Doctor</mat-label>
+      <mat-select formControlName="doctor_id">
+        <mat-option *ngFor="let doctor of doctors" [value]="doctor.doctor_name">
+            {{ doctor.doctor_name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div *ngIf="doctorAddress">
+      <p><strong>Address:</strong> {{ doctorAddress }}</p>
+    </div>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-button (click)="onSave()">Save</button>
+</div> -->

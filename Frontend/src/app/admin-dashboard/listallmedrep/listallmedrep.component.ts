@@ -145,40 +145,19 @@ import { MedrepDetailComponent } from '../medrep-detail/medrep-detail.component'
   templateUrl: './listallmedrep.component.html',
   styleUrls: ['./listallmedrep.component.css']
 })
-<<<<<<< HEAD
 export class ListallmedrepComponent implements OnInit {
   displayedColumns: string[] = ['id', 'first_name', 'last_name', 'email', 'phone_number', 'actions'];
   dataSource!: MatTableDataSource<any>;
-=======
-export class ListallmedrepComponent implements OnInit, AfterViewInit {
-  displayedColumns: string[] = ['id', 'first_name', 'last_name', 'email', 'phone_number', 'actions'];
-  dataSource: MatTableDataSource<any> = new MatTableDataSource();
->>>>>>> 43322a5a15e96bcc0b96431079b1dabf7b4743bf
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-<<<<<<< HEAD
   constructor(private _medrepservice: MedicalrepService, private _dialog: MatDialog) {}
-=======
-  constructor(private _medrepservice: MedicalrepService, private _dialog: MatDialog) { }
->>>>>>> 43322a5a15e96bcc0b96431079b1dabf7b4743bf
 
   ngOnInit(): void {
     this.getMedreplist();
   }
 
-<<<<<<< HEAD
-=======
-  ngAfterViewInit(): void {
-  
-    if (this.dataSource) {
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-  }
-  }
-
->>>>>>> 43322a5a15e96bcc0b96431079b1dabf7b4743bf
   openaddeditform() {
     const dialogRef = this._dialog.open(AddeditComponent);
     dialogRef.afterClosed().subscribe({
@@ -188,27 +167,8 @@ export class ListallmedrepComponent implements OnInit, AfterViewInit {
         }
       },
     });
-<<<<<<< HEAD
   }
 
-  getMedreplist(): void {
-    this._medrepservice.getMedreplist().subscribe({
-      next: (res) => {
-        this.dataSource = new MatTableDataSource(res);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-      },
-      error: (err) => {
-        console.error(err);
-      }
-    });
-  }
-
-=======
-}
-
-
->>>>>>> 43322a5a15e96bcc0b96431079b1dabf7b4743bf
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -218,7 +178,6 @@ export class ListallmedrepComponent implements OnInit, AfterViewInit {
     }
   }
 
-<<<<<<< HEAD
   deletemedrip(id: number) {
     this._medrepservice.deletemedrip(id).subscribe({
       next: (res) => {
@@ -226,11 +185,13 @@ export class ListallmedrepComponent implements OnInit, AfterViewInit {
         this.getMedreplist();
       },
       error: console.log,
-=======
+    });
+  }
+
   getMedreplist(): void {
     this._medrepservice.getMedreplist().subscribe({
       next: (res) => {
-        this.dataSource.data = res;
+        this.dataSource = new MatTableDataSource(res);
         if (this.paginator && this.sort) {
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
@@ -239,7 +200,6 @@ export class ListallmedrepComponent implements OnInit, AfterViewInit {
       error: (err) => {
         console.error(err);
       }
->>>>>>> 43322a5a15e96bcc0b96431079b1dabf7b4743bf
     });
   }
 
@@ -253,36 +213,6 @@ export class ListallmedrepComponent implements OnInit, AfterViewInit {
           this.getMedreplist();
         }
       },
-    });
-  }
-
-<<<<<<< HEAD
-  show(data: any) {
-    this._dialog.open(MedrepDetailComponent, {
-      data,
-      width: '400px' // Adjust width as needed
-=======
-
-  openeditform(data: any) {
-    const dialogRef = this._dialog.open(AddeditComponent, {
-      data,
-    });
-    dialogRef.afterClosed().subscribe({
-      next: (val) => {
-        if (val) {
-          this.getMedreplist();
-        }
-      }
-    });
-  }
-
-  deletemedrip(id: number) {
-    this._medrepservice.deletemedrip(id).subscribe({
-      next: (res) => {
-        alert('Medrep deleted successfully');
-        this.getMedreplist();
-      },
-      error: console.log,
     });
   }
 
@@ -290,7 +220,6 @@ export class ListallmedrepComponent implements OnInit, AfterViewInit {
     this._dialog.open(MedrepDetailComponent, {
       data,
       width: '400px'  // Adjust width as needed
->>>>>>> 43322a5a15e96bcc0b96431079b1dabf7b4743bf
     });
   }
 }

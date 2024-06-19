@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 
+import { FullCalendarModule } from '@fullcalendar/angular';
 import { RouterOutlet,RouterLink } from '@angular/router';
 import { NavbarComponent } from './navbar/navbar.component';
 import { HttpClientModule } from '@angular/common/http'; 
@@ -9,10 +10,12 @@ import { AddeditComponent } from './addedit/addedit.component';
 import { VisitManagementComponent } from './visit-managment/visit-managment.component';
 import { CommonModule, DatePipe } from '@angular/common';
 import { SideBarComponent } from './side-bar/side-bar.component';
+
+
 @Component({
   selector: 'app-admin-dashboard',
   standalone: true,
-  imports: [RouterOutlet,NavbarComponent,HttpClientModule,ListallmedrepComponent,RouterLink, VisitManagementComponent, CommonModule, DatePipe,SideBarComponent],
+  imports: [RouterOutlet,NavbarComponent,HttpClientModule,ListallmedrepComponent,RouterLink, VisitManagementComponent, CommonModule, DatePipe,SideBarComponent,FullCalendarModule],
   templateUrl: './admin-dashboard.component.html',
   styleUrl: './admin-dashboard.component.css'
 })

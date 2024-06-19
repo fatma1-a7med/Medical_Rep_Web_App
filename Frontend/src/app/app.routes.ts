@@ -20,6 +20,7 @@ import { LocationComponent } from './admin-dashboard/location/location.component
 import { ListAllSalesComponent } from './users/usersales/list-all-sales/list-all-sales.component';
 import { UsersComponent } from './users/users.component';
 import { SalesUserDetailsComponent } from './users/usersales/sales-details/sales-details.component';
+import { UservisitComponent } from './users/uservisit/uservisit.component';
 
 
 
@@ -37,8 +38,8 @@ export const routes: Routes = [
     children: [
       { path: '', component: ListallmedrepComponent },
       { path: 'add-medrep', component: AddeditComponent },
-      {path: 'activitymonitor' , component:ActivityMonitoringComponent} 
-
+      {path: 'activitymonitor' , component:ActivityMonitoringComponent} ,
+      
       { path: 'sales', component: SalesListComponent },
       { path: 'sales/add', component: SalesAddComponent },
       { path: 'sales/edit/:id', component: SalesEditComponent },
@@ -62,7 +63,8 @@ export const routes: Routes = [
     children: [
       { path: '', component: UsersComponent },
       { path: 'sales', component: ListAllSalesComponent },
-      { path: 'sales/details/:id', component: SalesUserDetailsComponent }
+      { path: 'sales/details/:id', component: SalesUserDetailsComponent },
+      {path:'plan', component:UservisitComponent}
 
     ]
   },

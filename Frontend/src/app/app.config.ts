@@ -10,7 +10,7 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withFetch()),
   
       { provide: DateAdapter, useClass: NativeDateAdapter },
-      { provide: MAT_DATE_FORMATS, useValue: MAT_NATIVE_DATE_FORMATS },
+      { provide: MAT_DATE_FORMATS, useValue: MAT_NATIVE_DATE_FORMATS }, provideAnimationsAsync(),
   ]};
 
 // import { ApplicationConfig } from '@angular/core';

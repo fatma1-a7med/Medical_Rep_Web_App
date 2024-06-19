@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import {jwtDecode} from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root'
@@ -17,23 +18,27 @@ export class TokenService {
   }
 
   set(token: string) {
-    localStorage!.setItem('token', token);
+    localStorage.setItem('token', token);
   }
 
   get() {
-    return localStorage!.getItem('token');
+    return localStorage.getItem('token');
+    
   }
 
   remove() {
-    localStorage!.removeItem('token');
+    localStorage.removeItem('token');
   }
-
+  isTokenStructureValid(token: string): boolean {
+    // Check if token has three parts separated by dots
+    return token.split('.').length === 3;
+  }
   isValid() {
     const token = this.get();
     if (token) {
       const payload = this.payload(token);
       if (payload) {
-        return Object.values(this.iss).indexOf(payload.iss) > -1 ? true : false;
+        return Object.values(this.iss).includes(payload.iss);
       }
     }
     return false;
@@ -44,7 +49,7 @@ export class TokenService {
       const payload = token.split('.')[1];
       return this.decode(payload);
     } catch (error) {
-      console.error('Error decoding token:', error);
+      console.error('Error decoding token payload:', error);
       return null;
     }
   }
@@ -61,4 +66,23 @@ export class TokenService {
   loggedIn() {
     return this.isValid();
   }
+
+ 
+  
+ 
+  getUserInfo(): any {
+    const token = this.get();
+    if (token && this.isTokenStructureValid(token)) {
+      try {
+        return jwtDecode(token);
+      } catch (error) {
+        console.error('Error decoding token:', error);
+        return null;
+      }
+    } else {
+      console.error('Invalid token structure');
+    }
+    return null;
+  }
+  
 }

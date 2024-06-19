@@ -1,6 +1,6 @@
 import { CUSTOM_ELEMENTS_SCHEMA, Component, Inject, OnInit, PLATFORM_ID, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { CommonModule, DatePipe, isPlatformBrowser } from '@angular/common';
+import { CommonModule, DatePipe, isPlatformBrowser,DOCUMENT } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -34,13 +34,12 @@ export class ActivityMonitoringComponent implements OnInit {
   users: any[] = [];
   visitHistory: VisitModelTs[] = [];
   plannedVisits: GroupedVisits = {};
-
   selectedUser: any = null;
   startDate: string = '';
   endDate: string = '';
   firstName: string = '';
   lastName: string = '';
-  private isBrowser: boolean;
+  isBrowser: boolean;
   calendarOptions: CalendarOptions = {
     plugins: [dayGridPlugin],
     initialView: 'dayGridMonth',
@@ -48,16 +47,19 @@ export class ActivityMonitoringComponent implements OnInit {
   };
 
   constructor(
-    @Inject(PLATFORM_ID) platformId: Object,
+    @Inject(PLATFORM_ID) private platformId: Object,
+    @Inject(DOCUMENT) private document: Document,
     private visitService: VisitService,
     private datePipe: DatePipe,
     private dialog: MatDialog
   ) {
-    this.isBrowser = isPlatformBrowser(platformId);
+    this.isBrowser = isPlatformBrowser(this.platformId);
   }
 
   ngOnInit(): void {
-    this.loadUsers();
+    if (this.isBrowser) {
+      this.loadUsers();
+    }
   }
 
   loadUsers() {
@@ -133,23 +135,21 @@ export class ActivityMonitoringComponent implements OnInit {
   }
 
   loadPlannedVisits(userId: number) {
-    if (!this.isBrowser) {
-      return;
+    if (this.isBrowser) {
+      this.visitService.getPlannedVisits(userId).subscribe(
+        (data: VisitModelTs[]) => {
+          const events = data.map((visit: VisitModelTs) => ({
+            title: visit.purpose,
+            start: `${visit.visit_date}T${visit.visit_time}`,
+            classNames: ['custom-event-class']
+          }));
+          this.calendarOptions.events = events;
+        },
+        (error) => {
+          console.error('Error loading planned visits:', error);
+        }
+      );
     }
-    
-    this.visitService.getPlannedVisits(userId).subscribe(
-      (data: VisitModelTs[]) => {
-        const events = data.map((visit: VisitModelTs) => ({
-          title: visit.purpose,
-          start: `${visit.visit_date}T${visit.visit_time}`,
-          classNames: ['custom-event-class']
-        }));
-        this.calendarOptions.events = events;
-      },
-      (error) => {
-        console.error('Error loading planned visits:', error);
-      }
-    );
   }
 
   groupByDate(visits: VisitModelTs[]): GroupedVisits {
@@ -164,16 +164,18 @@ export class ActivityMonitoringComponent implements OnInit {
   }
 
   readMore(visit: VisitModelTs) {
-    this.visitService.getVisitDetailsById(visit.id).subscribe(
-      (details) => {
-        this.dialog.open(VisitDetailsDialogComponent, {
-          data: details
-        });
-      },
-      (error) => {
-        console.error('Error loading visit details:', error);
-      }
-    );
+    if (this.isBrowser) {
+      this.visitService.getVisitDetailsById(visit.id).subscribe(
+        (details) => {
+          this.dialog.open(VisitDetailsDialogComponent, {
+            data: details
+          });
+        },
+        (error) => {
+          console.error('Error loading visit details:', error);
+        }
+      );
+    }
   }
 }
 
