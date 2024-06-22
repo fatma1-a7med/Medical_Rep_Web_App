@@ -1,3 +1,4 @@
+import { UserLocationComponent } from './user/user-location/user-location.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common'; // Import CommonModule
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
@@ -17,8 +18,13 @@ import { SalesEditComponent } from './admin-dashboard/sales/sales-edit/sales-edi
 import { SalesDetailsComponent } from './admin-dashboard/sales/sales-details/sales-details.component';
 import { VisitManagementComponent } from './admin-dashboard/visit-managment/visit-managment.component';
 import { LocationComponent } from './admin-dashboard/location/location.component';
+import { UserLoginComponent } from './user-auth/user-login/user-login.component';
+import { AdminAuthGuard } from './services/admin-auth-guard.service';
+import { UserAuthGuard } from './services/user-auth-gard.service';
+import { HomeComponent } from './user/home/home.component';
+import { UserComponent } from './user/user.component';
+import { WelcomeComponent } from './welcome/welcome.component';
 import { ListAllSalesComponent } from './users/usersales/list-all-sales/list-all-sales.component';
-import { UsersComponent } from './users/users.component';
 import { SalesUserDetailsComponent } from './users/usersales/sales-details/sales-details.component';
 import { UservisitComponent } from './users/uservisit/uservisit.component';
 
@@ -26,19 +32,32 @@ import { UservisitComponent } from './users/uservisit/uservisit.component';
 
 
 export const routes: Routes = [
+  {path:'',component:WelcomeComponent},
+  { path: 'user',
+    canActivate: [UserAuthGuard],
+    component:UserComponent, 
+    children: [
+    { path: '', component: HomeComponent },
+    { path: 'home', component: HomeComponent },
+    {path:'userLocation', component:UserLocationComponent},
+    {path:'sales',component:ListAllSalesComponent},
+    {path:'sales/details/:id',component:SalesUserDetailsComponent}
+    
+  ] },
+ 
+  { path: 'admin/login', component: LoginComponent },  
   { path: 'password/email', component: ForgetpasswordComponent },
   { path: 'password/reset/:token', component: ResetPasswordComponent }, 
 
 
-  { path: '', redirectTo: 'admin/login', pathMatch: 'full' },
-
   {
     path: 'admin-dashboard',
+    canActivate:[AdminAuthGuard],
     component: AdminDashboardComponent,
     children: [
       { path: '', component: ListallmedrepComponent },
       { path: 'add-medrep', component: AddeditComponent },
-      {path: 'activitymonitor' , component:ActivityMonitoringComponent} ,
+      {path: 'activitymonitor' , component:ActivityMonitoringComponent} ,,
       
       { path: 'sales', component: SalesListComponent },
       { path: 'sales/add', component: SalesAddComponent },
@@ -46,12 +65,14 @@ export const routes: Routes = [
       { path: 'sales/details/:id', component: SalesDetailsComponent },
       {path: 'visit-managment', component:VisitManagementComponent},
       {path: 'loction-tracking', component:LocationComponent},
+      { path: 'reporting', component: ReportingComponent },
 
      
 
     
     ]
   },
+  
  
   { path: 'admin/login', component: LoginComponent },
   { path: 'admin/register', component: RegisterComponent },
@@ -76,3 +97,8 @@ export const routes: Routes = [
 
 
 
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }

@@ -26,9 +26,8 @@ class Doctor extends Model
 
     public function visits()
     {
-        return $this->belongsToMany(Visit::class, 'doctors_visits');
+        return $this->hasMany(Visit::class);
     }
-
     public function tools()
     {
         return $this->belongsToMany(Tool::class, 'doctors_tools');

@@ -4,61 +4,64 @@ namespace App\Http\Controllers\Users_Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Visit; 
+use App\Models\Visit;
+use App\Models\Doctor;
+use App\Models\Tool;
+
 class UserVisitController extends Controller
 {
     public function index()
-{
-    $visits = Visit::with(['doctors.tools', 'user'])->get();
-
-    $result = $visits->map(function ($visit) {
-        return [
-            'id' => $visit->id,
-            'visit_date' => $visit->visit_date,
-            'status' => $visit->status,
-            'doctor' => $visit->doctors->map(function ($doctor) {
-                return [
-                    'doctor_name' => $doctor->first_name . ' ' . $doctor->last_name,
-                    'city' => $doctor->city,
-                    'state' => $doctor->state,
-                    'street' => $doctor->street,
-                ];
-            }),
-            'tools' => $visit->doctors->flatMap(function ($doctor) {
-                return $doctor->tools->map(function ($tool) {
-                    return [
-                        'tool_name' => $tool->name,
-                    ];
-                });
-            }),
-        ];
-    });
-
-    return response()->json($result);
-}
+    {
+        $visits = Visit::with(['doctor', 'tools', 'user'])->get();
+        return response()->json($visits);
+    }
 
     public function show($id)
     {
-        return Visit::find($id);
+        $visit = Visit::with(['doctor', 'tools', 'user'])->find($id);
+        if ($visit) {
+            return response()->json($visit);
+        } else {
+            return response()->json(['message' => 'Visit not found'], 404);
+        }
     }
 
     public function store(Request $request)
     {
-        $visit = Visit::create($request->all());
-        return response()->json($visit, 201);
+        $validatedData = $request->validate([
+            'user_id' => 'required|integer',
+            'doctor_id' => 'required|integer',
+            'tools' => 'required|array',
+            'tools.*' => 'integer', // Assuming tools are sent as an array of tool IDs
+        ]);
+
+        $visit = Visit::create($validatedData);
+        $visit->tools()->attach($request->tools);
+        return response()->json($visit->load('doctor', 'tools', 'user'), 201);
     }
 
     public function update(Request $request, $id)
     {
         $visit = Visit::findOrFail($id);
-        $visit->update($request->all());
-        return response()->json($visit, 200);
+        $validatedData = $request->validate([
+            'user_id' => 'integer',
+            'doctor_id' => 'integer',
+            'tools' => 'array',
+            'tools.*' => 'integer',
+        ]);
+
+        $visit->update($validatedData);
+        if ($request->has('tools')) {
+            $visit->tools()->sync($request->tools);
+        }
+        return response()->json($visit->load('doctor', 'tools', 'user'), 200);
     }
 
     public function delete($id)
     {
-        Visit::findOrFail($id)->delete();
-        
+        $visit = Visit::findOrFail($id);
+        $visit->delete();
+
         return response()->json(null, 204);
     }
 }

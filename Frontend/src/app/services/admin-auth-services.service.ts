@@ -40,4 +40,13 @@ export class AdminAuthServiceService {
   getToken(): string | null {
     return localStorage.getItem('token');
   }
+  isAdmin(): boolean {
+    // Check if user is admin (implement based on your logic)
+    const role = localStorage.getItem('role');
+    return role === 'admin';
+  }
+
+  isLoggedIn(): boolean {
+    return !!localStorage.getItem('token');
+  }
 }

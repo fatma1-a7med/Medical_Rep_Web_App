@@ -8,7 +8,10 @@
         <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Menna" #input >  
       </mat-form-field><br>
       <div class="d-flex justify-content-between">
-        <h3>Users List</h3>
+        <div>
+          <h3>Users List</h3>
+        <hr class=" custom-hr">
+        </div>
           <button mat-button class="add-med-rep"(click)="openaddeditform()">
             <mat-icon >person_add</mat-icon>
           </button>

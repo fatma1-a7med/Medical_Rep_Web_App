@@ -10,13 +10,14 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AdminAuthController;
 use App\Http\Controllers\Api\LoctionController;
+
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VisitController;
 use App\Http\Controllers\Users_Controllers\UserVisitController;
 use App\Http\Controllers\VisitReportingController;
-use App\Http\Controllers\DoctorController;
+use App\Http\Controllers\doctorController;
 use App\Http\Controllers\Users_Controllers\LocationController;
-
+use App\Http\Controllers\AdminController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -33,8 +34,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
+// routes/api.php
+Route::middleware('auth:api')->get('/admin', function (Request $request) {
+    return $request->user(); // This will return the authenticated admin details
+});
 
-
+Route::get('admins', [AdminController::class, 'index']);
 
 Route::prefix('admin')->group(function () {
     Route::post('register', [AdminAuthController::class, 'createAdmin']);
@@ -42,11 +47,15 @@ Route::prefix('admin')->group(function () {
     Route::post('password/email', [ForgotPasswordAdminController::class, 'sendResetLinkEmail'])->name('password.email');
     Route::post('password/reset/{token}', [ResetPasswordAdminController::class, 'reset'])->name('password.reset');
     
+    //sales
     Route::apiResource('sales', SalesController::class);
-    Route::get('users/{user}/sales', [SalesController::class,'user_sales']);
-    Route::get('me', [AdminAuthController::class, 'me']);
-      
-    Route::middleware('auth:sanctum')->post('logout', [AdminAuthController::class, 'logout']);
+    // Route::get('users/{user}/sales', [SalesController::class,'user_sales']);
+
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::get('me', [AdminAuthController::class, 'me']);
+        Route::post('logout', [AdminAuthController::class, 'logout']);
+        Route::get('logged-in-admin', [AdminAuthController::class, 'getLoggedInAdmin']);
+    });
 
     //admin visit routes
     Route::get('visits', [VisitController::class, 'index']);
@@ -56,6 +65,11 @@ Route::prefix('admin')->group(function () {
 
     //admin location tracking
     Route::get('/location',[LoctionController::class,'index']);
+    Route::post('/location', [LoctionController::class, 'store']);
+
+
+
+    
     Route::get('visits/history/{user_id}', [VisitController::class, 'getVisitHistory']);
     Route::get('visits/planned/{user_id}', [VisitController::class, 'getPlannedVisits']);
     Route::get('/visits/recent', [VisitController::class, 'recent']);
@@ -63,6 +77,21 @@ Route::prefix('admin')->group(function () {
 
 Route::prefix('user')->group(function () {
     Route::post('login', [UserAuthController::class, 'loginUser']);
+    Route::middleware('auth:sanctum')->get('info',[UserAuthController::class, 'getUserId']);
+    Route::middleware('auth:sanctum')->get('UserInfo',[UserAuthController::class, 'getUser']);
+    Route::middleware('auth:sanctum')->post('/logout', [UserAuthController::class, 'logoutUser']);
+    Route::middleware('auth:sanctum')->get('/sales', [\App\Http\Controllers\Users_Controllers\salesController::class, 'index']);
+    Route::middleware('auth:sanctum')->get('/sales/{id}', [\App\Http\Controllers\Users_Controllers\salesController::class, 'show']);
+
+
+    //doctor Routes
+    Route::post('add-doctor', [doctorController:: class, 'AddDoctor']);
+    Route::get('get-all-doctors', [doctorController:: class, 'gettAllDoctors']);
+    Route::get('get-doctor-byId/{id}', [doctorController:: class, 'show']);
+    Route::delete('delete-doctor-byId/{id}', [doctorController:: class, 'destroy']);
+    Route::put('update-doctor-byId/{id}', [doctorController:: class, 'update']);
+
+
     Route::apiResource('sales', SalesController::class);
     
     Route::get('visits', [UserVisitController::class, 'index']);

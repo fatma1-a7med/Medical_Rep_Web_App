@@ -1,31 +1,37 @@
 <div class="container Visit_content">
-  <h2 class="text-center">Visit mangment</h2>
+ 
 
   <!-- Search Form -->
   <form class="mb-3" >
-   <div class=" container row">
-     <!-- Date Range Search -->
-     <div class="col-md-6 col-sm-6 col-lg-4">
-       <label for="startDate" class="form-label ">Start Date</label>
-       <input type="date" class="form-control" id="startDate" name="startDate" [(ngModel)]="startDate">
+  <div style="margin-left: 130px;" class="mt-5">
+    <div class=" container row">
+      <!-- Date Range Search -->
+      <div class="col-md-6 col-sm-6 col-lg-4">
+        <label for="startDate" class="form-label ">Start Date</label>
+        <input type="date" class="form-control" id="startDate" name="startDate" [(ngModel)]="startDate">
+      </div>
+      <div class="col-md-6 col-sm-6 col-lg-4">
+       <label for="endDate" class="form-label">End Date</label>
+        <input type="date" class="form-control" id="endDate" name="endDate" [(ngModel)]="endDate">
+      </div>
+      <button class="btn text-light  col-md-12 col-lg-2 col-sm-12 m-4" (click)="searchByDateRange()"  style="background-color: #1CA4AC; color:#fff;" >Filter</button>
      </div>
-     <div class="col-md-6 col-sm-6 col-lg-4">
-      <label for="endDate" class="form-label">End Date</label>
-       <input type="date" class="form-control" id="endDate" name="endDate" [(ngModel)]="endDate">
+  <!-- Name Search -->
+   <div class="container row">
+     <div class="col-md-12 col-sm-12 col-lg-8">
+       <label for="username" class="form-label">Full Name</label>
+       <input type="text" class="form-control" id="username" name="username" [(ngModel)]="username">
      </div>
-     <button class="btn text-light  col-md-12 col-lg-2 col-sm-12 m-4" (click)="searchByDateRange()"style="background-color:#24A8EF; ">Search by Date Range</button>
-    </div>
- <!-- Name Search -->
-  <div class="container row m-3">
-    <div class="col-md-12 col-sm-12 col-lg-8">
-      <label for="username" class="form-label">Full Name</label>
-      <input type="text" class="form-control" id="username" name="username" [(ngModel)]="username">
-    </div>
-
-    <button class="btn text-light  col-md-12 col-lg-3 col-sm-12 m-4" (click)="searchByUsername()" style="background-color:#24A8EF; ">Search by Name</button>
-     </div>
+ 
+     <button class="btn text-light  col-md-12 col-lg-3 col-sm-12 m-4" (click)="searchByUsername()" style="background-color: #1CA4AC; color:#fff;">Search by Name</button>
+      </div>
+  </div>
+  </form>
   
-
+  <div>
+    <h3 class="mt-5">Visit mangment</h3>
+    <hr class=" custom-hr">
+  </div>
 
 
   
@@ -88,4 +94,5 @@
         </div>
       </div>
     </div>
+</div>
 </div>

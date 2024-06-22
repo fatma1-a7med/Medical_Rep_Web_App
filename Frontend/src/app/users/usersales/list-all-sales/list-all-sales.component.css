@@ -37,3 +37,9 @@
 .custom-info-icon {
     color: #28a745;
 }
+.custom-hr {
+    border-top: 3px solid #1CA4AC; 
+    width: 17%; 
+   margin-top: -.3rem;
+  }
+

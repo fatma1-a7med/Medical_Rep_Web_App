@@ -166,6 +166,7 @@ class VisitController extends Controller
 }
 
 
+
 public function getVisitHistory($user_id)
 {
     $visitHistory = Visit::where('user_id', $user_id)

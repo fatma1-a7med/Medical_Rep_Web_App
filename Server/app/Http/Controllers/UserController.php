@@ -41,11 +41,10 @@ class UserController extends Controller
             'street' => 'required|string|max:255',
             'gender' => 'nullable|string|in:Male,Female|max:50',
             'birthDate' => 'nullable|date',
-            'location_id' => 'nullable|integer',
             'admin_id' => 'nullable|integer',
             'phone_number' => 'required|string|max:20',
             'territory' => 'required|string|max:255',
-            'image' => 'nullable|file|max:1024', // Adjusted max file size
+            'image' => 'nullable|file|max:1024',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8',
         ]);
@@ -55,15 +54,15 @@ if ($request->hasFile('image')) {
     // Get the uploaded image file
     $image = $request->file('image');
 
-    // Generate a unique name for the image
-    $imageName = time() . '.' . $image->getClientOriginalExtension();
+        // Generate a unique name for the image
+           $imageName = time() . '.' . $image->getClientOriginalExtension();
 
-    // Store the image file in the public/images directory
-    $image->move(public_path('images'), $imageName);
+         // Store the image file in the public/images directory
+        $image->move(public_path('images'), $imageName);
 
-    // Store the image path in the validated data array
-    $validatedData['image'] = $imageName;
-}
+      // Store the image path in the validated data array
+       $validatedData['image'] = $imageName;
+    }
     
         // Create the user with the validated data
         $user = User::create($validatedData);
@@ -83,7 +82,7 @@ if ($request->hasFile('image')) {
         // $user->image_url = asset('storage/images/' . $imageName);
     
         // Return a JSON response with a success message
-        return response()->json(['message' => 'User created successfully', 'data' => $user], 201);
+        // return response()->json(['message' => 'User created successfully', 'data' => $user], 201);
     }
     
     
@@ -118,13 +117,12 @@ if ($request->hasFile('image')) {
         'state' => 'sometimes|required|string|max:255',
         'city' => 'sometimes|required|string|max:255',
         'street' => 'sometimes|required|string|max:255',
-        'gender' => 'nullable|string|max:50',
+        'gender' => 'nullable|string|in:Male,Female|max:50',
         'birthDate' => 'nullable|date',
-        'location_id' => 'nullable|integer',
         'admin_id' => 'nullable|integer',
-        'phone_number' => 'sometimes|required|integer|max:20',
+        'phone_number' => 'sometimes|required|string|max:20',
         'territory' => 'sometimes|required|string|max:255',
-        'image' => 'nullable|file|max:255',
+        'image' => 'nullable|file|max:1024',
         'email' => 'sometimes|required|string|email|max:255|unique:users,email,' . $id,
         'password' => 'sometimes|required|string|min:8',
     ]);

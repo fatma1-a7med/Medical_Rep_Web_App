@@ -14,7 +14,7 @@ import { ReactiveFormsModule } from '@angular/forms';
  // the main connector
 import dayGridPlugin from '@fullcalendar/daygrid'; // Import the plugins you need
 import { SideBarComponent } from './admin-dashboard/side-bar/side-bar.component';
-import { UsersComponent } from './users/users.component';
+import { WelcomeComponent } from './welcome/welcome.component';
 
 @Component({
   selector: 'app-root',
@@ -32,9 +32,14 @@ import { UsersComponent } from './users/users.component';
     
     
   UsersComponent],
+  imports: [RouterLink,FormsModule,CommonModule,RouterOutlet,NavbarComponent,HttpClientModule,ListallmedrepComponent, AdminComponent, RouterLink,WelcomeComponent],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
   title = 'admin-dashboard';
 }
+
+
+
+

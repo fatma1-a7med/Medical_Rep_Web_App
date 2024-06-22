@@ -1,7 +1,8 @@
 .container{
   margin-left: 250px;
-  width: 70vw;
+  width: 77vw;
 }
+
 .custom-table {
     border: 1px solid #1CA4AC;
   }
@@ -79,5 +80,10 @@
   background: none; 
   outline: none; 
   cursor: pointer;
+  }
+  .custom-hr {
+    border-top: 3px solid #1CA4AC; 
+    width: 100%; 
+   margin-top: -.2rem;
   }
  

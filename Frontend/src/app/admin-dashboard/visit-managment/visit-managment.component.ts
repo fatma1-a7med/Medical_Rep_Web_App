@@ -15,6 +15,7 @@ import { AdminAuthServiceService } from '../../services/admin-auth-services.serv
 })
 export class VisitManagementComponent implements OnInit {
   visitDate: any[] = [];
+  users: any[] = [];
   startDate: Date | null = null;
   endDate: Date | null = null;
   username: string = '';
@@ -37,7 +38,18 @@ export class VisitManagementComponent implements OnInit {
         }
       );
   }
-
+  loadUsers(): void {
+    const url = 'http://localhost:8000/api/admin/users';
+    this.http.get<any[]>(url)
+      .subscribe(
+        data => {
+          this.users = data;
+        },
+        error => {
+          console.error('Error loading users:', error);
+        }
+      );
+  }
 
 
   searchByDateRange() {

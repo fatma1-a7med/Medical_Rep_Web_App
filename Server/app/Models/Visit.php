@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -14,12 +15,12 @@ class Visit extends Model
         'purpose',
         'status',
         'user_id',
-        'location_id',
+        
     ];
 
-    public function doctors()
+    public function doctor()
     {
-        return $this->belongsToMany(Doctor::class, 'doctors_visits');
+        return $this->belongsTo(Doctor::class);
     }
 
     public function user()
@@ -27,8 +28,9 @@ class Visit extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function location()
+    public function tools()
     {
-        return $this->belongsTo(Location::class);
+        return $this->belongsToMany(Tool::class, 'tool_visit');
     }
 }
+
