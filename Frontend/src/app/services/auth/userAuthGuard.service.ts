@@ -14,10 +14,12 @@ export class UserAuthGuard implements CanActivate {
 
   canActivate(): boolean {
     if (this.authService.isAuthenticated()) {
+      this.router.navigate(['/user/home']);
       return true;
     } else {
       this.router.navigate(['/user/login']);
       return false;
     }
   }
+
 }

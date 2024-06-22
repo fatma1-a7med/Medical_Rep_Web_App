@@ -80,7 +80,7 @@ class UserAuthController extends Controller
                 'email' => 'required|email',
                 'password' => 'required'
             ]);
-    
+
             if ($validateUser->fails()) {
                 return response()->json([
                     'status' => false,
@@ -88,32 +88,35 @@ class UserAuthController extends Controller
                     'errors' => $validateUser->errors()
                 ], 401);
             }
-    
+
             if (!Auth::attempt($request->only(['email', 'password']))) {
                 return response()->json([
                     'status' => false,
                     'message' => 'Email & Password do not match with our records.'
                 ], 401);
             }
-    
+
+            $user = Auth::user();
             $user = $request->user();
             $token = $user->createToken('API_TOKEN')->plainTextToken;
     
+
+
             return response()->json([
                 'status' => true,
                 'message' => 'User Logged In Successfully',
                 'token' => $token,
                 'user' => $user
+
             ], 200);
-    
+            
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => false,
                 'message' => $th->getMessage()
             ], 500);
         }
-    }
-    /**
+    }    /**
      * Get the authenticated user
      * @return \Illuminate\Http\JsonResponse
      */

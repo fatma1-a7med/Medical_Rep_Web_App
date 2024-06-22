@@ -4,7 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatMenuModule } from '@angular/material/menu';
 import { CommonModule } from '@angular/common';
-import {  UserService } from '../../services/user_services/user-services.service';
+import { UserService } from '../../services/user_services/user-services.service';
 import { RouterLink } from '@angular/router';
 
 @Component({
@@ -41,4 +41,3 @@ export class NavbarComponent {
     this.userService.logout();
   }
   }
-

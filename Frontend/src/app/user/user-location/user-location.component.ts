@@ -1,4 +1,4 @@
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { PLATFORM_ID, Inject } from '@angular/core';
@@ -14,7 +14,7 @@ declare const L:any;
 export class UserLocationComponent implements OnInit {
   map: any;
   marker: any;
-  constructor(private http: HttpClientModule,private userService:UserService,private locationService:LocationService){ }
+  constructor(private http: HttpClient,private userService:UserService,private locationService:LocationService){ }
 
   ngOnInit(): void {
     if (!navigator.geolocation) {

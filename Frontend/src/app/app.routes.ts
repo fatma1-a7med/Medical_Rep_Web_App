@@ -25,12 +25,18 @@ import { UserAuthGuard } from './services/auth/userAuthGuard.service';
 import { AdminGuard } from './services/auth/admin-auh-guard.guard';
 import { HomeComponent } from './user/home/home.component';
 import { UserLocationComponent } from './user/user-location/user-location.component';
+import { AuthService } from './services/auth.service';
+import { ListAllSalesComponent } from './users/usersales/list-all-sales/list-all-sales.component';
+import { SalesUserDetailsComponent } from './users/usersales/sales-details/sales-details.component';
+import { WelcomeComponent } from './welcome/welcome.component';
 
 
 
 
 export const routes: Routes = [
-    { path: '', redirectTo: 'admin/login', pathMatch: 'full' },
+       //welcomig 
+  {path:'',component:WelcomeComponent},
+
 
     //admin auth
     { path: 'admin/login', component: LoginComponent },  
@@ -43,19 +49,27 @@ export const routes: Routes = [
      { path:'user/login', component:UserLoginComponent},
   
   
-
     //user routes
     {
       path: 'user',
-      canActivate: [UserAuthGuard],
+      // canActivate: [UserAuthGuard],
       children: [
+
+        { path: '', component: HomeComponent },
         { path: 'home', component: HomeComponent },
+        { path: 'list-All-Doctors', component: ListDoctorsComponent },
         {path:'userLocation', component:UserLocationComponent},
         
         //doctor
         { path: 'list-All-Doctors', component: ListDoctorsComponent },
         { path: 'show-doctor/:id', component: ShowDoctorComponent },
         { path: 'add-doctor', component: AddDoctorComponent },
+
+        //user salles
+        {path:'userLocation', component:UserLocationComponent},
+        {path:'sales',component:ListAllSalesComponent},
+        {path:'sales/details/:id',component:SalesUserDetailsComponent}
+    
       ]
     },
   
@@ -76,6 +90,7 @@ export const routes: Routes = [
       { path: 'sales/details/:id', component: SalesDetailsComponent },
       {path: 'visit-managment', component:VisitManagementComponent},
       {path: 'loction-tracking', component:LocationComponent},
+      { path: 'reporting', component: ReportingComponent },
     ]
   },
   
