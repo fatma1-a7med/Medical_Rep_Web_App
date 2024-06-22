@@ -1,3 +1,4 @@
+import { UserLocationComponent } from './user/user-location/user-location.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common'; // Import CommonModule
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
@@ -18,17 +19,19 @@ import { SalesDetailsComponent } from './admin-dashboard/sales/sales-details/sal
 import { VisitManagementComponent } from './admin-dashboard/visit-managment/visit-managment.component';
 import { LocationComponent } from './admin-dashboard/location/location.component';
 import { UserLoginComponent } from './user-auth/user-login/user-login.component';
+import { AdminAuthGuard } from './services/admin-auth-guard.service';
+import { UserAuthGuard } from './services/user-auth-gard.service';
+import { HomeComponent } from './user/home/home.component';
+import { AuthService } from './services/auth.service';
+import { SalesUserDetailsComponent } from './users/usersales/sales-details/sales-details.component';
+import { UserComponent } from './user/user.component';
+import { WelcomeComponent } from './welcome/welcome.component';
+import { ListAllSalesComponent } from './users/usersales/list-all-sales/list-all-sales.component';
 import { ListDoctorsComponent } from './users/doctors/list-doctors/list-doctors.component';
 import { AddDoctorComponent } from './users/doctors/add-doctor/add-doctor.component';
 import { ShowDoctorComponent } from './users/doctors/show-doctor/show-doctor.component';
-import { UserAuthGuard } from './services/auth/userAuthGuard.service';
-import { AdminGuard } from './services/auth/admin-auh-guard.guard';
-import { HomeComponent } from './user/home/home.component';
-import { UserLocationComponent } from './user/user-location/user-location.component';
-import { AuthService } from './services/auth.service';
-import { ListAllSalesComponent } from './users/usersales/list-all-sales/list-all-sales.component';
-import { SalesUserDetailsComponent } from './users/usersales/sales-details/sales-details.component';
-import { WelcomeComponent } from './welcome/welcome.component';
+
+
 
 
 
@@ -57,7 +60,6 @@ export const routes: Routes = [
 
         { path: '', component: HomeComponent },
         { path: 'home', component: HomeComponent },
-        { path: 'list-All-Doctors', component: ListDoctorsComponent },
         {path:'userLocation', component:UserLocationComponent},
         
         //doctor
@@ -68,16 +70,34 @@ export const routes: Routes = [
         //user salles
         {path:'userLocation', component:UserLocationComponent},
         {path:'sales',component:ListAllSalesComponent},
-        {path:'sales/details/:id',component:SalesUserDetailsComponent}
+        {path:'sales/details/:id',component:SalesDetailsComponent}
     
       ]
     },
   
 
   //admin routes
+  {path:'',component:WelcomeComponent},
+  { path: 'user',
+    canActivate: [UserAuthGuard],
+    component:UserComponent, 
+    children: [
+    { path: '', component: HomeComponent },
+    { path: 'home', component: HomeComponent },
+    {path:'userLocation', component:UserLocationComponent},
+    {path:'sales',component:ListAllSalesComponent},
+    {path:'sales/details/:id',component:SalesUserDetailsComponent}
+    
+  ] },
+ 
+  { path: 'admin/login', component: LoginComponent },  
+  { path: 'password/email', component: ForgetpasswordComponent },
+  { path: 'password/reset/:token', component: ResetPasswordComponent }, 
+
+
   {
     path: 'admin-dashboard',
-    canActivate:[AdminGuard],
+    canActivate:[AdminAuthGuard],
     component: AdminDashboardComponent,
     children: [
       { path: '', component: ListallmedrepComponent },
@@ -94,6 +114,10 @@ export const routes: Routes = [
     ]
   },
   
+ 
+  { path: 'admin/login', component: LoginComponent },
+  { path: 'admin/register', component: RegisterComponent },
+  { path:'user/login', component:UserLoginComponent},
   { path: '**', component: NotfoundComponent }
    
  

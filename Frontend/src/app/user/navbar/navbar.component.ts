@@ -4,7 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatMenuModule } from '@angular/material/menu';
 import { CommonModule } from '@angular/common';
-import { UserService } from '../../services/user_services/user-services.service';
+import { SalesService } from '../../services/user_services/user-services.service';
 import { RouterLink } from '@angular/router';
 
 @Component({
@@ -19,7 +19,7 @@ export class NavbarComponent {
   first_name:string='';
   loading: boolean = true; 
 
-  constructor(private userService:UserService) {}
+  constructor(private userService:SalesService) {}
 
 
   ngOnInit(): void {

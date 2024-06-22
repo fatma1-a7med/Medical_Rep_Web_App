@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { MatIcon } from '@angular/material/icon';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { SalesService } from '../../../services/user_services/user-services.service';
+import { UserService } from '../../../services/user_services/user-services.service';
 import { Router } from '@angular/router';
 import { FormsModule, NgModel } from '@angular/forms';
 import { AddDoctorComponent } from '../add-doctor/add-doctor.component';
@@ -37,7 +37,7 @@ export class ListDoctorsComponent implements OnInit ,AfterViewInit{
 
   constructor(
     private router: Router,
-    private doctorServices: SalesService,
+    private doctorServices: UserService,
     private _dialog : MatDialog)
   {}
 

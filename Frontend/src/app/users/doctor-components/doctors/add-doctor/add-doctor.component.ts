@@ -1,3 +1,5 @@
+
+
 import { Component, Inject, OnInit, EventEmitter, Output } from '@angular/core';
 import { CommonModule } from '@angular/common'; // Import CommonModule
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
@@ -12,7 +14,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { HttpClientModule } from '@angular/common/http';
 import { DatePipe } from '@angular/common'; 
 import { MatSelectModule } from '@angular/material/select';
-import { SalesService } from '../../../services/user_services/user-services.service';
+import { UserService } from '../../../services/user_services/user-services.service';
 
 @Component({
   selector: 'app-add-doctor',
@@ -33,15 +35,15 @@ import { SalesService } from '../../../services/user_services/user-services.serv
   styleUrl: './add-doctor.component.css'
 })
 
+
 export class AddDoctorComponent implements OnInit {
   @Output() doctorAdded = new EventEmitter<any>();
   userForm: FormGroup;
   isFormSubmitted = false;
-  initialDoctorData: any;
 
   constructor(
     private _fb: FormBuilder,
-    private doctorService: SalesService,
+    private doctorService: UserService, // Adjust the service name as per your implementation
     public _dialogRef: MatDialogRef<AddDoctorComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
@@ -62,66 +64,55 @@ export class AddDoctorComponent implements OnInit {
   ngOnInit(): void {
     if (this.data) {
       this.userForm.patchValue(this.data);
-      this.initialDoctorData = { ...this.data };
     }
   }
 
   onSubmit() {
     this.isFormSubmitted = true;
     if (this.userForm.valid) {
-      const formData = {
-        ...this.userForm.value,
-        phone_number: this.userForm.value.phone_number.toString()
-      };
-
-      if (this.data) {
-        const updatedDoctorData = {
-          ...this.initialDoctorData,
-          ...formData
+        const formData = {
+            ...this.userForm.value,
+            phone_number: this.userForm.value.phone_number.toString() // Ensure phone number is a string
         };
 
-        this.doctorService.updateDoctor(this.data.id, updatedDoctorData).subscribe({
-          next: (val: any) => {
-            alert('Doctor details updated successfully');
-            this._dialogRef.close(true);
-          },
-          error: (err: any) => {
-            console.error('Update Error:', err);
-            this.handleErrorResponse(err);
-          }
-        });
-            } else {
-        // Add new doctor
-        this.doctorService.AddDoctor(formData).subscribe({
-          next: (val: any) => {
-            alert('Doctor added successfully');
-            this._dialogRef.close(true);
-          },
-          error: (err: any) => {
-            console.error('Add Error:', err);
-            if (err.status === 422) {
-              alert('Failed to add Doctor. Please check the input data.');
-              if (err.error.errors) {
-                console.error('Validation Errors:', err.error.errors);
-              }
-            } else {
-              alert('An unexpected error occurred. Please try again.');
-            }
-          }
-        });
-      }
-    }
-  }
-  private handleErrorResponse(err: any): void {
+        console.log('Form Data:', formData);
+
+        if (this.data) {
+            // Update existing doctor
+            this.doctorService.updateDoctor(this.data.id, formData).subscribe({
+                next: (val: any) => {
+                    alert('Doctor details updated successfully');
+                    this._dialogRef.close(true);
+                },
+                error: (err: any) => {
+                    console.error('Update Error:', err);
+                    if (err.status === 422) {
+                        alert('Failed to update Doctor details. Please check the input data.');
+                        if (err.error.errors) {
+                            console.error('Validation Errors:', err.error.errors);
+                        }
+                    } else {
+                        alert('An unexpected error occurred. Please try again.');
+                    }
+                }
+            });
+        } else {
+// Add new doctor
+this.doctorService.AddDoctor(formData).subscribe({
+  next: (val: any) => {
+    alert('Doctor added successfully');
+    this._dialogRef.close(true);
+  },
+  error: (err: any) => {
+    console.error('Add Error:', err);
     if (err.status === 422) {
-      if (err.error.errors && err.error.errors.email) {
-        alert('The email has already been taken. Please use a different email.');
-      } else {
-        alert('Failed to update Doctor details. Please check the input data.');
-      }
-      console.error('Validation Errors:', err.error.errors);
+      alert('Failed to add Doctor. Please check the input data.');
     } else {
       alert('An unexpected error occurred. Please try again.');
     }
   }
+});
+}
+}
+}
 }

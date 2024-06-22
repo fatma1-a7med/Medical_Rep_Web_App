@@ -3,8 +3,6 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
-
 
 class DoctorReauest extends FormRequest
 {
@@ -29,15 +27,9 @@ class DoctorReauest extends FormRequest
                 'state' => 'required|string|max:255',
                 'city' => 'required|string|max:255',
                 'street' => 'required|string|max:255',
-                'phone_number' => 'sometimes|string|regex:/^[0-9]{10,20}$/',
-                'territory' => 'sometimes|string|max:255',
-                 'email' => [
-                  'sometimes',
-                  'string',
-                   'email',
-                   'max:255',
-                    Rule::unique('doctors')->ignore($this->route('id')),
-            ],
+                'phone_number' => 'required|integer',
+                'territory' => 'required|string|max:255',
+                'email' => 'required|string|email|max:255|unique:doctors',
                 'specialization' => 'required|string|max:225',
                 'class_rate' => 'nullable|string|in:A,B,C',
 

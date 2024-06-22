@@ -46,15 +46,13 @@ Route::prefix('admin')->group(function () {
     
     //sales
     Route::apiResource('sales', SalesController::class);
-    Route::get('users/{user}/sales', [SalesController::class,'user_sales']);
-    // Route::middleware('auth:sanctum')->get('me', [AdminAuthController::class, 'me']);
-    // Route::middleware('auth:sanctum')->post('logout', [AdminAuthController::class, 'logout']);
     // Route::get('users/{user}/sales', [SalesController::class,'user_sales']);
 
+    Route::middleware('auth:sanctum')->group(function () {
         Route::get('me', [AdminAuthController::class, 'me']);
         Route::post('logout', [AdminAuthController::class, 'logout']);
         Route::get('logged-in-admin', [AdminAuthController::class, 'getLoggedInAdmin']);
-    
+    });
 
     //admin visit routes
     Route::get('visits', [VisitController::class, 'index']);
@@ -77,7 +75,6 @@ Route::prefix('admin')->group(function () {
 
 Route::prefix('user')->group(function () {
     Route::post('login', [UserAuthController::class, 'loginUser']);
-    Route::middleware('auth:sanctum')->get('info',[UserAuthController::class, 'getUser']);
     Route::middleware('auth:sanctum')->get('info',[UserAuthController::class, 'getUserId']);
     Route::middleware('auth:sanctum')->get('UserInfo',[UserAuthController::class, 'getUser']);
     Route::middleware('auth:sanctum')->post('/logout', [UserAuthController::class, 'logoutUser']);
@@ -91,6 +88,7 @@ Route::prefix('user')->group(function () {
     Route::get('get-doctor-byId/{id}', [doctorController:: class, 'show']);
     Route::delete('delete-doctor-byId/{id}', [doctorController:: class, 'destroy']);
     Route::put('update-doctor-byId/{id}', [doctorController:: class, 'update']);
+    Route::get('search/{username}', [doctorController:: class, 'search']);
 
 
 });

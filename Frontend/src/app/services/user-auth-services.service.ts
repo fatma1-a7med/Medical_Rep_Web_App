@@ -4,7 +4,6 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
-
 export interface LoginData {
   email: string;
   password: string;
@@ -56,6 +55,7 @@ export class UserAuthServicesService {
   }
 
 
+
   saveToken(token: string) {
     localStorage.setItem('token', token);
   }
@@ -64,8 +64,17 @@ export class UserAuthServicesService {
 
   logout() {
     localStorage.removeItem('token');
-    localStorage.removeItem('user_id');
   }
 
-}
 
+
+  isUser(): boolean {
+    // Check if user is regular user (implement based on your logic)
+    const role = localStorage.getItem('role');
+    return role === 'user';
+  }
+
+  isLoggedIn(): boolean {
+    return !!localStorage.getItem('token');
+  }
+}

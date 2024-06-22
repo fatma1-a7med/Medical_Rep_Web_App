@@ -1,8 +1,15 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
+
+
+// Define an interface for login data
+export interface LoginData {
+  email: string;
+  password: string;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +20,7 @@ export class AdminAuthServiceService {
   constructor(private http: HttpClient, private router: Router) { }
 
   login(email: string, password: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/login`, { email, password }).pipe(
+    return this.http.post(`http://127.0.0.1:8000/api/admin/login`, { email, password }).pipe(
       tap((response: any) => {
         if (response && response.token) {
           this.saveToken(response.token); 
@@ -27,7 +34,7 @@ export class AdminAuthServiceService {
   }
 
   register(adminData: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/register`, adminData);
+    return this.http.post(`http://127.0.0.1:8000/api/admin/register`, adminData);
   }
 
   saveToken(token: string) {
@@ -38,12 +45,7 @@ export class AdminAuthServiceService {
     return localStorage.getItem('token');
   }
 
-  getHeaders(): HttpHeaders {
-    const token = this.getToken();
-    return new HttpHeaders({
-      'Authorization': `Bearer ${token}`
-    });
-  }
+
 
   isAdmin(): any {
     tap((response: any) => {
@@ -56,10 +58,8 @@ export class AdminAuthServiceService {
     });
   
 }
+ 
   isLoggedIn(): boolean {
-    return !!this.getToken();
+    return !!localStorage.getItem('token');
   }
 }
-
-
-

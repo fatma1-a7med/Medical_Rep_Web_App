@@ -8,7 +8,8 @@ import { NavbarComponent } from '../../user/navbar/navbar.component';
 @Component({
   selector: 'app-doctors',
   standalone: true,
-  imports: [ListDoctorsComponent,AddDoctorComponent,ShowDoctorComponent, NavbarComponent,RouterOutlet],  templateUrl: './doctors.component.html',
+  imports: [ListDoctorsComponent,AddDoctorComponent,ShowDoctorComponent, NavbarComponent,RouterOutlet],
+  templateUrl: './doctors.component.html',
   styleUrl: './doctors.component.css'
 })
 export class DoctorsComponent {

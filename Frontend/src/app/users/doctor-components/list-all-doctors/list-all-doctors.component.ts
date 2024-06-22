@@ -1,10 +1,11 @@
+import { AddDoctorsComponent } from './../../doctor-copmponents/add-doctors/add-doctors.component';
 import { CommonModule } from '@angular/common';
 import { MatIcon } from '@angular/material/icon';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { SalesService } from '../../../services/user_services/user-services.service';
 import { Router } from '@angular/router';
 import { FormsModule, NgModel } from '@angular/forms';
-import { AddDoctorComponent } from '../add-doctor/add-doctor.component';
+import { AddDoctorsComponent } from '../add-doctors/add-doctors.component';
 import { MatDialog , MatDialogModule} from '@angular/material/dialog';
 import { AfterViewInit, Component, ViewChild, OnInit } from '@angular/core';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
@@ -14,13 +15,12 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { NavbarComponent } from '../../../user/navbar/navbar.component';
 
 
 @Component({
   selector: 'app-list-doctors',
   standalone: true,
-  imports: [CommonModule, RouterLink, MatIcon,FormsModule, NavbarComponent],
+  imports: [CommonModule, RouterLink, MatIcon,FormsModule],
   templateUrl: './list-doctors.component.html',
   styleUrl: './list-doctors.component.css'
 })
@@ -46,7 +46,7 @@ export class ListDoctorsComponent implements OnInit ,AfterViewInit{
   }
 
   ngAfterViewInit(): void {
-  
+
     if (this.dataSource) {
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
@@ -93,7 +93,7 @@ export class ListDoctorsComponent implements OnInit ,AfterViewInit{
   }
 
   openaddeditform(data:any) {
-    const dialogRef=this._dialog.open(AddDoctorComponent, {
+    const dialogRef=this._dialog.open(AddDoctorsComponent, {
       data,
     });
     dialogRef.afterClosed().subscribe({
@@ -105,8 +105,8 @@ export class ListDoctorsComponent implements OnInit ,AfterViewInit{
     })};
 
     openaddForm(){
-      const dialogRef = this._dialog.open(AddDoctorComponent);
-      
+      const dialogRef = this._dialog.open(AddDoctorsComponent);
+
       dialogRef.afterClosed().subscribe({
         next: (val) => {
           if (val) {
@@ -115,10 +115,10 @@ export class ListDoctorsComponent implements OnInit ,AfterViewInit{
         },
       });
     }
-    
-   
 
-  
+
+
+
 }
 
 function openaddForm() {

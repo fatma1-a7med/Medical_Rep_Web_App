@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { SalesService } from '../../../services/user_services/user-services.service';
+import { UserService } from '../../../services/user_services/user-services.service';
 
 @Component({
   selector: 'app-show-doctor',
@@ -16,7 +16,7 @@ export class ShowDoctorComponent implements OnInit {
   doctor: any = {};
   doctorId: number | undefined;
 
-  constructor(private route: ActivatedRoute, private doctorService: SalesService) {}
+  constructor(private route: ActivatedRoute, private doctorService: UserService) {}
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
