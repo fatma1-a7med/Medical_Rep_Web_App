@@ -122,19 +122,20 @@ class doctorController extends Controller
 
 
 
-public function search(Request $request)
+public function search(Request $request, $username)
 {
-    // Get search parameter from the request
-    $username = $request->input('username');
+    // Initialize the query to retrieve all doctors
+    $query = Doctor::query();
 
     // Query doctors based on name search
-    $doctors = Doctor::query()
-        ->where(function ($query) use ($username) {
-            $fullName = str_replace('-', ' ', $username);
-            $query->where('first_name', 'like', "%$fullName%")
-                  ->orWhere('last_name', 'like', "%$fullName%");
-        })
-        ->get();
+    if ($username) {
+        // Concatenate first_name and last_name with a space and then search
+        $fullName = str_replace('-', ' ', $username); // Handle potential dashes
+        $query->whereRaw("CONCAT(first_name, ' ', last_name) LIKE ?", ["%$fullName%"]);
+    }
+
+    // Execute the query and get the result
+    $doctors = $query->get();
 
     // Check if any doctors were found
     if ($doctors->isEmpty()) {
@@ -161,6 +162,4 @@ public function search(Request $request)
     // Return the transformed result as JSON response
     return response()->json($result);
 }
-    
-
 }

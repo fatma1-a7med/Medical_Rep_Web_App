@@ -15,6 +15,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { NavbarComponent } from '../../../user/navbar/navbar.component';
+import { HttpClient } from '@angular/common/http';
 
 
 @Component({
@@ -28,6 +29,9 @@ export class ListDoctorsComponent implements OnInit ,AfterViewInit{
   doctors: any[] = [];
   selectedDoctor: any = null;
   dataSource!: MatTableDataSource<any> ;
+  username: string = '';
+  selecteddoctor: any[] = [];
+
 
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -38,7 +42,8 @@ export class ListDoctorsComponent implements OnInit ,AfterViewInit{
   constructor(
     private router: Router,
     private doctorServices: SalesService,
-    private _dialog : MatDialog)
+    private _dialog : MatDialog,
+    private http : HttpClient)
   {}
 
   ngOnInit(): void {
@@ -51,7 +56,7 @@ export class ListDoctorsComponent implements OnInit ,AfterViewInit{
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
   }
-  }
+  };
 
   loadDoctors() {
     this.doctorServices.ListAllDoctors().subscribe(
@@ -118,9 +123,30 @@ export class ListDoctorsComponent implements OnInit ,AfterViewInit{
     
    
 
+  //search by name
+    search() {
+      if (this.username.trim() !== '') {
+        const url = `http://localhost:8000/api/user/search/${this.username}`;
+        console.log('Making request to:', url);
   
-}
-
+        this.http.get<any[]>(url).subscribe(
+          data => {
+            console.log('Received data:', data);
+            this.doctors = data;
+          },
+          error => {
+            console.error('Error searching by username:', error);
+            this.doctors = [];
+          }
+        );
+      } else {
+        console.error('Invalid username criteria');
+        this.doctors = [];
+      }
+    
+  
 function openaddForm() {
   throw new Error('Function not implemented.');
 }
+    }
+  }

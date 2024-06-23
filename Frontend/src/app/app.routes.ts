@@ -30,6 +30,7 @@ import { ListAllSalesComponent } from './users/usersales/list-all-sales/list-all
 import { ListDoctorsComponent } from './users/doctors/list-doctors/list-doctors.component';
 import { AddDoctorComponent } from './users/doctors/add-doctor/add-doctor.component';
 import { ShowDoctorComponent } from './users/doctors/show-doctor/show-doctor.component';
+import { AdminGuard } from './services/auth/admin-auh-guard.guard';
 
 
 
@@ -55,7 +56,7 @@ export const routes: Routes = [
     //user routes
     {
       path: 'user',
-      // canActivate: [UserAuthGuard],
+      canActivate: [UserAuthGuard],
       children: [
 
         { path: '', component: HomeComponent },
@@ -68,7 +69,6 @@ export const routes: Routes = [
         { path: 'add-doctor', component: AddDoctorComponent },
 
         //user salles
-        {path:'userLocation', component:UserLocationComponent},
         {path:'sales',component:ListAllSalesComponent},
         {path:'sales/details/:id',component:SalesDetailsComponent}
     
@@ -76,28 +76,12 @@ export const routes: Routes = [
     },
   
 
-  //admin routes
-  {path:'',component:WelcomeComponent},
-  { path: 'user',
-    canActivate: [UserAuthGuard],
-    component:UserComponent, 
-    children: [
-    { path: '', component: HomeComponent },
-    { path: 'home', component: HomeComponent },
-    {path:'userLocation', component:UserLocationComponent},
-    {path:'sales',component:ListAllSalesComponent},
-    {path:'sales/details/:id',component:SalesUserDetailsComponent}
-    
-  ] },
- 
-  { path: 'admin/login', component: LoginComponent },  
-  { path: 'password/email', component: ForgetpasswordComponent },
-  { path: 'password/reset/:token', component: ResetPasswordComponent }, 
 
 
+  //admin-dahboard
   {
     path: 'admin-dashboard',
-    canActivate:[AdminAuthGuard],
+    canActivate:[AdminGuard],
     component: AdminDashboardComponent,
     children: [
       { path: '', component: ListallmedrepComponent },
@@ -115,9 +99,6 @@ export const routes: Routes = [
   },
   
  
-  { path: 'admin/login', component: LoginComponent },
-  { path: 'admin/register', component: RegisterComponent },
-  { path:'user/login', component:UserLoginComponent},
   { path: '**', component: NotfoundComponent }
    
  

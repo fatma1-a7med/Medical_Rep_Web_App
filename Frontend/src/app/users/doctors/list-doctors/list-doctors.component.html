@@ -1,6 +1,20 @@
-
 <div class="container">
-    <div>
+  <form class="mb-3" (ngSubmit)="search()">
+      <div style="margin-left: 130px;" class="mt-5">
+          <div class="container row">
+              <!-- Name Search -->
+              <div class="container row">
+                  <div class="col-md-12 col-sm-12 col-lg-8">
+                      <label for="username" class="form-label">Full Name</label>
+                      <input type="text" class="form-control" id="username" name="username" [(ngModel)]="username">
+                  </div>
+                  <button type="button" class="btn text-light col-md-12 col-lg-3 col-sm-12 m-4" (click)="search()" style="background-color: #1CA4AC; color:#fff;">Search by Name</button>
+              </div>
+          </div>
+      </div>
+  </form>
+ 
+
       <h3 class="text-dark">Doctors List</h3>
       <hr class="custom-hr">
       <div>
@@ -28,8 +42,8 @@
                 <a [routerLink]="['/user/show-doctor', doctor.id]">
                     <mat-icon class="custom-info-icon">visibility</mat-icon>
                 </a>
-                <a (click)=" openaddeditform(doctor)">
-                    <mat-icon class="custom-edit-icon" >edit</mat-icon>
+                <a (click)="openaddeditform(doctor)">
+                    <mat-icon class="custom-edit-icon">edit</mat-icon>
                 </a>
                <a (click)="deleteDoctor(doctor.id)">
                 <mat-icon class="custom-delete-icon">delete</mat-icon>
@@ -45,5 +59,3 @@
     <div *ngIf="!doctors" class="container">
       <p class="alert alert-danger">Loading...</p>
     </div>
-  </div>
-  
