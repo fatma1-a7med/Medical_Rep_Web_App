@@ -1,5 +1,5 @@
 import { UserLocationComponent } from './user/user-location/user-location.component';
-import { NgModule } from '@angular/core';
+import { NgModule, Component } from '@angular/core';
 import { CommonModule } from '@angular/common'; // Import CommonModule
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { AddeditComponent } from './admin-dashboard/addedit/addedit.component';
@@ -57,6 +57,7 @@ export const routes: Routes = [
     {
       path: 'user',
       canActivate: [UserAuthGuard],
+      component:UserComponent,
       children: [
 
         { path: '', component: HomeComponent },
@@ -81,7 +82,7 @@ export const routes: Routes = [
   //admin-dahboard
   {
     path: 'admin-dashboard',
-    canActivate:[AdminGuard],
+    // canActivate:[AdminGuard],
     component: AdminDashboardComponent,
     children: [
       { path: '', component: ListallmedrepComponent },
