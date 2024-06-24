@@ -18,6 +18,7 @@ use App\Http\Controllers\VisitReportingController;
 use App\Http\Controllers\doctorController;
 use App\Http\Controllers\Users_Controllers\LocationController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ToolsController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -101,6 +102,7 @@ Route::prefix('user')->group(function () {
     Route::put('visits/{id}', [UserVisitController::class, 'update']);
     Route::delete('visits/{id}', [UserVisitController::class, 'delete']);
     Route::get('locations' , [LocationController::class ,'index']);
+    Route::get('tools' , [ToolsController::class , 'index']);
     
 });
 
