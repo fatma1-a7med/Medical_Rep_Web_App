@@ -165,7 +165,7 @@ class VisitController extends Controller
     return response()->json($result);
 }
 
-}
+
 
 public function getVisitHistory($user_id)
 {
@@ -188,6 +188,7 @@ public function recent()
     return response()->json($recentVisits);
 }
     
+}
 
 
 
