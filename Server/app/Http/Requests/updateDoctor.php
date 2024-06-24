@@ -29,7 +29,7 @@ class updateDoctor extends FormRequest
             'street' => 'sometimes|string|max:255',
             'phone_number' => 'sometimes|integer',
             'territory' => 'sometimes|string|max:255',
-            'email' => 'sometimes|string|email|max:255|unique:doctors',
+            'email' => 'sometimes|string|email|max:255',
             'specialization' => 'sometimes|string|max:225',
             'class_rate' => 'nullable|string|in:A,B,C',
 

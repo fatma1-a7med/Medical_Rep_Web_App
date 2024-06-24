@@ -32,7 +32,7 @@ class AdminAuthController extends Controller
                 'email' => 'required|email|unique:admins,email',
                 'password' => 'required|min:3'
             ]);
-    
+
             if ($validateUser->fails()) {
                 return response()->json([
                     'status' => false,
@@ -40,7 +40,7 @@ class AdminAuthController extends Controller
                     'errors' => $validateUser->errors()
                 ], 401);
             }
-    
+
             // Handle image upload manually
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
@@ -50,7 +50,7 @@ class AdminAuthController extends Controller
             } else {
                 $imagePath = null;
             }
-    
+
             // Create the admin with the provided data
             $admin = Admin::create([
                 'first_name' => $request->first_name,
@@ -64,12 +64,12 @@ class AdminAuthController extends Controller
                 'email' => $request->email,
                 'password' => Hash::make($request->password)
             ]);
-    
+
             // Generate an API token for the admin
             $token = $admin->createToken("API TOKEN")->plainTextToken;
             $admin->remember_token = $token;
             $admin->save();
-    
+
             // Return a successful response with the admin data and token
             return response()->json([
                 'status' => true,
@@ -77,7 +77,7 @@ class AdminAuthController extends Controller
                 'admin' => $admin,
                 'token' => $token
             ], 200);
-    
+
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => false,
@@ -98,7 +98,7 @@ class AdminAuthController extends Controller
                 'email' => 'required|email',
                 'password' => 'required'
             ]);
-    
+
             if ($validateUser->fails()) {
                 return response()->json([
                     'status' => false,
@@ -106,29 +106,34 @@ class AdminAuthController extends Controller
                     'errors' => $validateUser->errors()
                 ], 401);
             }
-    
+
             $admin = Admin::where('email', $request->email)->first();
-    
+
             if (!$admin || !Hash::check($request->password, $admin->password)) {
                 return response()->json([
                     'status' => false,
                     'message' => 'Email & Password do not match with our records.'
                 ], 401);
             }
-    
-            // Retrieve the token from the database
-            $token = $admin->createToken("API TOKEN")->plainTextToken;
-            $admin->remember_token = $token;
-            $admin->save();
 
-    
+            // Retrieve the remember token from the database
+            $token = $admin->remember_token;
+
+            // If no remember token exists, handle this case (e.g., return an error or create a new token)
+            if (!$token) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'No remember token found for this admin user.'
+                ], 401);
+            }
+
             return response()->json([
                 'status' => true,
                 'message' => 'Admin User Logged In Successfully',
                 'token' => $token,
                 'admin' => $admin
             ], 200);
-    
+
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => false,
@@ -136,7 +141,8 @@ class AdminAuthController extends Controller
             ], 500);
         }
     }
-  /**
+
+    /**
      * Get the logged-in admin user
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
@@ -181,5 +187,4 @@ class AdminAuthController extends Controller
             'admin' => $request->user()
         ]);
     }
-    
 }

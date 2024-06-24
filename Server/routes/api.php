@@ -90,6 +90,7 @@ Route::prefix('user')->group(function () {
     Route::get('get-doctor-byId/{id}', [doctorController:: class, 'show']);
     Route::delete('delete-doctor-byId/{id}', [doctorController:: class, 'destroy']);
     Route::put('update-doctor-byId/{id}', [doctorController:: class, 'update']);
+    Route::get('search/{username}', [doctorController:: class, 'search']);
 
 
     Route::apiResource('sales', SalesController::class);

@@ -6,7 +6,7 @@
     <span class="spacer"></span>
     <button mat-button [routerLink]="['../user/plan']">Plan</button>
     <button mat-button [routerLink]="['../user/sales']">Sales</button>
-    <button mat-button>Doctor's List</button>
+    <button mat-button [routerLink]="['../user/list-All-Doctors']">Doctor's List</button>
     <button mat-button [routerLink]="['../user/userLocation']" >Map</button>
     <span class="spacer"></span>
     
@@ -17,16 +17,15 @@
       </button>
       <mat-icon>arrow_drop_down</mat-icon>
 
-      <div *ngIf="!loading && first_name ">
-        <span>{{ first_name }}</span> 
-      </div>
-      <div *ngIf="!loading && !first_name ">
-        User data not available.
-      </div>
-      <mat-menu #userMenu="matMenu">
-        <button mat-menu-item>Profile</button>
-        <button mat-menu-item (click)="logout()">Logout</button>
-      </mat-menu>
+    <div *ngIf="!loading && first_name ">
+      <span>{{ first_name }}</span> 
     </div>
-  </mat-toolbar>
-  
+    <div *ngIf="!loading && !first_name ">
+      User data not available.
+    </div>
+    <mat-menu #userMenu="matMenu">
+      <button mat-menu-item>Profile</button>
+      <button mat-menu-item (click)="logout()">Logout</button>
+    </mat-menu>
+  </div>
+</mat-toolbar>

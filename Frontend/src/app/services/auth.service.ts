@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { TokenService } from './token.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class AuthService {
   // Observable to allow components to subscribe to authentication status changes
   authStatus = this.loggedIn.asObservable();
 
-  constructor(private Token: TokenService) { }
+  constructor(private Token: TokenService, private router: Router) { }
 
   /**
    * Change the authentication status and notify all subscribers.
@@ -21,13 +22,14 @@ export class AuthService {
   changeAuthStatus(value: boolean): void {
     this.loggedIn.next(value);
   }
-  getUserId(): number | null {
+  getUserId(): any | null {
     const token = this.Token.get();
     if (token) {
       const payload = this.Token.payload(token);
       return payload ? payload.sub : null; // Assuming 'sub' contains user ID in the payload
+    }else {
+      this.router.navigate(['/admin/login']);
     }
-    return null;
   }
 
   isLoggedIn(): boolean {

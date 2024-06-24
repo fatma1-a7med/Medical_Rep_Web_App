@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 
@@ -14,13 +15,16 @@ export interface LoginData {
   providedIn: 'root'
 })
 export class AdminAuthServiceService {
-  constructor(private http: HttpClient) { }
+  private apiUrl = 'http://127.0.0.1:8000/api/admin'; // Assuming this is your API base URL
+
+  constructor(private http: HttpClient, private router: Router) { }
 
   login(email: string, password: string): Observable<any> {
     return this.http.post(`http://127.0.0.1:8000/api/admin/login`, { email, password }).pipe(
       tap((response: any) => {
         if (response && response.token) {
-          this.saveToken(response.token); // Save the token to local storage
+          this.saveToken(response.token); 
+          this.router.navigate(['/admin/admin-dashboard']);
         }
       }),
       catchError((error) => {
@@ -40,12 +44,21 @@ export class AdminAuthServiceService {
   getToken(): string | null {
     return localStorage.getItem('token');
   }
-  isAdmin(): boolean {
-    // Check if user is admin (implement based on your logic)
-    const role = localStorage.getItem('role');
-    return role === 'admin';
-  }
 
+
+
+  isAdmin(): any {
+    tap((response: any) => {
+      if (response && response.token) {
+        this.saveToken(response.token); 
+      }
+    }),
+    catchError((error) => {
+      return throwError(error);
+    });
+  
+}
+ 
   isLoggedIn(): boolean {
     return !!localStorage.getItem('token');
   }
