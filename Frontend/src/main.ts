@@ -1,4 +1,6 @@
 
+// Included with Angular CLI.
+import '@angular/compiler'; // Add this to ensure JIT compiler is available
 
 import { bootstrapApplication } from '@angular/platform-browser';
 import { appConfig } from './app/app.config';

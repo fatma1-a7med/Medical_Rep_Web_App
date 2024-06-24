@@ -1,4 +1,5 @@
-//import { BrowserModule } from '@angular/platform-browser';
+
+
 import { CommonModule } from '@angular/common'; // Import CommonModule
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { Component } from '@angular/core';
@@ -15,12 +16,15 @@ import { ReactiveFormsModule } from '@angular/forms';
 import dayGridPlugin from '@fullcalendar/daygrid'; // Import the plugins you need
 import { SideBarComponent } from './admin-dashboard/side-bar/side-bar.component';
 import { WelcomeComponent } from './welcome/welcome.component';
+import { UserComponent } from './user/user.component';
+
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [
-    
+
+    ReactiveFormsModule,
     RouterLink,FormsModule,CommonModule,RouterOutlet,
     NavbarComponent,
     HttpClientModule,
@@ -28,11 +32,7 @@ import { WelcomeComponent } from './welcome/welcome.component';
     AdminComponent,
     RouterLink,
     FullCalendarModule,
- 
-    
-    
-  UsersComponent],
-  imports: [RouterLink,FormsModule,CommonModule,RouterOutlet,NavbarComponent,HttpClientModule,ListallmedrepComponent, AdminComponent, RouterLink,WelcomeComponent],
+  UserComponent],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })

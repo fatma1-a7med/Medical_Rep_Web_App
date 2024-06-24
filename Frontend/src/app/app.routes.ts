@@ -29,8 +29,6 @@ import { SalesUserDetailsComponent } from './users/usersales/sales-details/sales
 import { UservisitComponent } from './users/uservisit/uservisit.component';
 
 
-
-
 export const routes: Routes = [
   {path:'',component:WelcomeComponent},
   { path: 'user',
@@ -41,7 +39,9 @@ export const routes: Routes = [
     { path: 'home', component: HomeComponent },
     {path:'userLocation', component:UserLocationComponent},
     {path:'sales',component:ListAllSalesComponent},
-    {path:'sales/details/:id',component:SalesUserDetailsComponent}
+    {path:'sales/details/:id',component:SalesUserDetailsComponent},
+    {path:'plan', component:UservisitComponent},
+
     
   ] },
  
@@ -57,8 +57,8 @@ export const routes: Routes = [
     children: [
       { path: '', component: ListallmedrepComponent },
       { path: 'add-medrep', component: AddeditComponent },
-      {path: 'activitymonitor' , component:ActivityMonitoringComponent} ,,
-      
+      {path: 'activitymonitor' , component:ActivityMonitoringComponent} ,
+
       { path: 'sales', component: SalesListComponent },
       { path: 'sales/add', component: SalesAddComponent },
       { path: 'sales/edit/:id', component: SalesEditComponent },
@@ -76,20 +76,7 @@ export const routes: Routes = [
  
   { path: 'admin/login', component: LoginComponent },
   { path: 'admin/register', component: RegisterComponent },
-  { path: 'reporting', component: ReportingComponent }, // Add this route
-
-  {
-    path: 'user',
-    component: UsersComponent,
-    children: [
-      { path: '', component: UsersComponent },
-      { path: 'sales', component: ListAllSalesComponent },
-      { path: 'sales/details/:id', component: SalesUserDetailsComponent },
-      {path:'plan', component:UservisitComponent}
-
-    ]
-  },
-
+  { path:'user/login', component:UserLoginComponent},
   { path: '**', component: NotfoundComponent }
    
  

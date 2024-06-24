@@ -30,4 +30,9 @@ return this._http.delete(`http://localhost:8000/api/users/${id}`);
 }
 
 
+getAdmins(): Observable<any[]> {
+  return this._http.get<any[]>(`http://localhost:8000/api/admins`);
+}
+
+
 }

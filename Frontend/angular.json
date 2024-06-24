@@ -13,6 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
+            "aot":true,
             "outputPath": "dist/admin-dashboard",
             "index": "src/index.html",
             "browser": "src/main.ts",
@@ -63,9 +64,11 @@
           "defaultConfiguration": "production"
         },
         "serve": {
+         
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
+              
               "buildTarget": "admin-dashboard:build:production"
             },
             "development": {
@@ -77,6 +80,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
+            
             "buildTarget": "admin-dashboard:build"
           }
         },

@@ -215,11 +215,18 @@
             Maximum length is 20 characters.
           </mat-error>
         </mat-form-field>
-  
         <mat-form-field appearance="outline" class="form-field">
-          <mat-label>Admin ID</mat-label>
-          <input matInput formControlName="admin_id" type="number">
+          <mat-label>Admin</mat-label>
+          <mat-select formControlName="admin_id">
+            <mat-option *ngFor="let admin of admins" [value]="admin.id">
+              {{admin.first_name}} {{admin.last_name}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="userForm.get('admin_id')?.hasError('required')">
+            Admin is required.
+          </mat-error>
         </mat-form-field>
+        
       </div>
   
       <div class="form-row">

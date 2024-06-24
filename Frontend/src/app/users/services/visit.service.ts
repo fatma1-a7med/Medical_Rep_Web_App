@@ -8,9 +8,9 @@ import { VisitModelTs } from '../../models/visit.model.ts';
 })
 export class VisitService {
   private lapi = 'http://localhost:8000/api/user/locations';
-  private dapiUrl = 'http://localhost:8000/api/doctors';
+  private dapiUrl = 'http://localhost:8000/api/user/get-all-doctors';
   private apiUrl = 'http://localhost:8000/api/user/visits';
-
+  private vurl ='http://localhost:8000/api/';
   constructor(private http: HttpClient) { }
 
   getVisits(): Observable<VisitModelTs[]> {
@@ -35,4 +35,20 @@ export class VisitService {
   getLocations(): Observable<any[]> {
     return this.http.get<any[]>(this.lapi);
   }
+
+  
+  getTools(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.vurl}user/tools`);
+  }
+
+  getUsers(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.vurl}users`);
+  }
+
+  searchDoctors(query: string): Observable<any[]> {
+    const apiUrl = `${this.vurl}/doctors/search?search=${query}`;
+    return this.http.get<any[]>(apiUrl);
+  }
+
 }
+
