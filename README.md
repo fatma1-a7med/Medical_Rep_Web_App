@@ -32,7 +32,7 @@ The Medical Representative System is a comprehensive software solution designed 
 ---
 
 ## Usage
-1. **Administrator Interface**: Access the admin panel by navigating to `http://localhost/admin`.
+1. **Administrator Interface**: Access the admin panel by navigating to `http://localhost/admin-dashboard` after making login and register.
 2. **Medical Representative Interface**: Medical representatives can access their dashboard by logging in with their credentials.
 
 ---
