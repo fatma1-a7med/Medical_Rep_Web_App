@@ -1,4 +1,5 @@
-# Medical Representative System
+# RepAlert
+Medical representative web application using Laravel and Angular  
 
 ## Overview
 The Medical Representative System is a comprehensive software solution designed to streamline the management of medical representatives, track their activities, and generate insightful reports for administrators. This README file provides an overview of the system's key features, components, and functionalities.
@@ -7,12 +8,13 @@ The Medical Representative System is a comprehensive software solution designed 
 
 ## Features
 
-### Administrator Interface
-- **User Management**: Add, edit, and manage users including medical representatives and admins.
-- **Live Location Tracking**: Monitor real-time location of medical representatives during visits.
-- **Visit and Sales Management**: Review and approve visit plans, set sales targets, and track sales performance.
-- **Reporting**: Generate various reports such as visit reports, sales reports, and performance reports.
-- **Dashboard**: Comprehensive dashboard showing key metrics and insights.
+### Administrator Dashboard
+- **User Management**: Admin can add, edit, and manage users (medical representatives) and send email to these users with their info like amail and password to be able to login.
+- **Live Location Tracking**: Monitor real-time location of medical representatives during their visits.
+- **Sales Management**: Review and approve set sales targets, and track sales performance for all users and make all crud operations.
+- **Visit Management**: Review and visit plans of users.
+- **Reporting**: Generate various reports such as sales reports that admin can download it as a pdf file.
+
 
 ### Medical Representative Interface
 - **Visit Planning and Management**: Create visit plans, view visit schedule, and manage tools for visits.
@@ -25,15 +27,10 @@ The Medical Representative System is a comprehensive software solution designed 
 
 ## Installation
 1. Clone the repository: `git clone https://github.com/your/repository.git`
-2. Install dependencies: `npm install`
-3. Configure environment variables: Copy `.env.example` to `.env` and update with your settings.
-4. Run the application: `npm start`
+2. Configure environment variables: Copy `.env.example` to `.env` and update with your settings in backend.
+3. Install dependencies of backend: `cd Server --> npm install --> composer install --> php artisan migrate then php artisan serve`
+4. Install dependencies of frontend: `cd Frontend --> npm install then ng serve --open`
 
----
-
-## Usage
-1. **Administrator Interface**: Access the admin panel by navigating to `http://localhost/admin-dashboard` after making login and register.
-2. **Medical Representative Interface**: Medical representatives can access their dashboard by logging in with their credentials.
 
 ---
 
@@ -52,9 +49,11 @@ Contributions are welcome! Please follow these steps:
 - Menna Mahmoud 
 - Haidy Essam
 - Sohaila Ehab
+- Maghfera Hassan
 
 
 ---
 
 *Designed and maintained with ❤️ by Medical Representative System Team.*
+
 
