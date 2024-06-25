@@ -18,42 +18,33 @@ export class UserAuthServicesService {
   login(email: string, password: string): Observable<any> {
     return this.http.post(`http://127.0.0.1:8000/api/user/login`, { email, password }).pipe(
         tap((response: any) => {
-            if (response && response.token) {
-                console.log('User data:', response.user); // Log the user data to the console
-                this.saveToken(response.token); // Save the token to local storage
-                localStorage.setItem('token', response.token); // Save token to localStorage
-                localStorage.setItem('user_id', response.user.id); // Save user ID to localStorage
+          console.log('Response from server:', response);
 
+            if (response && response.token) {
+                this.saveToken(response.token); 
+                localStorage.setItem('token', response.token); 
+                console.log('Token stored:', localStorage.getItem('token'));
+
+                // localStorage.setItem('user_id', response.user.id); 
                 this.router.navigate(['/user/home']);
             }
         }),
         catchError((error) => {
+            console.error('Error during login:', error);
             return throwError(error);
         })
     );
   }
 
+  
+  getValue(key: string): string | null {
+    return localStorage.getItem(key);
+  }
 
 
   getToken(): string | null {
     return localStorage.getItem('token');
   }
-
-  isAuthenticated(): any {
-    
-    tap((response: any) => {
-      if (response && response.token) {
-        localStorage.setItem('token', response.token); // Save token to localStorage
-        localStorage.setItem('user_id', response.user_id);
-        
-      }
-    }),
-    catchError((error) => {
-      return throwError(error);
-    })
-  
-  }
-
 
 
   saveToken(token: string) {

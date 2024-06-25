@@ -19,8 +19,6 @@ import { SalesDetailsComponent } from './admin-dashboard/sales/sales-details/sal
 import { VisitManagementComponent } from './admin-dashboard/visit-managment/visit-managment.component';
 import { LocationComponent } from './admin-dashboard/location/location.component';
 import { UserLoginComponent } from './user-auth/user-login/user-login.component';
-import { AdminAuthGuard } from './services/admin-auth-guard.service';
-import { UserAuthGuard } from './services/user-auth-gard.service';
 import { HomeComponent } from './user/home/home.component';
 import { AuthService } from './services/auth.service';
 import { SalesUserDetailsComponent } from './users/usersales/sales-details/sales-details.component';
@@ -31,6 +29,7 @@ import { ListDoctorsComponent } from './users/doctors/list-doctors/list-doctors.
 import { AddDoctorComponent } from './users/doctors/add-doctor/add-doctor.component';
 import { ShowDoctorComponent } from './users/doctors/show-doctor/show-doctor.component';
 import { AdminGuard } from './services/auth/admin-auh-guard.guard';
+import { UserGuard } from './services/auth/userAuthGuard.service';
 
 
 
@@ -56,7 +55,7 @@ export const routes: Routes = [
     //user routes
     {
       path: 'user',
-      canActivate: [UserAuthGuard],
+      canActivate: [UserGuard],
       component:UserComponent,
       children: [
 
@@ -82,7 +81,7 @@ export const routes: Routes = [
   //admin-dahboard
   {
     path: 'admin-dashboard',
-    // canActivate:[AdminGuard],
+    canActivate:[AdminGuard],
     component: AdminDashboardComponent,
     children: [
       { path: '', component: ListallmedrepComponent },

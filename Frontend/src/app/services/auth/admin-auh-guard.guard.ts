@@ -1,21 +1,23 @@
-import { AdminAuthServiceService } from './../admin-auth-services.service';
-import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
+import { CanActivateFn, Router } from '@angular/router';
+import { inject } from '@angular/core';
+import { AdminAuthServiceService } from '../admin-auth-services.service';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class AdminGuard implements CanActivate {
 
-  constructor(private authService: AdminAuthServiceService, private router: Router) {}
+export const AdminGuard: CanActivateFn = (route, state) => {
 
-  canActivate(): boolean {
-    if (this.authService.isAdmin()) {
-      this.router.navigate(['/admin/admin-dashboard']);
-      return true;
-    } else {
-      this.router.navigate(['/admin/login']);
-      return false;
+
+  const localStorage = inject(AdminAuthServiceService);
+  const router = inject(Router);
+
+  if(localStorage.getValue('user_id') === null){
+    router.navigate(['/admin/login']);
+    return false;
   }
-}
-}
+  else{
+    console.log(localStorage);
+    return true;
+  }
+
+  return true;
+};
+

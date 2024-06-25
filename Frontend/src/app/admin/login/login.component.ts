@@ -36,26 +36,30 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    const { email, password } = this.userForm.value;
 
-    this.authService.login(email, password).subscribe(
-      (response) => {
-        console.log('Login successful', response);
-        localStorage.setItem('token', response.token);
-        this.router.navigate(['/admin-dashboard']);
-      },
-      (error) => {
-        console.error('Login failed', error);
-        if (error.status === 401) {
-          this.errorMessage = 'Invalid email or password. Please try again.';
-        } else {
-          this.errorMessage = 'An error occurred. Please try again later.';
+
+
+    
+      const { email, password } = this.userForm.value;
+    
+      this.authService.login(email, password).subscribe(
+        (response) => {
+          console.log('Login successful:', response);
+          localStorage.setItem('auth_token', response.token);
+          localStorage.setItem('user_id', response.admin.id); // Store user_id in local storage
+          this.router.navigate(['/admin-dashboard']); // Navigate to admin dashboard after successful login
+        },
+        (error) => {
+          console.error('Login failed:', error);
+          if (error.status === 401) {
+            this.errorMessage = 'Invalid email or password. Please try again.';
+          } else {
+            this.errorMessage = 'An error occurred. Please try again later.';
+          }
         }
-      }
-    );
-  }
-
-  get email() {
+      );
+    }
+      get email() {
     return this.userForm.get('email');
   }
 

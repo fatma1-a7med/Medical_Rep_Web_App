@@ -2,8 +2,9 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { AdminAuthServiceService } from '../../services/admin-auth-services.service';
+import { JarwisService } from '../../services/jarwis.service';
 
 @Component({
   selector: 'app-visit-managment',
@@ -19,8 +20,13 @@ export class VisitManagementComponent implements OnInit {
   endDate: Date | null = null;
   username: string = '';
   selectedVisit: any = null;
+  loggedInAdmin: any;
+  user: any;
+  loading: boolean = true; 
 
-  constructor(private http: HttpClient, private datePipe: DatePipe, private visitServices: AdminAuthServiceService) { }
+
+  constructor(private http: HttpClient, private datePipe: DatePipe, private visitServices: AdminAuthServiceService, private authService: JarwisService, private router : Router ) { }
+
 
   ngOnInit(): void {
     this.loadInitialData()
@@ -98,4 +104,21 @@ export class VisitManagementComponent implements OnInit {
         }
       );
   }
+
+  // fetchUser() {
+  //   this.authService.getUser().subscribe(
+  //     (response) => {
+  //       this.user = response.user; 
+  //       this.loggedInAdmin = response.admin; 
+  //       this.loading = false; 
+
+  //     },
+  //     (error) => {
+  //       console.error('Failed to fetch user data', error);
+  //       this.loading = false; 
+  //     }
+  //   );
+  // }
+
+
 }
