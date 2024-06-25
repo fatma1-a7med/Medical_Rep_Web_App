@@ -30,58 +30,128 @@
     <hr class="custom-hr">
   </div>
 
-  <table class="table table-striped custom-table">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Username</th>
-        <th>Date of Visit</th>
-        <th>Doctor Name</th>
-        <th>Status</th>
-        <th>Show</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let visit of visitDate">
-        <td>{{ visit.id }}</td>
-        <td>{{ visit.medical_rep_fullname }}</td>
-        <td>{{ visit.visit_date }}</td>
-        <td>{{ getDoctorNames(visit.doctor) }}</td>
-        <td>{{ visit.status }}</td>
-        <td>
-          <button type="button" class="btn text-light" style="background-color:#24A8EF;" data-bs-toggle="modal" data-bs-target="#modalVisitDetails" (click)="showVisitDetails(visit.id)">
-            Show
-          </button>
-        </td>
-      </tr>
-    </tbody>
+  <table mat-table [dataSource]="dataSource" class="table table-striped custom-table">
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef>ID</th>
+      <td mat-cell *matCellDef="let visit">{{ visit.id }}</td>
+    </ng-container>
+    
+    <ng-container matColumnDef="medical_rep_fullname">
+      <th mat-header-cell *matHeaderCellDef>Username</th>
+      <td mat-cell *matCellDef="let visit">{{ visit.medical_rep_fullname }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="visit_date">
+      <th mat-header-cell *matHeaderCellDef>Date of Visit</th>
+      <td mat-cell *matCellDef="let visit">{{ visit.visit_date }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef>Status</th>
+      <td mat-cell *matCellDef="let visit">{{ visit.status }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="show">
+      <th mat-header-cell *matHeaderCellDef>Show</th>
+      <td mat-cell *matCellDef="let visit">
+        <button type="button" class="btn text-light" style="background-color:#24A8EF;" data-bs-toggle="modal" data-bs-target="#modalVisitDetails" (click)="showVisitDetails(visit.id)">
+          Show
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    <!-- Row shown when there is no matching data. -->
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="5">No data matching the filter "{{ filterValue }}"</td>
+    </tr>
   </table>
 
-  <!-- Modal -->
-  <div class="modal fade" id="modalVisitDetails" tabindex="-1" aria-labelledby="modalVisitDetailsLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="modalVisitDetailsLabel">Visit Details</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body p-3 m-3" *ngIf="selectedVisit">
-          <p><strong class="text-primary">Medical Rep Name:</strong> {{ selectedVisit.user_full_name }}</p>
-          <p><strong class="text-primary">Doctor Name:</strong> {{ selectedVisit.doctor_name }}</p>
-          <p><strong class="text-primary">Status:</strong> {{ selectedVisit.status }}</p>
-          <p><strong class="text-primary">Tools:</strong> {{ getToolNames(selectedVisit.tools) }}</p>
-          <p><strong class="text-primary">Territory:</strong> {{ selectedVisit.territory }}</p>
-          <p><strong class="text-primary">City:</strong> {{ selectedVisit.city }}</p>
-          <p><strong class="text-primary">State:</strong> {{ selectedVisit.state }}</p>
-          <p><strong class="text-primary">Location Info:</strong></p>
-          <ul class="m-3">
-            <li>Latitude: {{ selectedVisit.location_info.latitude }}</li>
-            <li>Longitude: {{ selectedVisit.location_info.longitude }}</li>
-          </ul>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        </div>
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="modalVisitDetails" tabindex="-1" aria-labelledby="modalVisitDetailsLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content h-70 w-90">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalVisitDetailsLabel">Visit Details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body p-3 m-3" *ngIf="selectedVisit">
+        <table class="table table-striped">
+          <thead>
+            <th>Field</th>
+            <th>Info</th>
+          </thead>
+          <tbody>
+            <tr>
+              <th class="text-primary" scope="row">Medical Rep Name:</th>
+              <td>{{ selectedVisit.user_full_name }}</td>
+            </tr>
+            <tr>
+              <th class="text-primary" scope="row">Doctor Name:</th>
+              <td>{{ selectedVisit.doctor_name }}</td>
+            </tr>
+            <tr>
+              <th class="text-primary" scope="row">Status:</th>
+              <td>{{ selectedVisit.status }}</td>
+            </tr>
+            <tr>
+              <th class="text-primary" scope="row">Tools:</th>
+              <td>{{ getToolNames(selectedVisit.tools) }}</td>
+            </tr>
+            <tr>
+              <th class="text-primary" scope="row">Territory:</th>
+              <td>{{ selectedVisit.territory }}</td>
+            </tr>
+            <tr>
+              <th class="text-primary" scope="row">City:</th>
+              <td>{{ selectedVisit.city }}</td>
+            </tr>
+            <tr>
+              <th class="text-primary" scope="row">State:</th>
+              <td>{{ selectedVisit.state }}</td>
+            </tr>
+            <tr>
+              <th class="text-primary" scope="row">Location Info:</th>
+              <td></td>
+            </tr>
+            <tr>
+              <th scope="row">Latitude:</th>
+              <td>{{ selectedVisit.location_info.latitude }}</td>
+            </tr>
+            <tr>
+              <th scope="row">Longitude:</th>
+              <td>{{ selectedVisit.location_info.longitude }}</td>
+            </tr>
+            <tr>
+              <th scope="row">Timestamp:</th>
+              <td>{{ selectedVisit.location_info.timestamp }}</td>
+            </tr>
+            <tr>
+              <th scope="row">Altitude:</th>
+              <td>{{ selectedVisit.location_info.altitude }}</td>
+            </tr>
+            <tr>
+              <th scope="row">Accuracy:</th>
+              <td>{{ selectedVisit.location_info.accuracy }}</td>
+            </tr>
+            <tr>
+              <th scope="row">Speed:</th>
+              <td>{{ selectedVisit.location_info.speed }}</td>
+            </tr>
+            <tr>
+              <th scope="row">Direction:</th>
+              <td>{{ selectedVisit.location_info.direction }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
       </div>
     </div>
   </div>

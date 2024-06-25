@@ -27,6 +27,8 @@ export class UserLoginComponent {
   ngOnInit(): void {}
 
   onLogin(): void {
+    this.isFormSubmitted = true;
+
     if (this.userForm.invalid) {
       return;
     }
@@ -37,7 +39,9 @@ export class UserLoginComponent {
       (response) => {
         console.log('Login successful', response);
         localStorage.setItem('token', response.token);
-        this.router.navigate(['/user']); 
+        localStorage.setItem('id', response.user.id); // Store user_id in local storage
+
+        this.router.navigate(['/user/home']); 
       },
       (error) => {
         console.error('Login failed', error);

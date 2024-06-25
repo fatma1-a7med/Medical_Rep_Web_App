@@ -14,6 +14,17 @@ import dayGridPlugin from '@fullcalendar/daygrid'; // Import the plugins you nee
 import { SideBarComponent } from './admin-dashboard/side-bar/side-bar.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
+
 @Component({
   selector: 'app-root',
   standalone: true,

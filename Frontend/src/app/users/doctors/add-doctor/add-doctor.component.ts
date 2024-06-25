@@ -79,6 +79,7 @@ export class AddDoctorComponent implements OnInit {
           ...this.initialDoctorData,
           ...formData
         };
+        //update doctor
 
         this.doctorService.updateDoctor(this.data.id, updatedDoctorData).subscribe({
           next: (val: any) => {

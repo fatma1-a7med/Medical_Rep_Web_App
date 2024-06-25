@@ -6,7 +6,8 @@
     border: 1px solid #1CA4AC;
   }
   
-  .custom-table th {
+  .custom-table th ,
+  .modal {
     background-color: #1CA4AC;
     color: white;
   }

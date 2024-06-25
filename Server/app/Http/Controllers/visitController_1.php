@@ -4,16 +4,27 @@ namespace App\Http\Controllers;
 
 use App\Models\Visit;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class VisitController extends Controller
 {
+
     public function index()
     {
-        $visits = Visit::with(['doctors', 'user', 'location'])->get();
-
+        // Get the currently authenticated admin
+        $admin = Auth::guard('admin')->user(); // Adjust 'admin' to your guard name if different
+    
+        // Fetch visits associated with the admin
+        $visits = Visit::whereHas('user', function ($query) use ($admin) {
+                $query->where('admin_id', $admin->id); // Assuming 'admin_id' is the foreign key in the users table linking to admins
+            })
+            ->with(['doctors', 'user', 'location'])
+            ->get();
+    
+        // Transform the visits as needed
         $result = $visits->map(function ($visit) {
             return [
-                'id' => $visit ->id,
+                'id' => $visit->id,
                 'visit_date' => $visit->visit_date,
                 'status' => $visit->status,
                 'medical_rep_fullname' => $visit->user->first_name . ' ' . $visit->user->last_name,
@@ -22,7 +33,6 @@ class VisitController extends Controller
                         'doctor_name' => $doctor->first_name . ' ' . $doctor->last_name,
                     ];
                 }),
-                // Assuming you need to manually fetch tools related to doctors
                 'tools' => $visit->doctors->flatMap(function ($doctor) {
                     return $doctor->tools->map(function ($tool) {
                         return [
@@ -32,10 +42,10 @@ class VisitController extends Controller
                 }),
             ];
         });
-
+    
         return response()->json($result);
     }
-
+    
      public  function getVisitInformationById($id) {
         $visit = Visit::with(['doctors', 'location', 'user'])->find($id);
     

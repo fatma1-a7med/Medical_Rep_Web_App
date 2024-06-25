@@ -1,16 +1,27 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Admin;
+use App\Models\User;
 use App\Models\Visit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class VisitController extends Controller
 {
+  
     public function index()
     {
-        $visits = Visit::with(['doctor', 'user', 'location', 'doctor.tools'])->get();
+        // Get the logged-in admin
+        $admin = Auth::guard('sanctum')->user();
+        
+        // Get all users that belong to this admin
+        $users = User::where('admin_id', $admin->id)->pluck('id');
+    
+        // Get all visits related to these users
+        $visits = Visit::with(['doctor', 'user', 'location', 'tools'])
+            ->whereIn('user_id', $users)
+            ->get();
     
         $result = $visits->map(function ($visit) {
             return [
@@ -18,20 +29,23 @@ class VisitController extends Controller
                 'visit_date' => $visit->visit_date,
                 'status' => $visit->status,
                 'medical_rep_fullname' => $visit->user->first_name . ' ' . $visit->user->last_name,
-                'doctor' => [
-                    'doctor_name' => $visit->doctor->first_name . ' ' . $visit->doctor->last_name,
-                ],
-                // Assuming you need to manually fetch tools related to doctors
-                'tools' => $visit->doctor->tools->map(function ($tool) {
-                    return [
-                        'tool_name' => $tool->name,
-                    ];
-                }),
+                'doctor' => $visit->doctor ? $visit->doctor->first_name . ' ' . $visit->doctor->last_name : null,
+                'tools' => $visit->tools->pluck('name'),
+                'location' => $visit->location ? [
+                    'latitude' => $visit->location->latitude,
+                    'longitude' => $visit->location->longitude,
+                    'timestamp' => $visit->location->timestamp,
+                    'altitude' => $visit->location->altitude,
+                    'accuracy' => $visit->location->accuracy,
+                    'speed' => $visit->location->speed,
+                    'direction' => $visit->location->direction,
+                ] : null
             ];
         });
     
         return response()->json($result);
     }
+    
 
     public function getVisitInformationById($id) {
         $visit = Visit::with(['doctor', 'location', 'user'])->find($id);

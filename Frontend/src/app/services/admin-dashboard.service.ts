@@ -59,7 +59,8 @@ export class AdminDashboardService {
     }
     //visit
     getAllVisits(): Observable<any> {
-      return this.http.get<any>(`${this.baseUrl}/AllVisits`);
+    
+      return this.http.get<any>(`http://localhost:8000/api/admin/visits`, { headers: this.getAuthHeaders() })  
     }
   }
 

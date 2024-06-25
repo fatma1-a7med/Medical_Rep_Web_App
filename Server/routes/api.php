@@ -39,6 +39,7 @@ Route::middleware('auth:api')->get('/admin', function (Request $request) {
     return $request->user(); // This will return the authenticated admin details
 });
 
+// Route::get('/admin/visits', [VisitController::class, 'index']);
 
 Route::prefix('admin')->group(function () {
     Route::post('register', [AdminAuthController::class, 'createAdmin']);
@@ -46,26 +47,30 @@ Route::prefix('admin')->group(function () {
     Route::post('password/email', [ForgotPasswordAdminController::class, 'sendResetLinkEmail'])->name('password.email');
     Route::post('password/reset/{token}', [ResetPasswordAdminController::class, 'reset'])->name('password.reset');
     
-    //sales
+      //visits
+    //   Route::get('visits', [VisitController::class, 'index']);
+      Route::get('/visit/{id}', [VisitController::class, 'getVisitInformationById']);
+      Route::get('visits/searchByUsername/{username}', [VisitController :: class, 'searchByUsername' ]);
+      Route::get('visits/searchByDateRange/{startDate}/{endDate}', [VisitController::class, 'searchByDateRange']); 
+  
+  
   
     Route::middleware('auth:sanctum')->group(function () {
         Route::get('me', [AdminAuthController::class, 'me']);
         Route::post('logout', [AdminAuthController::class, 'logout']);
         Route::get('logged-in-admin', [AdminAuthController::class, 'getLoggedInAdmin']);
 
+        //sales
         Route::apiResource('sales', SalesController::class);
         Route::get('sales/user-info/{userId}', [SalesController::class,'getUserInfo']);
         Route::get('users/{user}/sales', [SalesController::class,'user_sales']);
         Route::get('{adminId}/users', [SalesController::class,'getUsers']);
 
+        Route::get('visits', [VisitController::class, 'index']);
+
+
     
     });
-
-    //admin visit routes
-    Route::get('visits', [VisitController::class, 'index']);
-    Route::get('/visit/{id}', [VisitController::class, 'getVisitInformationById']);
-    Route::get('visits/searchByUsername/{username}', [VisitController :: class, 'searchByUsername' ]);
-    Route::get('visits/searchByDateRange/{startDate}/{endDate}', [VisitController::class, 'searchByDateRange']); 
 
     //admin location tracking
     Route::get('/location',[LoctionController::class,'index']);
