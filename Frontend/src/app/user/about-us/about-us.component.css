@@ -1,0 +1,157 @@
+
+  
+  .hero-section {
+background-color: #1CA4AC
+;    background-size: cover;
+    background-position: center;
+    height: 60vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+  
+  .hero-section::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: -1;
+  }
+  
+  .hero-content {
+    padding: 2rem;
+    border-radius: 10px;
+  }
+  
+  .hero-content h1 {
+    font-family: 'Lobster Two', cursive;
+    font-size: 3rem;
+    margin: 0;
+  }
+  
+  .hero-content p {
+    font-size: 1.5rem;
+    margin-top: 0.5rem;
+  }
+  
+  .custom-hr {
+    border: none;
+    border-top: 2px solid #1CA4AC;
+    width: 50%;
+    margin: 2rem auto;
+  }
+  
+  .main-body {
+    padding: 2rem 0;
+  }
+  
+  .mission-vision-values, .overview-section, .features-section, .team-section {
+    padding: 4rem 0;
+  }
+  
+  .container {
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  
+  .card, .team-card {
+    background-color: #fff;
+    padding: 2rem;
+    margin: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    flex: 1 1 30%;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .card:hover, .team-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  }
+  
+  .card img, .team-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+  }
+  
+  .card h2, .team-card h3 {
+    font-family: 'Lobster Two', cursive;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  
+  .card p, .card ul, .team-card p {
+    font-size: 1rem;
+    line-height: 1.5;
+    margin: 0;
+  }
+  
+  .card ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .card ul li {
+    margin-bottom: 0.5rem;
+  }
+  
+  .team-section .container {
+    text-align: center;
+  }
+  
+  .team-section h2 {
+    font-family: 'Lobster Two', cursive;
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+  }
+  
+  .team-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .team-card img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 1rem;
+  }
+  
+  .team-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .team-card p {
+    font-size: 1rem;
+    color: #555;
+  }
+  
+  .overview-section p, .features-section ul {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+  }
+  
+  .features-section ul {
+    list-style: disc;
+    padding-left: 1.5rem;
+  }
+  
+  .features-section ul li {
+    margin-bottom: 0.5rem;
+  }
+  

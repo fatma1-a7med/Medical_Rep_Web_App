@@ -1,4 +1,4 @@
-<div class="container my-5 d-flex">
+<div class="container mt-5 d-flex">
   <div class="text-section text-center">
     <h1>Empowering Medical<br>Reps Effectively</h1>
     <p>Efficiency, Connectivity, Precision</p>
@@ -9,13 +9,13 @@
   </div>
 </div>
 
-<!-- Add an anchor point for Latest Visits section -->
+<!-- Latest Visits section -->
 <div id="latest-visits" class="container latest-visits-container">
   <h2 class="latest-visits-heading">Latest Visits</h2>
   <hr class="custom-hr text-center"/>
 
   <div class="main-body mt-5">
-    <mat-form-field class="w-50 m-auto">
+    <mat-form-field class="filter-container w-50" >
         <mat-label>Filter</mat-label>
         <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Doctor Name" #input >  
     </mat-form-field><br>
@@ -76,4 +76,5 @@
       <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of visits"></mat-paginator>
     </div>
   </div>
+  <br>
 </div>

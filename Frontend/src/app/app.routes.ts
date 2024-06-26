@@ -35,6 +35,7 @@ import { AdminProfileComponent } from './admin-dashboard/admin-profile/admin-pro
 import { UpdateProfileComponent } from './admin-dashboard/update-profile/update-profile.component';
 import { UserProfileComponent } from './user/user-dashboard/user-profile/user-profile.component';
 import { UpdateUserProfileComponent } from './user/user-dashboard/update-profile/update-profile.component';
+import { AboutUsComponent } from './user/about-us/about-us.component';
 
 
 
@@ -83,6 +84,9 @@ export const routes: Routes = [
 
         { path: 'user-profile/:id', component: UserProfileComponent },
     { path: 'user-profile/update/:id', component: UpdateUserProfileComponent },
+
+    { path: 'about-us', component: AboutUsComponent },
+     
 
       ]
     },
