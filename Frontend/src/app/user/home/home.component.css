@@ -7,12 +7,21 @@
 .text-section {
   margin-top: 50px;
 }
+.filter-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+}
 
 .text-section h1 {
   font-size: 3.5rem;
   font-weight: bold;
   margin-bottom: 20px;
   color: #333;
+}
+.main-body {
+  margin: auto;
 }
 
 .text-section p {
@@ -50,7 +59,7 @@
 
 /* Latest Visits section */
 .latest-visits-container {
-  margin-top: 50px;
+  margin-top: -5rem;
 }
 
 .latest-visits-heading {
@@ -61,80 +70,9 @@
   color: #333;
 }
 
-.carousel-control-prev,
-.carousel-control-next {
-  width: 50px;
-  height: 50px;
-  line-height: 50px;
-  font-size: 1.5rem;
-  border-radius: 50%;
-  background-color: #1CA4AC;
-  color: white;
-  transition: background-color 0.3s ease;
-  margin-top: 10rem;
-}
 
-.carousel-control-prev:hover,
-.carousel-control-next:hover {
-  background-color: #0c7b8a;
-}
 
-.carousel-inner {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 30px;
-}
 
-.carousel-item {
-  text-align: center;
-  transition: opacity 0.5s ease, transform 0.5s ease;
-}
-
-.carousel-item.active {
-  opacity: 1;
-  transform: scale(1);
-}
-
-.card {
-  border: none;
-  border-radius: 10px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-
-  height: 90vh;
-  width: 27vw;
-  margin-top: 3rem;
-  margin-left: 4rem;
- 
-}
-.card:first-child {
-  margin-left: -460px;
-}
-.card:nth-child(2) {
-  margin-left: 230px;
-}
-.card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
-}
-
-.card-body {
-  padding: 20px;
-}
-
-.card-title {
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin-bottom: 10px;
-  color: #333;
-}
-
-.card-text {
-  font-size: 1.1rem;
-  color: #666;
-  text-align: left;
-}
 .text_tools{
 margin-top: -1rem;
 }
@@ -146,7 +84,7 @@ margin-top: -1rem;
 .custom-hr {
   border-top: 3px solid #1CA4AC; 
   width: 20%; 
-  margin: -.5rem auto;
+  margin: -.7rem auto;
 }
 .custom-table {
   border: 1px solid #1CA4AC;
@@ -155,13 +93,11 @@ margin-top: -1rem;
 .custom-table th {
   background-color: #1CA4AC;
   color: white;
-  text-align: center;
   white-space: nowrap;
 }
 
 .custom-table td {
   border-color: #1CA4AC; 
-  text-align: center;
   white-space: nowrap;
 }
 

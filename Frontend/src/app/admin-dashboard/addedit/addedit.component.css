@@ -4,7 +4,7 @@
   gap: 10px;
   padding-top: 10px !important;
   max-height: 88vh; /* Set a maximum height for the dialog content */
-  overflow-y: hidden; /* Enable internal scrolling */
+ /* Enable internal scrolling */
 }
 
 .form-row {
