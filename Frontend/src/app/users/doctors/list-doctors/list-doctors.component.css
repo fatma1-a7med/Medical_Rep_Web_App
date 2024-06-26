@@ -6,7 +6,9 @@
 .custom-table th {
   background-color: #1CA4AC;
   color: white;
-  text-align: center; /* Ensure text alignment */
+  padding: 20px;
+ padding-left:110px;
+  align-items: center;
 }
 
 
