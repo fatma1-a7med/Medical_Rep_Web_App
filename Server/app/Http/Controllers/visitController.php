@@ -11,44 +11,48 @@ class VisitController extends Controller
 {
   
     public function index()
-    {
-        // Get the logged-in admin
-        $admin = Auth::guard('sanctum')->user();
-        
-        // Get all users that belong to this admin
-        $users = User::where('admin_id', $admin->id)->pluck('id');
+{
+    // Get the logged-in admin
+    $admin = Auth::guard('sanctum')->user();
     
-        // Get all visits related to these users
-        $visits = Visit::with(['doctor', 'user', 'location', 'tools'])
-            ->whereIn('user_id', $users)
-            ->get();
-    
-        $result = $visits->map(function ($visit) {
-            return [
-                'id' => $visit->id,
-                'visit_date' => $visit->visit_date,
-                'status' => $visit->status,
-                'medical_rep_fullname' => $visit->user->first_name . ' ' . $visit->user->last_name,
-                'doctor' => $visit->doctor ? $visit->doctor->first_name . ' ' . $visit->doctor->last_name : null,
-                'tools' => $visit->tools->pluck('name'),
-                'location' => $visit->location ? [
-                    'latitude' => $visit->location->latitude,
-                    'longitude' => $visit->location->longitude,
-                    'timestamp' => $visit->location->timestamp,
-                    'altitude' => $visit->location->altitude,
-                    'accuracy' => $visit->location->accuracy,
-                    'speed' => $visit->location->speed,
-                    'direction' => $visit->location->direction,
-                ] : null
-            ];
-        });
-    
-        return response()->json($result);
-    }
+    // Get all users that belong to this admin
+    $users = User::where('admin_id', $admin->id)->pluck('id');
+
+    // Get all visits related to these users
+    $visits = Visit::with(['doctor', 'user', 'location', 'tools'])
+        ->whereIn('user_id', $users)
+        ->get();
+
+    $result = $visits->map(function ($visit) {
+        return [
+            'id' => $visit->id,
+            'visit_date' => $visit->visit_date,
+            'status' => $visit->status,
+            'medical_rep_fullname' => $visit->user->first_name . ' ' . $visit->user->last_name,
+            'doctor' => $visit->doctor ? $visit->doctor->first_name . ' ' . $visit->doctor->last_name : null,
+            'tools' => $visit->tools->map(function ($tool) {
+                return [
+                    'tool_name' => $tool->name,
+                ];
+            }),
+            'location' => $visit->location ? [
+                'latitude' => $visit->location->latitude,
+                'longitude' => $visit->location->longitude,
+                'timestamp' => $visit->location->timestamp,
+                'altitude' => $visit->location->altitude,
+                'accuracy' => $visit->location->accuracy,
+                'speed' => $visit->location->speed,
+                'direction' => $visit->location->direction,
+            ] : null
+        ];
+    });
+
+    return response()->json($result);
+}
     
 
     public function getVisitInformationById($id) {
-        $visit = Visit::with(['doctor', 'location', 'user'])->find($id);
+        $visit = Visit::with(['doctor', 'location', 'user','tools'])->find($id);
     
         if (!$visit) {
             return response()->json(['message' => 'Visit not found'], 404);
@@ -68,7 +72,7 @@ class VisitController extends Controller
             'state' => $doctor->state,
             'location_info' => $visit->location,
             'user_full_name' => $visit->user->first_name . ' ' . $visit->user->last_name,
-            'tools' => $doctor->tools->map(function ($tool) {
+            'tools' => $visit->tools->map(function ($tool) {
                 return [
                     'tool_name' => $tool->name,
                 ];
