@@ -8,16 +8,16 @@ import { AddDoctorComponent } from '../add-doctor/add-doctor.component';
 import { MatDialog , MatDialogModule} from '@angular/material/dialog';
 import { AfterViewInit, Component, ViewChild, OnInit } from '@angular/core';
 import { MatSort, MatSortModule } from '@angular/material/sort';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
 import { NavbarComponent } from '../../../user/navbar/navbar.component';
 import { HttpClient } from '@angular/common/http';
 import { HttpClientModule } from '@angular/common/http';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
 import { MatTableDataSource } from '@angular/material/table';
+
 
 
 interface Doctor {

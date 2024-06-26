@@ -43,3 +43,27 @@
    margin-top: -.3rem;
   }
 
+  .custom-add-icon {
+    font-size: 35px;
+    margin-right: 8px;
+    color: #1CA4AC;
+    vertical-align: middle;
+  }
+  
+  .custom-info-icon {
+    color: #28a745;
+  }
+  
+  .custom-edit-icon {
+    color: #ffc107;
+    margin-left: 9px;
+  }
+  
+  .custom-delete-icon {
+    color: #d40505;
+    border: none;
+    background: none;
+    outline: none;
+    cursor: pointer;
+  }
+  
