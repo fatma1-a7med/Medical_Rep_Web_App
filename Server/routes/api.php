@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\Api\AdminProfileController;
 use App\Http\Controllers\Api\SalesController;
 use App\Http\Controllers\Api\UserAuthController;
+use App\Http\Controllers\Api\UserProfileController;
 use App\Http\Controllers\ForgotPasswordAdminController;
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\ResetPasswordAdminController;
@@ -127,6 +129,23 @@ Route::prefix('users')->middleware('auth:sanctum')->group(function () {
 // visit reporting
 Route::get('/visit-reports', [VisitReportingController::class, 'getVisitReports']);
 
+
+// Route::get('/admin/profile', [AdminProfileController::class, 'show']);
+Route::prefix('admin')->group(function () {
+    Route::get('/profile', [AdminProfileController::class, 'index']);
+    Route::get('/profile/{id}', [AdminProfileController::class, 'show']);
+    Route::post('/profile/{id}', [AdminProfileController::class, 'update']); // Route to update profile
+});
+
+
+Route::prefix('user')->group(function () {
+    Route::post('register', [UserAuthController::class, 'createUser']);
+    Route::post('login', [UserAuthController::class, 'loginUser']);
+    Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+    Route::get('/profile', [UserProfileController::class, 'index']);
+    Route::get('/profile/{id}', [UserProfileController::class, 'show']);
+    Route::post('/profile/{id}', [UserProfileController::class, 'update']);
+});
 
 
 

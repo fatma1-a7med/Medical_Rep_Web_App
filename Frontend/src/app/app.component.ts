@@ -24,11 +24,12 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MessageComponent } from './admin-dashboard/message/message.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterLink,FormsModule,CommonModule,RouterOutlet,NavbarComponent,HttpClientModule,ListallmedrepComponent, AdminComponent, RouterLink,WelcomeComponent],
+  imports: [RouterLink,FormsModule,CommonModule,RouterOutlet,NavbarComponent,HttpClientModule,ListallmedrepComponent, AdminComponent, RouterLink,WelcomeComponent,MessageComponent],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })

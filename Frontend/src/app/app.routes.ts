@@ -31,6 +31,10 @@ import { AddDoctorComponent } from './users/doctors/add-doctor/add-doctor.compon
 import { ShowDoctorComponent } from './users/doctors/show-doctor/show-doctor.component';
 import { UservisitComponent } from './users/uservisit/uservisit.component';
 import { AdminGuard } from './services/auth/admin-auh-guard.guard';
+import { AdminProfileComponent } from './admin-dashboard/admin-profile/admin-profile.component';
+import { UpdateProfileComponent } from './admin-dashboard/update-profile/update-profile.component';
+import { UserProfileComponent } from './user/user-dashboard/user-profile/user-profile.component';
+import { UpdateUserProfileComponent } from './user/user-dashboard/update-profile/update-profile.component';
 
 
 
@@ -77,6 +81,9 @@ export const routes: Routes = [
         
         {path:'plan', component:UservisitComponent},
 
+        { path: 'user-profile/:id', component: UserProfileComponent },
+    { path: 'user-profile/update/:id', component: UpdateUserProfileComponent },
+
       ]
     },
   
@@ -100,6 +107,8 @@ export const routes: Routes = [
       {path: 'visit-managment', component:VisitManagementComponent},
       {path: 'loction-tracking', component:LocationComponent},
       { path: 'reporting', component: ReportingComponent },
+      { path: 'admin-profile/:id', component: AdminProfileComponent },
+      { path: 'update-profile/update/:id', component: UpdateProfileComponent }
     ]
   },
   
