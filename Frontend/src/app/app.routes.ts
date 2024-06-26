@@ -1,3 +1,4 @@
+import { ShowVisitComponent } from './admin-dashboard/visit-managment/show-visit/show-visit.component';
 import { UserGuard } from './services/auth/userAuthGuard.service';
 import { UserLocationComponent } from './user/user-location/user-location.component';
 import { NgModule, Component } from '@angular/core';
@@ -109,6 +110,7 @@ export const routes: Routes = [
       { path: 'sales/edit/:id', component: SalesEditComponent },
       { path: 'sales/details/:id', component: SalesDetailsComponent },
       {path: 'visit-managment', component:VisitManagementComponent},
+      { path: 'show-visit/:id', component: ShowVisitComponent },
       {path: 'loction-tracking', component:LocationComponent},
       { path: 'reporting', component: ReportingComponent },
       { path: 'admin-profile/:id', component: AdminProfileComponent },

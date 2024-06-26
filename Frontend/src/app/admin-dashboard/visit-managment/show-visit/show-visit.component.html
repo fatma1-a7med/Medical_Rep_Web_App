@@ -1,76 +1,43 @@
-<h2 mat-dialog-title class="text-center" >Visit Details</h2>
-<div mat-dialog-content>
-  <table class="table table-striped Visit_content">
-    <thead>
-      <tr>
-        <th>Field</th>
-        <th>Info</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <th class="text-dark" scope="row">Medical Rep Name:</th>
-        <td>{{ visit.user_full_name }}</td>
-      </tr>
-      <tr>
-        <th class="text-dark" scope="row">Doctor Name:</th>
-        <td>{{ visit.doctor_name }}</td>
-      </tr>
-      <tr>
-        <th class="text-dark" scope="row">Status:</th>
-        <td>{{ visit.status }}</td>
-      </tr>
-      <tr>
-        <th class="text-dark" scope="row">Tools:</th>
-        <td>{{ getToolNames(visit.tools) }}</td>
-      </tr>
-      <tr>
-        <th class="text-dark" scope="row">Territory:</th>
-        <td>{{ visit.territory }}</td>
-      </tr>
-      <tr>
-        <th class="text-dark" scope="row">City:</th>
-        <td>{{ visit.city }}</td>
-      </tr>
-      <tr>
-        <th class="text-dark" scope="row">State:</th>
-        <td>{{ visit.state }}</td>
-      </tr>
-      <tr>
-        <th class="text-dark" scope="row">Location Info:</th>
-        <td></td>
-      </tr>
-      <tr>
-        <th scope="row">Latitude:</th>
-        <td>{{ visit.location_info.latitude }}</td>
-      </tr>
-      <tr>
-        <th scope="row">Longitude:</th>
-        <td>{{ visit.location_info.longitude }}</td>
-      </tr>
-      <tr>
-        <th scope="row">Timestamp:</th>
-        <td>{{ visit.location_info.timestamp }}</td>
-      </tr>
-      <tr>
-        <th scope="row">Altitude:</th>
-        <td>{{ visit.location_info.altitude }}</td>
-      </tr>
-      <tr>
-        <th scope="row">Accuracy:</th>
-        <td>{{ visit.location_info.accuracy }}</td>
-      </tr>
-      <tr>
-        <th scope="row">Speed:</th>
-        <td>{{ visit.location_info.speed }}</td>
-      </tr>
-      <tr>
-        <th scope="row">Direction:</th>
-        <td>{{ visit.location_info.direction }}</td>
-      </tr>
-    </tbody>
-  </table>
-  <div class="text-center mt-3">
-    <button routerLink="/admin-dashboard/visit-managment" class="btn text-light col-md-12 col-lg-3 col-sm-12 m-4">Back to Visits List</button>
+<div class=" container my-5">
+  <div mat-dialog-content>
+    <div class="my-4"  style="margin-left: 250px;">
+      <h2 >Visit Details</h2>
+        <hr class="custom-hr">
+    </div>
+    <table class="table table-striped Visit_content custom-table">
+      <tbody>
+        <tr>
+          <th class="text-dark" scope="row">Medical Rep Name:</th>
+          <td>{{ visit.user_full_name }}</td>
+        </tr>
+        <tr>
+          <th class="text-dark" scope="row">Doctor Name:</th>
+          <td>{{ visit.doctor_name }}</td>
+        </tr>
+        <tr>
+          <th class="text-dark" scope="row">Status:</th>
+          <td>{{ visit.status }}</td>
+        </tr>
+        <tr>
+          <th class="text-dark" scope="row">Tools:</th>
+          <td>{{ getToolNames(visit.tools) }}</td>
+        </tr>
+        <tr>
+          <th class="text-dark" scope="row">Territory:</th>
+          <td>{{ visit.territory }}</td>
+        </tr>
+        <tr>
+          <th class="text-dark" scope="row">City:</th>
+          <td>{{ visit.city }}</td>
+        </tr>
+        <tr>
+          <th class="text-dark" scope="row">State:</th>
+          <td>{{ visit.state }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="text-center mt-3" style="margin-right: 670px;">
+      <button routerLink="/admin-dashboard/visit-managment" class="btn text-light col-md-12 col-lg-3 col-sm-12 m-4">Back to Visits List</button>
+    </div>
   </div>
 </div>

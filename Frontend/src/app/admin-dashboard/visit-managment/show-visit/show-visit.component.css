@@ -1,14 +1,12 @@
+.container{
+    padding-top: 50px;
+}
 .Visit_content{
     margin-left: 250px;
     width: 70vw;
   }
 .custom-table {
     border: 1px solid #1CA4AC;
-}
-
-.custom-table th {
-    background-color: #1CA4AC;
-    color: white;
 }
 
 .custom-table td {
@@ -33,9 +31,27 @@
 
 .btn {
    background-color : #1CA4AC;
+   width:150px;
+   
     
   }
   
   .btn:hover {
     opacity: 0.8;
+  }
+
+  .custom-hr {
+    border-top: 3px solid #1CA4AC; 
+    width: 15%; 
+   margin-top: -.2rem;
+  }
+  
+  .custom-table {
+    border: 1px solid #1CA4AC;
+    border-collapse: collapse;
+  }
+  .custom-table th,
+  .custom-table td {
+    border: 1px solid #1CA4AC;
+    text-align: center;
   }
