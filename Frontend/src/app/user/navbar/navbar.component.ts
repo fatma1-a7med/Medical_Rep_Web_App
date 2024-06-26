@@ -41,8 +41,9 @@ export class NavbarComponent {
       }
     );
   }
-  getImageUrl(): string {
-    return `http://localhost:8000/${this.image}`;
+
+  getImageUrl(): string | null {
+    return this.image ?  `http://localhost:8000/${this.image}` : null;
   }
   logout() {
     this.userService.logout();
