@@ -4,9 +4,12 @@
 }
 
 .custom-table th {
-    background-color: #1CA4AC;
-    color: white;
+  background-color: #1CA4AC;
+  color: white;
+  text-align: center; /* Ensure text alignment */
 }
+
+
 
 .custom-table td {
     border-color: #1CA4AC;
@@ -50,6 +53,19 @@
     vertical-align: middle;
   }
   
+  .mat-icon {
+    height: 35px;
+    width: 35px;
+    line-height: 35px;
+  }
+  
+  .custom-add-icon {
+    font-size: 35px;
+    margin-right: 8px;
+    color: #1CA4AC;
+    vertical-align: middle;
+  }
+  
   .custom-info-icon {
     color: #28a745;
   }
@@ -67,3 +83,14 @@
     cursor: pointer;
   }
   
+  
+
+  .mat-icon {
+    height: 35px;
+    width: 35px;
+    line-height: 35px;
+  }
+
+  
+
+ 
