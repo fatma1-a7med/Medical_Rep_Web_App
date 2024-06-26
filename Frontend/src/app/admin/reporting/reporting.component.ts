@@ -44,8 +44,9 @@ export class ReportingComponent implements OnInit {
   visitReports: VisitReport[] = [];
   filteredVisitReports: VisitReport[] = [];
   users: User[] = [];
-  selectedUserId: string = ''; 
-  
+  selectedUserId: string = '';
+  startDate: string = '';
+  endDate: string = '';
 
   constructor(private reportingService: ReportingService) { }
 
@@ -72,13 +73,29 @@ export class ReportingComponent implements OnInit {
   }
 
   filterByUser(userId: string): void {
-    if (userId) {
-      this.filteredVisitReports = this.visitReports.filter(visit =>
-        visit.user.id.toString() === userId
-      );
-    } else {
-      this.filteredVisitReports = [...this.visitReports];
+    this.filteredVisitReports = this.visitReports.filter(visit =>
+      visit.user.id.toString() === userId && this.isWithinDateRange(visit.visit_date)
+    );
+  }
+
+  isWithinDateRange(visitDate: string): boolean {
+    const date = new Date(visitDate);
+    const start = this.startDate ? new Date(this.startDate) : null;
+    const end = this.endDate ? new Date(this.endDate) : null;
+
+    if (start && date < start) {
+      return false;
     }
+    if (end && date > end) {
+      return false;
+    }
+    return true;
+  }
+
+  filterByDateRange(): void {
+    this.filteredVisitReports = this.visitReports.filter(visit =>
+      this.isWithinDateRange(visit.visit_date)
+    );
   }
 
   generatePDF(): void {
@@ -86,20 +103,29 @@ export class ReportingComponent implements OnInit {
     if (element) {
       html2canvas(element, { scale: 3 }).then(canvas => {
         const imgData = canvas.toDataURL('image/png');
-        const imgWidth = 595.28; // A4 size width in points
+        const pageWidth = 595.28; // A4 size width in points
         const pageHeight = 841.89; // A4 size height in points
+        const imgWidth = 600.28; // Fixed image width
         const imgHeight = (canvas.height * imgWidth) / canvas.width;
         let heightLeft = imgHeight;
   
         const pdf = new jsPDF('p', 'pt', 'a4');
-        let position = 0;
+        let position = 30; // Start position for the image
   
+        
+  
+        // Add the title text
+      pdf.setFontSize(20);
+      pdf.text('Medical Visit Report', pageWidth / 2, 40, { align: 'center' });
+      position += 40; 
+  
+        // Center the image vertically on the first page
         pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
         heightLeft -= pageHeight;
   
         while (heightLeft >= 0) {
-          position = heightLeft - imgHeight;
           pdf.addPage();
+          position = heightLeft - imgHeight + 80;
           pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
           heightLeft -= pageHeight;
         }
@@ -112,4 +138,5 @@ export class ReportingComponent implements OnInit {
       console.error('Element not found!');
     }
   }
+  
 }

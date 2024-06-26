@@ -1,16 +1,12 @@
+.container{
+    padding-top: 50px;
+}
 .Visit_content{
     margin-left: 250px;
     width: 70vw;
   }
-
-  
 .custom-table {
     border: 1px solid #1CA4AC;
-}
-
-.custom-table th {
-    background-color: #1CA4AC;
-    color: white;
 }
 
 .custom-table td {
@@ -26,24 +22,36 @@
     background-color: #e6f7f8;
 }
 
-.custom-table tr:nth-child(even) {
-    background-color: #f2f2f2;
-}
-
-.custom-table tr:hover {
-    background-color: #e6f7f8;
-}
-
 .mat-icon {
     height: 35px;
     width: 35px;
     line-height: 35px;
 }
+
+
 .btn {
    background-color : #1CA4AC;
+   width:150px;
+   
     
   }
   
   .btn:hover {
     opacity: 0.8;
+  }
+
+  .custom-hr {
+    border-top: 3px solid #1CA4AC; 
+    width: 15%; 
+   margin-top: -.2rem;
+  }
+  
+  .custom-table {
+    border: 1px solid #1CA4AC;
+    border-collapse: collapse;
+  }
+  .custom-table th,
+  .custom-table td {
+    border: 1px solid #1CA4AC;
+    text-align: center;
   }
