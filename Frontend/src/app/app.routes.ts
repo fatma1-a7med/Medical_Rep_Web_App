@@ -1,3 +1,4 @@
+import { ShowVisitComponent } from './admin-dashboard/visit-managment/show-visit/show-visit.component';
 import { UserGuard } from './services/auth/userAuthGuard.service';
 import { UserLocationComponent } from './user/user-location/user-location.component';
 import { NgModule, Component } from '@angular/core';
@@ -35,6 +36,7 @@ import { AdminProfileComponent } from './admin-dashboard/admin-profile/admin-pro
 import { UpdateProfileComponent } from './admin-dashboard/update-profile/update-profile.component';
 import { UserProfileComponent } from './user/user-dashboard/user-profile/user-profile.component';
 import { UpdateUserProfileComponent } from './user/user-dashboard/update-profile/update-profile.component';
+import { AboutUsComponent } from './user/about-us/about-us.component';
 
 
 
@@ -84,6 +86,9 @@ export const routes: Routes = [
         { path: 'user-profile/:id', component: UserProfileComponent },
     { path: 'user-profile/update/:id', component: UpdateUserProfileComponent },
 
+    { path: 'about-us', component: AboutUsComponent },
+     
+
       ]
     },
   
@@ -105,6 +110,7 @@ export const routes: Routes = [
       { path: 'sales/edit/:id', component: SalesEditComponent },
       { path: 'sales/details/:id', component: SalesDetailsComponent },
       {path: 'visit-managment', component:VisitManagementComponent},
+      { path: 'show-visit/:id', component: ShowVisitComponent },
       {path: 'loction-tracking', component:LocationComponent},
       { path: 'reporting', component: ReportingComponent },
       { path: 'admin-profile/:id', component: AdminProfileComponent },

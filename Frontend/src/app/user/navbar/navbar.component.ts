@@ -5,12 +5,12 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatMenuModule } from '@angular/material/menu';
 import { CommonModule } from '@angular/common';
 import { SalesService } from '../../services/user_services/user-services.service';
-import { RouterLink } from '@angular/router';
+import { RouterLink,RouterLinkActive} from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [MatToolbarModule, MatButtonModule, MatIconModule, MatMenuModule,CommonModule,RouterLink],
+  imports: [MatToolbarModule, MatButtonModule, MatIconModule, MatMenuModule,CommonModule,RouterLink,RouterLinkActive],
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })

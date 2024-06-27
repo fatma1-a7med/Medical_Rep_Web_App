@@ -1,0 +1,43 @@
+<div class=" container my-5">
+  <div mat-dialog-content>
+    <div class="my-4"  style="margin-left: 250px;">
+      <h2 >Visit Details</h2>
+        <hr class="custom-hr">
+    </div>
+    <table class="table table-striped Visit_content custom-table">
+      <tbody>
+        <tr>
+          <th class="text-dark" scope="row">Medical Rep Name:</th>
+          <td>{{ visit.user_full_name }}</td>
+        </tr>
+        <tr>
+          <th class="text-dark" scope="row">Doctor Name:</th>
+          <td>{{ visit.doctor_name }}</td>
+        </tr>
+        <tr>
+          <th class="text-dark" scope="row">Status:</th>
+          <td>{{ visit.status }}</td>
+        </tr>
+        <tr>
+          <th class="text-dark" scope="row">Tools:</th>
+          <td>{{ getToolNames(visit.tools) }}</td>
+        </tr>
+        <tr>
+          <th class="text-dark" scope="row">Territory:</th>
+          <td>{{ visit.territory }}</td>
+        </tr>
+        <tr>
+          <th class="text-dark" scope="row">City:</th>
+          <td>{{ visit.city }}</td>
+        </tr>
+        <tr>
+          <th class="text-dark" scope="row">State:</th>
+          <td>{{ visit.state }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="text-center mt-3" style="margin-right: 670px;">
+      <button routerLink="/admin-dashboard/visit-managment" class="btn text-light col-md-12 col-lg-3 col-sm-12 m-4">Back to Visits List</button>
+    </div>
+  </div>
+</div>

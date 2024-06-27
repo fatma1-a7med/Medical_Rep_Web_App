@@ -6,8 +6,7 @@
     border: 1px solid #1CA4AC;
   }
   
-  .custom-table th ,
-  .modal {
+  .custom-table th {
     background-color: #1CA4AC;
     color: white;
   }
@@ -24,8 +23,13 @@
     background-color: #e6f7f8;
   }
   .custom-hr {
-    border-top: 3px solid #1CA4AC; 
+    border-top: 2px solid #48d4db; 
     width: 20%; 
    margin-top: -.2rem;
   }
   
+
+  
+.custom-info-icon {
+  color: #28a745;
+}

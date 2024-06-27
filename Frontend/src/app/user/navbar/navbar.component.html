@@ -4,11 +4,11 @@
       <h4 class="logo_text">RepAlert</h4>
     </div>
     <span class="spacer"></span>
-    <button mat-button [routerLink]="['../user/home']">Home</button>
-    <button mat-button  [routerLink]="['../user/plan']">Plan </button>
-    <button mat-button [routerLink]="['../user/sales']">Sales</button>
-    <button mat-button [routerLink]="['../user/list-All-Doctors']">Doctor's List</button>
-    <button mat-button [routerLink]="['../user/userLocation']" >Map</button>
+    <button mat-button [routerLink]="['../user/home']" routerLinkActive="active-link">Home</button>
+    <button mat-button  [routerLink]="['../user/plan']" routerLinkActive="active-link">Plan </button>
+    <button mat-button [routerLink]="['../user/sales']" routerLinkActive="active-link">Sales</button>
+    <button mat-button [routerLink]="['../user/list-All-Doctors']" routerLinkActive="active-link">Doctor's List</button>
+    <button mat-button [routerLink]="['../user/userLocation']" routerLinkActive="active-link">Map</button>
     <span class="spacer"></span>
     
     <div class="user-profile">
@@ -16,8 +16,8 @@
         <ng-container *ngIf="getImageUrl(); else defaultIcon">
           <img [src]="getImageUrl()" alt="User Image" class="user-image" />
         </ng-container>
-        <ng-template #defaultIcon >
-          <mat-icon >account_circle</mat-icon>
+        <ng-template #defaultIcon>
+          <mat-icon>account_circle</mat-icon>
         </ng-template>
         <span>{{ first_name }} {{ last_name }}</span>
       </button>
@@ -30,7 +30,8 @@
       User data not available.
     </div>
     <mat-menu #userMenu="matMenu">
-      <button mat-menu-item >Profile</button>
+      <button mat-menu-item >Profile</button> 
+      <button mat-menu-item [routerLink]="['../user/about-us']">About Us</button>
       <button mat-menu-item (click)="logout()">Logout</button>
     </mat-menu>
   </div>

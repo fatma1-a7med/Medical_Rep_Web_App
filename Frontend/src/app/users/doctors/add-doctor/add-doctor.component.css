@@ -3,3 +3,12 @@
     justify-content: space-between;
   }
   
+  .save-btn {
+    background-color: #1CA4AC;
+    color: #fff; /* Ensure the text is readable */
+  }
+  
+  .save-btn:hover {
+    background-color: #189b9e; /* Darken the button color on hover */
+  }
+  
