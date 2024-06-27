@@ -1,11 +1,8 @@
 <div class="container">
-
-  <div class="activity-monitoring my-5">
-    
-  
-    <div class="centered-filters" style="margin-left: 50px;">
+  <div class="activity-monitoring my-5 "style="margin-top: 40px;">
+    <div class="centered-filters" >
       <div class="filters">
-        <mat-form-field class="user-select">
+        <mat-form-field class="user-select" style="margin-right: 40px;">
           <mat-label>Select User</mat-label>
           <mat-select [(value)]="selectedUser" (selectionChange)="searchVisits()">
             <mat-option *ngFor="let user of users" [value]="user">
@@ -14,44 +11,47 @@
           </mat-select>
         </mat-form-field>
         <div *ngIf="users.length === 0">Loading users...</div>
-  
-        <mat-form-field>
+
+        <mat-form-field style="margin-right: 5px;">
           <input matInput [matDatepicker]="picker1" placeholder="Start Date" [(ngModel)]="startDate">
           <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
           <mat-datepicker #picker1></mat-datepicker>
         </mat-form-field>
-  
+
         <mat-form-field>
           <input matInput [matDatepicker]="picker2" placeholder="End Date" [(ngModel)]="endDate">
           <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
           <mat-datepicker #picker2></mat-datepicker>
         </mat-form-field>
-        <button mat-button class="filter-button" (click)="searchByDateRange()" style="background-color: #1CA4AC; color:#fff;padding: 15px 29px;">Filter</button>
+        <button style="background-color: #1CA4AC; color:white" mat-button class="filter-button" (click)="searchByDateRange()">Filter</button>
       </div>
     </div>
+
     <div>
       <h3>Activity Monitoring</h3>
-      <hr class=" custom-hr">
+      <hr class="custom-hr">
     </div>
-  
-  
-  <div class="visit-section">
-    <div class="visit-history">
-      <h5>Visit History</h5>
-      <div class="visit-card" *ngFor="let visit of visitHistory">
-        <p class="visit-name">{{ visit.purpose }}</p>
-        <p>{{ visit.visit_date }} - {{ visit.visit_time }}</p>
-        <button mat-button (click)="readMore(visit)" >Read more</button> 
+
+    <div class="visit-section">
+      <div class="visit-history">
+        <h5>Visit History</h5>
+        <div class="visit-cards-container">
+          <div class="visit-card" *ngFor="let visit of visitHistory">
+            <p class="visit-name">{{ visit.purpose }}</p>
+            <div class="visit-details">
+              <p class="visit-date"><mat-icon class="visit-icon">Visit date:</mat-icon> {{ visit.visit_date }}</p>
+              <p class="visit-time"><mat-icon class="visit-icon">Visit Time:</mat-icon> {{ visit.visit_time }}</p>
+            </div>
+            <button style="background-color: #1CA4AC;" mat-button class="read-more-button " (click)="readMore(visit)">Read more</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="planned-visits">
+        <h5>Planned Visits</h5>
+        <full-calendar [options]="calendarOptions" *ngIf="calendarOptions"></full-calendar>
       </div>
     </div>
-  
-  
-      <div class="planned-visits">
-        <h5>Planned visits</h5>
-         <full-calendar [options]="calendarOptions" *ngIf="calendarOptions"></full-calendar>  </div>
-    </div>
   </div>
-  
-  
-  </div>
-    
+</div>
+

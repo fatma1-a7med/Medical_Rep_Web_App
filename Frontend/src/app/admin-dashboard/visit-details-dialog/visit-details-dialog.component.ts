@@ -1,9 +1,11 @@
 import { Component, Inject, ViewEncapsulation } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-
+import { MatIcon } from '@angular/material/icon';
 @Component({
+  standalone:true,
   selector: 'app-visit-details-dialog',
   templateUrl: './visit-details-dialog.component.html',
+  imports:[MatIcon],
   styleUrls: ['./visit-details-dialog.component.css'],
   encapsulation: ViewEncapsulation.Emulated  // This is the default; you can also try None for global styles
 })

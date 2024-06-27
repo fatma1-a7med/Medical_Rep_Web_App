@@ -55,55 +55,60 @@
   <button mat-button (click)="onSave()">Save</button>
 </div> -->
 
-
 <div class="add-visit-dialog">
   <h1 class="dialog-title mat-dialog-title">Add New Visit</h1>
   <div mat-dialog-content>
     <form [formGroup]="visitForm" class="form">
-      <mat-form-field appearance="outline" class="form-field">
-        <mat-label>Visit Date</mat-label>
-        <input matInput [matDatepicker]="picker" formControlName="visit_date">
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-      </mat-form-field>
+      <div class="form-row">
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Visit Date</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="visit_date">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
 
-      <mat-form-field appearance="outline" class="form-field">
-        <mat-label>Visit Time</mat-label>
-        <input matInput type="time" formControlName="visit_time">
-      </mat-form-field>
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Visit Time</mat-label>
+          <input matInput type="time" formControlName="visit_time">
+        </mat-form-field>
+      </div>
 
-      <mat-form-field appearance="outline" class="form-field">
-        <mat-label>Purpose</mat-label>
-        <input matInput formControlName="purpose">
-      </mat-form-field>
+      <div class="form-row">
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Purpose</mat-label>
+          <input matInput formControlName="purpose">
+        </mat-form-field>
 
-      <mat-form-field appearance="outline" class="form-field">
-        <mat-label>Status</mat-label>
-        <mat-select formControlName="status">
-          <mat-option *ngFor="let status of statusOptions" [value]="status">{{ status }}</mat-option>
-        </mat-select>
-      </mat-form-field>
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Status</mat-label>
+          <mat-select formControlName="status">
+            <mat-option *ngFor="let status of statusOptions" [value]="status">{{ status }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
 
-      <mat-form-field appearance="outline" class="form-field">
-        <mat-label>Doctor</mat-label>
-        <input matInput placeholder="Search for a doctor" formControlName="doctorCtrl" [matAutocomplete]="auto">
-        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayDoctorFn">
-          <mat-option *ngFor="let doctor of filteredDoctors$ | async" [value]="doctor">
-            {{ doctor.first_name }} {{ doctor.last_name }}
-          </mat-option>
-        </mat-autocomplete>
-      </mat-form-field>
+      <div class="form-row">
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Doctor</mat-label>
+          <input matInput placeholder="Search for a doctor" formControlName="doctorCtrl" [matAutocomplete]="auto">
+          <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayDoctorFn">
+            <mat-option *ngFor="let doctor of filteredDoctors$ | async" [value]="doctor">
+              {{ doctor.first_name }} {{ doctor.last_name }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
 
-      <mat-form-field appearance="outline" class="form-field">
-        <mat-label>Tools</mat-label>
-        <mat-select formControlName="tools" multiple>
-          <mat-option *ngFor="let tool of tools" [value]="tool.id">{{ tool.name }}</mat-option>
-        </mat-select>
-      </mat-form-field>
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Tools</mat-label>
+          <mat-select formControlName="tools" multiple>
+            <mat-option *ngFor="let tool of tools" [value]="tool.id">{{ tool.name }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
     </form>
   </div>
   <div mat-dialog-actions class="dialog-actions">
-    <button mat-button color="warn" (click)="onNoClick()">Cancel</button>
-    <button mat-button color="primary" (click)="onSave()">Save</button>
+    <button mat-button class="cancel-button" (click)="onNoClick()">Cancel</button>
+    <button mat-button class="save-button" (click)="onSave()">Save</button>
   </div>
 </div>

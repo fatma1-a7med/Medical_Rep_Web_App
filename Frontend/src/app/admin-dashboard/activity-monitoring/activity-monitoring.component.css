@@ -1,15 +1,16 @@
-.container{
-  margin-top: 15px;
-  margin-left: 250px;
+.container {
+  margin-top: 20px;
+  margin-left: 300px;
   width: 70vw;
 }
+
 .fc-event-time, .fc-event-title {
-  display: block; /* Ensure they are block elements to appear one above the other */
-  font-size: 0.47em; /* Adjust the size as needed */
-  color: rgb(0, 255, 149); /* Customize the color if necessary */
-  line-height: 1.2em; /* Adjust line height if necessary for spacing */
-  margin: 0; /* Remove any default margin */
-  padding: 0; /* Remove any default padding */
+  display: block;
+  
+  
+  line-height: 1.2em;
+  margin: 0;
+  padding: 0;
 }
 
 .activity-monitoring {
@@ -19,27 +20,47 @@
 
 .centered-filters {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   margin-bottom: 20px;
+  padding: 15px;
+
+  
 }
 
 .filters, .search-by-name {
   display: flex;
   align-items: center;
+
 }
 
 .mat-form-field {
-  margin-right: 20px; /* Adds space between elements */
+  margin-right: 20px;
 }
 
 .user-select .mat-form-field-wrapper {
   width: 200px;
 }
 
-.filter-button, .search-button {
-  background-color: #2196F3;
+.filter-button, .search-button, .read-more-button {
+  background-color: #1CA4AC;
   color: white;
-  margin-left: 20px; /* Adds space between button and previous element */
+  border-radius: 20px;
+  padding: 10px 20px;
+  margin-left: 20px;
+  border: none;
+  cursor: pointer;
+  font-size: 1em;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.filter-button:hover, .search-button:hover, .read-more-button:hover {
+  background-color: #138d92;
+  transform: translateY(-2px);
+}
+
+.filter-button:focus, .search-button:focus, .read-more-button:focus {
+  outline: none;
+  box-shadow: 0 0 5px #1CA4AC;
 }
 
 .filters .mat-form-field:first-child {
@@ -47,117 +68,123 @@
 }
 
 .search-by-name .mat-form-field:first-child {
-  margin-right: 40px; /* Adds more space between first name and last name fields */
+  margin-right: 40px;
 }
 
 .visit-section {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .visit-history, .planned-visits {
-  width: 49%;
+  width: 100%;
 }
 
 .visit-history {
   border: 1px solid #E0E0E0;
   padding: 20px;
   border-radius: 5px;
-  background-color: #f9f9f9; /* Light background color */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.visit-cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
 }
 
 .visit-card {
   border: 1px solid #E0E0E0;
   padding: 15px;
-  margin-bottom: 15px;
+  width: calc(33.333% - 30px); /* Three cards per row with spacing */
   border-radius: 5px;
-  background-color: #fff; /* White background for cards */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Slight shadow for cards */
-  transition: transform 0.2s, box-shadow 0.2s; /* Smooth transition for hover effects */
-  position: relative; /* Ensure relative positioning for absolute child */
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+  position: relative;
 }
 
 .visit-card:hover {
-  transform: translateY(-5px); /* Lift the card slightly on hover */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Enhance shadow on hover */
+  transform: translateY(-5px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .visit-card p {
   margin: 0;
-  color: #555; /* Darker text color for better readability */
+  color: #555;
 }
 
 .visit-card .visit-name {
   font-weight: bold;
-  color: #1CA4AC; /* Use the theme color for the visit name */
-  margin-bottom: 5px; /* Add some space below the visit name */
+  color: #1CA4AC;
+  margin-bottom: 10px;
+  font-size: 1.2em;
+}
+
+.visit-card .visit-details {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.visit-card .visit-icon {
+  color: #1CA4AC;
 }
 
 .visit-card .visit-date,
 .visit-card .visit-time {
-  font-size: 0.9em; /* Slightly smaller font size for date and time */
+  font-size: 1em;
 }
 
-button.mat-button {
-  background-color: #1CA4AC; /* Theme color for button */
-  color: #fff;
-  border-radius: 20px; /* Rounded corners for buttons */
-  padding: 5px 15px; /* Adjust padding for better button size */
-  transition: background-color 0.3s; /* Smooth transition for background color */
-  position: absolute; /* Position absolutely within the relative container */
-  bottom: 10px; /* Position from bottom */
-  right: 10px; /* Position from right */
+.read-more-button {
+  margin-top: 10px;
 }
-
-button.mat-button:hover {
-  background-color: #138d92; /* Darker shade on hover */
-}
-
 
 .planned-visits {
   border: 1px solid #E0E0E0;
   padding: 20px;
   border-radius: 5px;
-  background-color: #f9f9f9; /* Light background color */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .full-calendar {
-  width: 100%; /* Ensure full width */
-  height: 100%; /* Ensure full height */
+  width: 100%;
+  height: 100%;
 }
 
 .full-calendar .fc-event {
-  background-color: #1CA4AC; /* Event background color */
-  color: #fff; /* Event text color */
-  border: none; /* Remove default border */
-  border-radius: 5px; /* Rounded corners for events */
+  background-color: #1CA4AC;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
 }
 
 .full-calendar .fc-event:hover {
-  background-color: #138d92; /* Darker shade on hover */
+  background-color: #138d92;
 }
 
 .full-calendar .fc-event-title {
-  font-size: 0.9em; /* Adjust font size as needed */
+  font-size: 0.9em;
 }
 
 .full-calendar .fc-event-time {
-  font-size: 0.8em; /* Adjust font size as needed */
+  font-size: 0.8em;
 }
 
 .full-calendar .fc-event-dot {
-  margin-top: 2px; /* Adjust dot position if needed */
+  margin-top: 2px;
 }
 
 h5 {
-  color: #333; /* Darker heading color */
-  margin-bottom: 10px; /* Add space below heading */
+  color: #333;
+  margin-bottom: 10px;
 }
 
 .custom-hr {
-  border-top: 3px solid #1CA4AC; /* Match the theme color */
-  width: 23%; /* Adjust width as needed */
-  margin-top: -0.2rem; /* Fine-tune position */
+  border-top: 3px solid #1CA4AC;
+  width: 23%;
+  margin-top: -0.2rem;
 }

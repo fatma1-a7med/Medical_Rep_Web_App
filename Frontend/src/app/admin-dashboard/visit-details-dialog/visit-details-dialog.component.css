@@ -1,57 +1,56 @@
 .visit-details-dialog {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Update font family */
-  max-width: 600px; /* Limit maximum width */
-  margin: 0 auto; /* Center align horizontally */
   padding: 20px;
-  background-color: #fff;
+  background-color: #f9f9f9;
   border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  width: 400px;
+  margin: 0 auto;
 }
 
 .dialog-title {
-  font-size: 28px;
-  font-weight: bold;
+  margin-bottom: 20px;
+  font-size: 24px;
   color: #333;
   text-align: center;
-  margin-bottom: 20px;
 }
 
-.dialog-content {
-  padding: 20px;
+.details-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
-.details-item {
-  margin-bottom: 15px;
+.detail-item {
+  display: flex;
+  align-items: center;
+  padding: 15px 20px;
+  background-color: #1CA4AC;
+  border-radius: 8px;
+  color: white;
 }
 
-.dialog-content p {
-  font-size: 18px;
-  color: #555;
-  margin: 0;
-  line-height: 1.6; /* Improved line height for readability */
+.detail-item mat-icon {
+  color: white;
+  margin-right: 10px;
 }
 
-.dialog-content p strong {
-  color: #000;
+.detail-item span {
+  flex: 1;
+}
+
+.detail-item span:nth-child(2) {
+  font-weight: bold;
 }
 
 .dialog-actions {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   margin-top: 20px;
 }
 
 .close-button {
-  background-color: #1CA4AC;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  padding: 12px 24px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.close-button:hover {
-  background-color: #138d92;
+  background-color: #00bcd4;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
 }

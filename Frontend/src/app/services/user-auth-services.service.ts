@@ -22,8 +22,8 @@ export class UserAuthServicesService {
 
             if (response && response.token) {
                 this.saveToken(response.token); 
-                localStorage.setItem('token', response.token); 
-                console.log('Token stored:', localStorage.getItem('token'));
+                localStorage!.setItem('token', response.token); 
+                console.log('Token stored:', localStorage!.getItem('token'));
 
                 // localStorage.setItem('user_id', response.user.id); 
                 this.router.navigate(['/user/home']);
@@ -38,34 +38,35 @@ export class UserAuthServicesService {
 
   
   getValue(key: string): string | null {
-    return localStorage.getItem(key);
+    return localStorage!.getItem(key);
   }
 
 
   getToken(): string | null {
-    return localStorage.getItem('token');
+    return localStorage!.getItem('token');
   }
 
 
   saveToken(token: string) {
-    localStorage.setItem('token', token);
+    localStorage!.setItem('token', token);
   }
 
  
 
   logout() {
-    localStorage.removeItem('token');
+    localStorage!.removeItem('token');
   }
 
 
 
   isUser(): boolean {
     // Check if user is regular user (implement based on your logic)
-    const role = localStorage.getItem('role');
+    const role = localStorage!.getItem('role');
     return role === 'user';
   }
 
   isLoggedIn(): boolean {
-    return !!localStorage.getItem('token');
+    return !!localStorage!.getItem('token');
   }
 }
+
