@@ -1,42 +1,98 @@
 .navbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 1rem;
+  background-color: #1CA4AC;
+}
+
+.user-image {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+.account {
+  margin-right: 8px;
+  padding-top: 1rem; /* Adjust vertical alignment as needed */
+  display: flex;
+  align-items: center; /* Ensure icon and text are vertically aligned */
+}
+
+.logo .logo_text {
+  margin-left: 3px;
+  margin-top: 6px;
+  font-family: "Lobster Two", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  font-size: 29px;
+  color: white;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.user-profile {
+  display: flex;
+  align-items: center;
+}
+
+.user-profile-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.user-profile mat-icon:first-child {
+  position: relative;
+  top: 7px;
+  right: 6px;
+}
+
+.navbar-toggler {
+  border: none;
+  background: none;
+  padding: 0;
+}
+
+.navbar-toggler-icon {
+  background-image: url('data:image/svg+xml;charset=utf8,%3Csvg viewBox%3D"0 0 30 30" xmlns%3D"http://www.w3.org/2000/svg"%3E%3Cpath stroke%3D"rgba%28255, 255, 255, 0.5%29" stroke-width%3D"2" stroke-linecap%3D"round" stroke-miterlimit%3D"10" d%3D"M4 7h22M4 15h22M4 23h22"/%3E%3C/svg%3E');
+}
+
+.nav-link {
+  color: white !important;
+}
+
+.active-link {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.navbar-collapse {
+  flex-grow: 1;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navbar-collapse.show {
+  background-color: #1CA4AC;
+  text-align: left;
+}
+
+@media (max-width: 991.98px) {
+  .navbar .spacer {
+    display: none;
+  }
+  .navbar .collapse.show {
     display: flex;
-    justify-content: space-between;
-    padding: 0 1rem;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
     background-color: #1CA4AC;
-    
+    padding: 1rem;
   }
-  .user-image {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    margin-right: 8px;
-  }
+}
 
-  .logo .logo_text{
-    margin-left: 3px;
-    margin-top: 6px;
-    font-family: "Lobster Two", sans-serif;
-     font-weight: 700;
-     font-style: normal;
-    font-size: 29px;
- 
-  }
-  
-  .spacer {
-    flex: 1 1 auto;
-  }
-  
-  .user-profile {
-    display: flex;
-    align-items: center;
-  }
-  
-  .user-profile mat-icon {
-    margin-right: 8px;
-    
-  }
-
-  .active-link {
-    background-image:linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2))
-  }
-  
+.text-white {
+  color: white !important;
+}

@@ -1,18 +1,12 @@
-<div class="container">
-    <div>
-      <h3 class="text-dark">Doctor Details</h3>
-      <hr class="custom-hr">
-    </div>
+<div class="container  mt-4">
+   
+      <h3 class="text-center">Doctor Name: {{ doctor?.first_name + " " + doctor?.last_name }}</h3>
+      <hr class="custom-hr text-center m-auto">
     
-    <div *ngIf="doctor" class="container">
-      <div class="row">
-        <div class="col-md-12">
-          <table class="table table-striped custom-table">
+    <div *ngIf="doctor" class="table-responsive mt-4">
+    
+          <table class="table table-bordered table-striped custom-table">
             <tbody>
-              <tr>
-                <td><strong>Full Name</strong></td>
-                <td>{{ doctor?.first_name + " " + doctor?.last_name }}</td>
-              </tr>
               <tr>
                 <td><strong>Phone Number</strong></td>
                 <td>{{ doctor?.phone_number }}</td>
@@ -48,11 +42,11 @@
             </tbody>
           </table>
         </div>
+   
+      <div class=" my-3">
+        <a routerLink="/user/list-All-Doctors" class="btn btn-primary">Back to Doctors List</a>
       </div>
-      <div>
-        <a routerLink="/user/list-All-Doctors" class="btn p-3 m-3" style="background:#1CA4AC;">Back to Doctors List</a>
-      </div>
-    </div>
+ 
   
     <div *ngIf="!doctor" class="container">
       <p class="alert alert-danger">Loading...</p>

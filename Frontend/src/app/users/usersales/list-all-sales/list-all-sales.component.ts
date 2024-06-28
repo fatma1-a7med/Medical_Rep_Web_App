@@ -33,7 +33,7 @@ import { RouterLink } from '@angular/router';
   styleUrls: ['./list-all-sales.component.css']
 })
 export class ListAllSalesComponent implements OnInit {
-  displayedColumns: string[] = ['product_name', 'total_units', 'target_units', 'unit_price', 'unit_target_price', 'total_actual_price', 'total_target_price', 'actions'];
+  displayedColumns: string[] = ['product_name', 'percentageDifferenceUnits', 'percentageDifferencePrice', 'percentageDifferenceActualPrice', 'actions'];
   dataSource: MatTableDataSource<any>;
   sales: any[] = [];
 
@@ -46,6 +46,7 @@ export class ListAllSalesComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadSales();
+    this.calculatePercentageDifference();
   }
 
   loadSales() {
@@ -55,6 +56,7 @@ export class ListAllSalesComponent implements OnInit {
         this.dataSource.data = this.sales;
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+        this.calculatePercentageDifference();
       },
       error => {
         console.error('Failed to fetch sales data', error);
@@ -66,9 +68,21 @@ export class ListAllSalesComponent implements OnInit {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.calculatePercentageDifference();
 
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+  calculatePercentageDifference(): void {
+    this.sales.forEach(sale => {
+      sale.percentageDifferenceUnits = this.calculatePercentage(sale.total_units, sale.target_units);
+      sale.percentageDifferencePrice = this.calculatePercentage(sale.unit_price, sale.unit_target_price);
+      sale.percentageDifferenceActualPrice = this.calculatePercentage(sale.total_actual_price, sale.total_target_price);
+    });
+  }
+
+  calculatePercentage(total: number, target: number): number {
+    return ((total) / target) * 100;
   }
 }

@@ -1,38 +1,47 @@
-<mat-toolbar color="primary" class="navbar">
-    <div class="logo d-flex">
-      <img src="assets/images/insurance.png" alt="RepAlert" width="50" height="50"/>
-      <h4 class="logo_text">RepAlert</h4>
+<nav class="navbar navbar-expand-lg">
+  <div class="container-fluid">
+    <div class="logo d-flex align-items-center">
+      <img src="assets/images/insurance.png" alt="RepAlert" width="50" height="50" />
+      <h4 class="logo_text ms-2">RepAlert</h4>
     </div>
-    <span class="spacer"></span>
-    <button mat-button [routerLink]="['../user/home']" routerLinkActive="active-link">Home</button>
-    <button mat-button  [routerLink]="['../user/plan']" routerLinkActive="active-link">Plan </button>
-    <button mat-button [routerLink]="['../user/sales']" routerLinkActive="active-link">Sales</button>
-    <button mat-button [routerLink]="['../user/list-All-Doctors']" routerLinkActive="active-link">Doctor's List</button>
-    <button mat-button [routerLink]="['../user/userLocation']" routerLinkActive="active-link">Map</button>
-    <span class="spacer"></span>
-    
-    <div class="user-profile">
-      <button mat-button [matMenuTriggerFor]="userMenu" class="user-profile-button">
-        <ng-container *ngIf="getImageUrl(); else defaultIcon">
-          <img [src]="getImageUrl()" alt="User Image" class="user-image" />
-        </ng-container>
-        <ng-template #defaultIcon>
-          <mat-icon>account_circle</mat-icon>
-        </ng-template>
-        <span>{{ first_name }} {{ last_name }}</span>
-      </button>
-      <mat-icon>arrow_drop_down</mat-icon>
-
-    <div *ngIf="!loading && first_name ">
-      <span>{{ first_name }}</span> 
+    <button class="navbar-toggler text-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon text-white"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <button mat-button class="nav-link" [routerLink]="['../user/home']" routerLinkActive="active-link">Home</button>
+        </li>
+        <li class="nav-item">
+          <button mat-button class="nav-link" [routerLink]="['../user/plan']" routerLinkActive="active-link">Plan</button>
+        </li>
+        <li class="nav-item">
+          <button mat-button class="nav-link" [routerLink]="['../user/sales']" routerLinkActive="active-link">Sales</button>
+        </li>
+        <li class="nav-item">
+          <button mat-button class="nav-link" [routerLink]="['../user/list-All-Doctors']" routerLinkActive="active-link">Doctor's List</button>
+        </li>
+        <li class="nav-item">
+          <button mat-button class="nav-link" [routerLink]="['../user/userLocation']" routerLinkActive="active-link">Map</button>
+        </li>
+      </ul>
+      <div class="user-profile d-flex align-items-center">
+        <button mat-button [matMenuTriggerFor]="userMenu" class="user-profile-button d-flex align-items-center">
+          <ng-container *ngIf="getImageUrl(); else defaultIcon">
+            <img [src]="getImageUrl()" alt="User Image" class="user-image me-2" />
+          </ng-container>
+          <ng-template #defaultIcon>
+            <mat-icon class="text-white">account_circle</mat-icon>
+          </ng-template>
+          <span class="text-white me-2">{{ first_name }} {{ last_name }}</span>
+          <mat-icon class="text-white">arrow_drop_down</mat-icon>
+        </button>
+        <mat-menu #userMenu="matMenu">
+          <button mat-menu-item>Profile</button>
+          <button mat-menu-item [routerLink]="['../user/about-us']">About Us</button>
+          <button mat-menu-item (click)="logout()">Logout</button>
+        </mat-menu>
+      </div>
     </div>
-    <div *ngIf="!loading && !first_name ">
-      User data not available.
-    </div>
-    <mat-menu #userMenu="matMenu">
-      <button mat-menu-item >Profile</button> 
-      <button mat-menu-item [routerLink]="['../user/about-us']">About Us</button>
-      <button mat-menu-item (click)="logout()">Logout</button>
-    </mat-menu>
   </div>
-</mat-toolbar>
+</nav>

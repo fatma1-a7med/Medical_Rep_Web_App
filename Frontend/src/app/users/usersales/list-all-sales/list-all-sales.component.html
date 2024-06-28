@@ -18,42 +18,27 @@
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Product Name </th>
           <td mat-cell *matCellDef="let sale"> {{ sale.product_name }} </td>
         </ng-container>
+   
+             <!-- Units Percentage Column -->
+             <ng-container matColumnDef="percentageDifferenceUnits">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Units Percentage </th>
+              <td mat-cell *matCellDef="let sale"> {{ sale.percentageDifferenceUnits | number:'1.2-2' }}% </td>
+            </ng-container>
+    
+            <!-- Units Prices Percentage Column -->
+            <ng-container matColumnDef="percentageDifferencePrice">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Units Prices Percentage </th>
+              <td mat-cell *matCellDef="let sale"> {{ sale.percentageDifferencePrice | number:'1.2-2' }}% </td>
+            </ng-container>
+    
+            <!-- Total Target Price Percentage Column -->
+            <ng-container matColumnDef="percentageDifferenceActualPrice">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Total Target Price Percentage </th>
+              <td mat-cell *matCellDef="let sale"> {{ sale.percentageDifferenceActualPrice | number:'1.2-2' }}% </td>
+            </ng-container>
+    
 
-        <!-- Total Units Column -->
-        <ng-container matColumnDef="total_units">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Total Units </th>
-          <td mat-cell *matCellDef="let sale"> {{ sale.total_units }} </td>
-        </ng-container>
-
-        <!-- Target Units Column -->
-        <ng-container matColumnDef="target_units">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Target Units </th>
-          <td mat-cell *matCellDef="let sale"> {{ sale.target_units }} </td>
-        </ng-container>
-
-        <!-- Unit Price Column -->
-        <ng-container matColumnDef="unit_price">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Unit Price </th>
-          <td mat-cell *matCellDef="let sale"> {{ sale.unit_price | currency }} </td>
-        </ng-container>
-
-        <!-- Target Unit Price Column -->
-        <ng-container matColumnDef="unit_target_price">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Target Unit Price </th>
-          <td mat-cell *matCellDef="let sale"> {{ sale.unit_target_price | currency }} </td>
-        </ng-container>
-
-        <!-- Total Actual Price Column -->
-        <ng-container matColumnDef="total_actual_price">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Total Actual Price </th>
-          <td mat-cell *matCellDef="let sale"> {{ sale.total_actual_price | currency }} </td>
-        </ng-container>
-
-        <!-- Total Target Price Column -->
-        <ng-container matColumnDef="total_target_price">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Total Target Price </th>
-          <td mat-cell *matCellDef="let sale"> {{ sale.total_target_price | currency }} </td>
-        </ng-container>
+     
 
         <!-- Actions Column -->
         <ng-container matColumnDef="actions">

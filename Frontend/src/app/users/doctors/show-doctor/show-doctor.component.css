@@ -1,4 +1,7 @@
-
+.container {
+    max-width: 800px;
+    margin: auto;
+  }
 .custom-table {
     border: 1px solid #1CA4AC;
 }
@@ -39,7 +42,16 @@
 }
 .custom-hr {
     border-top: 3px solid #1CA4AC; 
-    width: 17%; 
-   margin-top: -.3rem;
+    width: 33%; 
+   margin-top: -2rem auto;
   }
-
+  .btn-primary {
+    background-color: #1CA4AC;
+    border-color: #1CA4AC;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn-primary:hover {
+    background-color: #0C728C;
+    border-color: #0C728C;
+  }

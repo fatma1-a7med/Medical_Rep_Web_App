@@ -9,6 +9,11 @@ body {
     max-width: 800px;
     margin: auto;
   }
+  .custom-hr {
+    border-top: 3px solid #1CA4AC; 
+    width: 33%; 
+   margin-top: -2rem auto;
+  }
   
   .card {
     border: none;
@@ -16,7 +21,9 @@ body {
     background-color: #ffffff;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
   }
-  
+  .custom-table {
+    border: 1px solid #1CA4AC;
+}
   .card-body {
     padding: 30px;
   }

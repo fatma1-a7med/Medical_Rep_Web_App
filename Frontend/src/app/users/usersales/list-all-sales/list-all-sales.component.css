@@ -6,6 +6,7 @@
 .custom-table th {
     background-color: #1CA4AC;
     color: white;
+    text-align: center;
 }
 
 .custom-table td {

@@ -1,14 +1,9 @@
 <div class="container mt-4">
-  <h3 class="text-center mb-4">Product Name: {{ sale?.product_name }}</h3>
+  <h3 class="text-center">Product Name: {{ sale?.product_name }}</h3>
+  <hr class="custom-hr text-center m-auto">
 
-  <div class="table-responsive">
+  <div class="table-responsive mt-4">
     <table class="table table-bordered table-striped custom-table">
-      <thead class="thead-dark">
-        <tr>
-          <th scope="col">Field</th>
-          <th scope="col">Info</th>
-        </tr>
-      </thead>
       <tbody>
 
         <tr>
@@ -47,7 +42,7 @@
     </table>
   </div>
 
-  <div class="text-center my-4">
+  <div class=" my-3">
     <a routerLink="../../../../user/sales" class="btn btn-primary">Back to Sales List</a>
   </div>
 </div>
