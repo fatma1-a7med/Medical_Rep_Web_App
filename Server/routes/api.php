@@ -85,6 +85,18 @@ Route::prefix('admin')->group(function () {
     Route::get('visits/planned/{user_id}', [VisitController::class, 'getPlannedVisits']);
    
     Route::get('/visits/recent', [VisitController::class, 'recent']);
+
+
+
+           // Admin profile
+    Route::middleware('auth:sanctum')->group(function () {
+            // Route::get('/profile', [AdminProfileController::class, 'index']);
+     Route::get('/profile/show', [AdminProfileController::class, 'show']);
+     Route::post('/profile/update', [AdminProfileController::class, 'update']);
+        });
+
+    // Route::get('/profile/check-email', 'AdminProfileController@checkEmail');
+
    
 });
 
@@ -130,21 +142,24 @@ Route::prefix('users')->middleware('auth:sanctum')->group(function () {
 Route::get('/visit-reports', [VisitReportingController::class, 'getVisitReports']);
 
 
-// Route::get('/admin/profile', [AdminProfileController::class, 'show']);
-Route::prefix('admin')->group(function () {
-    Route::get('/profile', [AdminProfileController::class, 'index']);
-    Route::get('/profile/{id}', [AdminProfileController::class, 'show']);
-    Route::post('/profile/{id}', [AdminProfileController::class, 'update']); // Route to update profile
-});
+    //    // Admin profile
+    //    Route::middleware('auth:sanctum')->group(function () {
+    //     // Route::get('/profile', [AdminProfileController::class, 'index']);
+    //     Route::get('/profile/show', [AdminProfileController::class, 'show']);
+    //     Route::post('/profile/update', [AdminProfileController::class, 'update']);
+    // });
 
 
 Route::prefix('user')->group(function () {
     Route::post('register', [UserAuthController::class, 'createUser']);
     Route::post('login', [UserAuthController::class, 'loginUser']);
     Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
-    Route::get('/profile', [UserProfileController::class, 'index']);
-    Route::get('/profile/{id}', [UserProfileController::class, 'show']);
-    Route::post('/profile/{id}', [UserProfileController::class, 'update']);
+
+    Route::middleware('auth:sanctum')->group(function () {
+        // Route::get('/user/profile', [UserProfileController::class, 'index']);
+        Route::get('/profile/show', [UserProfileController::class, 'show']);
+        Route::post('/profile/update', [UserProfileController::class, 'update']);
+    });
 });
 
 

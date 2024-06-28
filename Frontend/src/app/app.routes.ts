@@ -113,8 +113,8 @@ export const routes: Routes = [
       { path: 'show-visit/:id', component: ShowVisitComponent },
       {path: 'loction-tracking', component:LocationComponent},
       { path: 'reporting', component: ReportingComponent },
-      { path: 'admin-profile/:id', component: AdminProfileComponent },
-      { path: 'update-profile/update/:id', component: UpdateProfileComponent }
+      { path: 'admin-profile', component: AdminProfileComponent },
+      { path: 'update-profile/update', component: UpdateProfileComponent }
     ]
   },
   
