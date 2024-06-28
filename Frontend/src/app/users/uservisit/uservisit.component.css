@@ -1,48 +1,109 @@
+/* Reset margins and paddings */
+h2, h3 {
+  margin: 0;
+  font-size: 1.2rem;
+}
 
-h2 {
-    margin: 0;
-    font-size: 16px;
-  }
-  
-  ul {
-    margin: 0;
-    padding: 0 0 0 1.5em;
-  }
-  
-  li {
-    margin: 1.5em 0;
-    padding: 0;
-  }
-  
-  b { /* used for event dates/times */
-    margin-right: 3px;
-  }
-  
+ul {
+  margin: 0;
+  padding: 0 0 0 1.5em;
+}
+
+li {
+  margin: 1em 0;
+  padding: 0;
+}
+
+b {
+  /* used for event dates/times */
+  margin-right: 3px;
+}
+
+/* Body font and size */
+body {
+  font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
+  font-size: 14px;
+}
+
+/* Main container styles */
+.demo-app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* full height of viewport */
+}
+
+/* Sidebar styles */
+.demo-app-sidebar {
+  width: 100%;
+  max-width: 300px; /* limit width on larger screens */
+  flex-shrink: 0; /* prevent sidebar from shrinking */
+  line-height: 1.5;
+  background: #1CA4AC;
+  border-right: 2px solid #1CA4AC;
+  color: white;
+  padding: 2em;
+}
+
+/* Main content area styles */
+.demo-app-main {
+  flex-grow: 1;
+  padding: 1em;
+}
+
+/* Calendar container styles */
+.fc {
+  max-width: 100%; /* full width on all screens */
+  margin: 0 auto;
+}
+
+/* Instructions section styles */
+.instructions-title {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.75rem; /* 28px */
+  font-weight: 500;
+  color: #1CA4AC;
+  margin-bottom: 1rem; /* 16px */
+  border-bottom: 2px solid #1CA4AC;
+  padding-bottom: 0.5rem; /* 8px */
+  text-align: left;
+}
+
+.instructions-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.instructions-item {
+  border-left: 4px solid white;
+  padding: 1em;
+  margin-bottom: 1em;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.instructions-item:hover {
+  transform: translateX(5px);
+}
+
+/* Media queries for responsive design */
+@media (min-width: 768px) {
   .demo-app {
-    display: flex;
-    min-height: 100%;
-    font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
-    font-size: 14px;
+    flex-direction: row;
   }
-  
+
   .demo-app-sidebar {
-    width: 300px;
-    line-height: 1.5;
-    background: #eaf9ff;
-    border-right: 1px solid #d3e2e8;
+    max-width: 300px; /* adjust as needed */
   }
-  
-  .demo-app-sidebar-section {
-    padding: 2em;
+}
+
+@media (max-width: 768px) {
+  .demo-app-sidebar {
+    width: 100%; /* full width on smaller screens */
+    max-width: none;
+    border-right: none;
   }
-  
+
   .demo-app-main {
-    flex-grow: 1;
-    padding: 3em;
+    padding: 1em;
   }
-  
-  .fc { /* the calendar root */
-    max-width: 1100px;
-    margin: 0 auto;
-  }
-  
+}

@@ -12,21 +12,15 @@
     <div class="container-fluid">
       <div class="row justify-content-center align-items-center">
         <!-- Search form -->
-        <form class="mb-3" (ngSubmit)="search()">
-          <div style="margin-left: 130px;" class="my-3">
-            <div class="container row">
-              <div class="container row">
-                <div class="col-md-12 col-sm-12 col-lg-8 ">
-                  <input type="text" class="form-control" id="username" name="username" [(ngModel)]="username" placeholder="Search by doctor full name">
-                </div>
-                <button type="button" class="btn text-light col-md-12 col-lg-2 col-sm-12" (click)="search()" style="background-color: #1CA4AC; color:#fff;">Search</button>
-              </div>
-            </div>
+        <form class="mb-3">
+          <div class="input-group">
+            <input type="text" class="form-control" id="username" name="username" [(ngModel)]="username" placeholder="Search by doctor full name">
+            <button type="button" class="btn text-light" (click)="search()" style="background-color: #1CA4AC;">Search</button>
           </div>
         </form>
 
         <div *ngIf="dataSource.data.length > 0" class="container text-center">
-          <table mat-table [dataSource]="dataSource" matSort class="table table-striped custom-table center-text">
+          <table mat-table [dataSource]="dataSource" matSort class="table table-striped custom-table center-text w-100">
             <ng-container matColumnDef="full_name">
               <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-center">Full Name</th>
               <td mat-cell *matCellDef="let doctor">{{ doctor.first_name }} {{ doctor.last_name }}</td>

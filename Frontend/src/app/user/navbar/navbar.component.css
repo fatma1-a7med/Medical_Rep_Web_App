@@ -74,10 +74,7 @@
   justify-content: space-between;
 }
 
-.navbar-collapse.show {
-  background-color: #1CA4AC;
-  text-align: left;
-}
+
 
 @media (max-width: 991.98px) {
   .navbar .spacer {
@@ -86,7 +83,7 @@
   .navbar .collapse.show {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items:start;
     width: 100%;
     background-color: #1CA4AC;
     padding: 1rem;

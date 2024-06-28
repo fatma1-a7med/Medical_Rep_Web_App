@@ -1,10 +1,10 @@
-<div class="container mt-5 d-flex">
-  <div class="text-section text-center">
+<div class="container mt-5 d-flex flex-column flex-lg-row">
+  <div class="text-section text-center flex-fill">
     <h1>Empowering Medical<br>Reps Effectively</h1>
     <p>Efficiency, Connectivity, Precision</p>
     <a href="http://localhost:4200/user/home#latest-visits" class="btn btn-primary start-button w-100">Start Now</a>
   </div>
-  <div class="image-section text-center my-4">
+  <div class="image-section text-center my-4 flex-fill">
     <img src="assets/images/Asset2.png" class="img-fluid" alt="Medical Reps" />
   </div>
 </div>
@@ -15,12 +15,12 @@
   <hr class="custom-hr text-center"/>
 
   <div class="main-body mt-5">
-    <mat-form-field class="filter-container w-50" >
+    <mat-form-field class="filter-container w-50">
         <mat-label>Filter</mat-label>
-        <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Doctor Name" #input >  
+        <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Doctor Name" #input>  
     </mat-form-field><br>
-    <div class="mat-elevation-z8">
-      <table mat-table [dataSource]="dataSource" matSort class="custom-table">
+    <div class="table-responsive">
+      <table mat-table [dataSource]="dataSource" matSort class="custom-table w-100">
       
         <!-- Visit Date Column -->
         <ng-container matColumnDef="visit_date">
@@ -46,12 +46,12 @@
           <td mat-cell *matCellDef="let visit"> {{visit.doctor.doctor_name}} </td>
         </ng-container>
         <ng-container matColumnDef="specialization">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Doctor specialization </th>
-          <td mat-cell *matCellDef="let visit">  {{visit.doctor.specialization}} </td>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Doctor Specialization </th>
+          <td mat-cell *matCellDef="let visit"> {{visit.doctor.specialization}} </td>
         </ng-container>
         <ng-container matColumnDef="class_rate">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Doctor class_rate </th>
-          <td mat-cell *matCellDef="let visit">  {{visit.doctor.class_rate}} </td>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Doctor Class Rate </th>
+          <td mat-cell *matCellDef="let visit"> {{visit.doctor.class_rate}} </td>
         </ng-container>
       
         <!-- Tools Column -->
@@ -72,9 +72,9 @@
           <td class="mat-cell" colspan="5">No data matching the filter "{{ input.value }}"</td>
         </tr>
       </table>
-      
-      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of visits"></mat-paginator>
     </div>
+      
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of visits"></mat-paginator>
   </div>
   <br>
 </div>

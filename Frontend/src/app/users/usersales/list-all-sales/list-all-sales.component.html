@@ -1,44 +1,39 @@
-<div class="container">
-  <h3 class="mt-3">Sales Overview</h3>
-  <hr class="custom-hr">
-  
-  <div class="main-body">
-    <mat-form-field class="w-50" style="height: 11vh;margin-left: 17rem;">
+<div class="container mt-5">
+  <h3 class="mt-3 text-center">Sales Overview</h3>
+  <hr class="custom-hr mx-auto">
+
+  <div class="main-body mt-5">
+    <mat-form-field class="w-50 w-md-50 mb-3 filter-container">
       <mat-label>Filter</mat-label>
-      <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Product Name" #input >  
-    </mat-form-field><br>
- 
-    <br>
-
-    <div class="mat-elevation-z8">
-      <table mat-table [dataSource]="dataSource" matSort class="custom-table">
-
+      <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Product Name" #input>
+    </mat-form-field>
+    
+    <div class="table-responsive">
+      <table mat-table [dataSource]="dataSource" matSort class="custom-table w-100">
+        
         <!-- Product Name Column -->
         <ng-container matColumnDef="product_name">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Product Name </th>
           <td mat-cell *matCellDef="let sale"> {{ sale.product_name }} </td>
         </ng-container>
-   
-             <!-- Units Percentage Column -->
-             <ng-container matColumnDef="percentageDifferenceUnits">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> Units Percentage </th>
-              <td mat-cell *matCellDef="let sale"> {{ sale.percentageDifferenceUnits | number:'1.2-2' }}% </td>
-            </ng-container>
-    
-            <!-- Units Prices Percentage Column -->
-            <ng-container matColumnDef="percentageDifferencePrice">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> Units Prices Percentage </th>
-              <td mat-cell *matCellDef="let sale"> {{ sale.percentageDifferencePrice | number:'1.2-2' }}% </td>
-            </ng-container>
-    
-            <!-- Total Target Price Percentage Column -->
-            <ng-container matColumnDef="percentageDifferenceActualPrice">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> Total Target Price Percentage </th>
-              <td mat-cell *matCellDef="let sale"> {{ sale.percentageDifferenceActualPrice | number:'1.2-2' }}% </td>
-            </ng-container>
-    
 
-     
+        <!-- Units Percentage Column -->
+        <ng-container matColumnDef="percentageDifferenceUnits">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Units Percentage </th>
+          <td mat-cell *matCellDef="let sale"> {{ sale.percentageDifferenceUnits | number:'1.2-2' }}% </td>
+        </ng-container>
+
+        <!-- Units Prices Percentage Column -->
+        <ng-container matColumnDef="percentageDifferencePrice">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Units Prices Percentage </th>
+          <td mat-cell *matCellDef="let sale"> {{ sale.percentageDifferencePrice | number:'1.2-2' }}% </td>
+        </ng-container>
+
+        <!-- Total Target Price Percentage Column -->
+        <ng-container matColumnDef="percentageDifferenceActualPrice">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Total Target Price Percentage </th>
+          <td mat-cell *matCellDef="let sale"> {{ sale.percentageDifferenceActualPrice | number:'1.2-2' }}% </td>
+        </ng-container>
 
         <!-- Actions Column -->
         <ng-container matColumnDef="actions">
@@ -61,7 +56,8 @@
 
       <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of sales" [length]="sales.length"></mat-paginator>
     </div>
-<br><br>
+
+    <br><br>
   </div>
 
   <div *ngIf="!sales" class="container">
