@@ -1,5 +1,4 @@
-
-<div class="sidebar"  >
+<div class="sidebar">
   <a routerLink="/admin-dashboard" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">
     <mat-icon>people</mat-icon>
     <span>Users Management</span>
@@ -24,5 +23,11 @@
     <mat-icon>assessment</mat-icon>
     <span>Reports</span>
   </a>
-</div>
-
+  <a routerLink="/admin-dashboard/doctors" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">
+    <mat-icon>local_hospital</mat-icon>
+    <span>AllDoctors</span>
+  </a>
+  <a routerLink="/admin-dashboard/alltools" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">
+    <mat-icon>local_pharmacy</mat-icon>
+    <span>your Tools</span>
+  </a>

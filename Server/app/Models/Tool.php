@@ -14,6 +14,7 @@ class Tool extends Model
         'description',
         'type',
         'user_id',
+        'admin_id',
     ];
 
     public function doctors()
@@ -25,4 +26,7 @@ class Tool extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+
+  
 }

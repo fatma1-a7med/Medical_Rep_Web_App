@@ -28,6 +28,7 @@ import { UserComponent } from './user/user.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { ListAllSalesComponent } from './users/usersales/list-all-sales/list-all-sales.component';
 import { ListDoctorsComponent } from './users/doctors/list-doctors/list-doctors.component';
+import { ListdoctorsComponent } from './admin-dashboard/doctors/list-doctors/list-doctors.component';
 import { AddDoctorComponent } from './users/doctors/add-doctor/add-doctor.component';
 import { ShowDoctorComponent } from './users/doctors/show-doctor/show-doctor.component';
 import { UservisitComponent } from './users/uservisit/uservisit.component';
@@ -37,7 +38,10 @@ import { UpdateProfileComponent } from './admin-dashboard/update-profile/update-
 import { UserProfileComponent } from './user/user-dashboard/user-profile/user-profile.component';
 import { UpdateUserProfileComponent } from './user/user-dashboard/update-profile/update-profile.component';
 import { AboutUsComponent } from './user/about-us/about-us.component';
-import { ContactUsComponent } from './user/contact-us/contact-us.component';
+import { ShowdoctorComponent } from './admin-dashboard/doctors/show-doctor/show-doctor.component';
+import { AllToolsComponent } from './admin-dashboard/tools/all-tools/all-tools.component';
+import { AddToolsComponent } from './admin-dashboard/tools/add-tools/add-tools.component';
+import { UpdateToolsComponent } from './admin-dashboard/tools/update-tools/update-tools.component';
 
 
 
@@ -117,6 +121,16 @@ export const routes: Routes = [
       { path: 'reporting', component: ReportingComponent },
       { path: 'admin-profile', component: AdminProfileComponent },
       { path: 'update-profile/update', component: UpdateProfileComponent }
+
+      { path: 'doctors', component: ListdoctorsComponent },
+      { path: 'showdoctors/:id', component: ShowdoctorComponent },
+
+      //tools
+      {path:'alltools', component:AllToolsComponent},
+      {path:'addtool', component:AddToolsComponent},
+      {path:'updatetool', component:UpdateToolsComponent},
+
+
     ]
   },
   
