@@ -3,10 +3,9 @@
   <div *ngIf="successMessage" class="success-message">{{ successMessage }}</div>
   <div class="profile-info">
     <div class="left-column">
-      <div *ngIf="userProfile">
+      <div *ngIf="userProfile.length > 0">
         <div class="profile-box">
-          <p><strong>First Name:</strong> {{ userProfile[0]?.first_name }}</p>
-          <p><strong>Last Name:</strong> {{ userProfile[0]?.last_name }}</p>
+          <p><strong>Full Name:</strong> {{ userProfile[0]?.first_name }} {{ userProfile[0]?.last_name }}</p>
           <p><strong>State:</strong> {{ userProfile[0]?.state }}</p>
           <p><strong>City:</strong> {{ userProfile[0]?.city }}</p>
           <p><strong>Street:</strong> {{ userProfile[0]?.street }}</p>

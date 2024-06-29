@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,OnInit } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -14,15 +14,12 @@ import { RouterLink,RouterLinkActive} from '@angular/router';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent {
-  medreps: any[] = [];
-  first_name:string='';
-  last_name:string='';
-  image:string='';
-  loading: boolean = true; 
+export class NavbarComponent implements OnInit {
+  first_name: string = '';
+  last_name: string = '';
+  image: string = '';
 
-  constructor(private userService:SalesService) {}
-
+  constructor(private userService: SalesService) {}
 
   ngOnInit(): void {
     this.fetchUser();
@@ -33,8 +30,7 @@ export class NavbarComponent {
       response => {
         this.first_name = response.user.first_name;
         this.last_name = response.user.last_name;
-        this.image = response.user.image;
-        console.log('First Name:', this.first_name);
+        this.image = response.user.image; // Assuming this is the relative path to the image
       },
       error => {
         console.error('Error:', error);
@@ -43,9 +39,12 @@ export class NavbarComponent {
   }
 
   getImageUrl(): string | null {
-    return this.image ?  `http://localhost:8000/${this.image}` : null;
+    return this.image ? `http://localhost:8000/images/${this.image}` : null;
   }
+  
+  
+
   logout() {
     this.userService.logout();
   }
-  }
+}

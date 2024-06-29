@@ -42,20 +42,20 @@ class UserProfileController extends Controller
      * @param int $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function show($id)
+    public function show()
     {
-        // Example: Fetching user profile without authentication
-        $user = User::find($id);
+        $user = Auth::user(); // Get the authenticated admin
 
         if (!$user) {
             return response()->json([
                 'success' => false,
-                'message' => 'User profile not found'
+                'message' => 'user profile not found'
             ], 404);
         }
 
         return response()->json($user);
     }
+
 
     /**
      * Update the user profile.
