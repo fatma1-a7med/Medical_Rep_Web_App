@@ -74,9 +74,6 @@
     <div *ngIf="updateProfileForm.get('email')?.hasError('emailFormat')">
       <span class="error-message">Invalid email format.</span>
     </div>
-    <div *ngIf="emailError" class="error-message">
-      This email has been used before.
-    </div>
 
     <!-- Submit Button -->
     <button type="submit" [disabled]="updateProfileForm.invalid">Update</button>

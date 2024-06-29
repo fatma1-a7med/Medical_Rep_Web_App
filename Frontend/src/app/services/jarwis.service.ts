@@ -1,7 +1,7 @@
 // JarwisService.ts
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable,of } from 'rxjs';
+import { Observable,of,BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
 
 
@@ -10,8 +10,23 @@ import { Router } from '@angular/router';
 })
 export class JarwisService {
   private baseUrl = 'http://localhost:8000/api/admin';
+  private adminSubject: BehaviorSubject<any>;
+  public admin: Observable<any>;
 
-  constructor(private http: HttpClient , private router: Router) {}
+  constructor(private http: HttpClient , private router: Router) {
+    this.adminSubject = new BehaviorSubject<any>(null);
+    this.admin = this.adminSubject.asObservable();
+
+  }
+// ///////////////////////////////
+  getAdmin(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/profile`);
+  }
+  updateAdmin(admin: any) {
+    this.adminSubject.next(admin);
+  }
+  
+// /////////////////////////////
   private isBrowser(): boolean {
     return typeof window !== 'undefined' && typeof localStorage !== 'undefined';
   }
@@ -70,5 +85,6 @@ export class JarwisService {
   getLoggedInAdmin(): Observable<any> {
     return this.http.get<any>(this.baseUrl);
   }
+
 
 }

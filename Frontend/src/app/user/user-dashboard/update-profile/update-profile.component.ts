@@ -1,4 +1,3 @@
-// update-user-profile.component.ts
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -6,7 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MessageService } from '../../../services/message.service';
 import { UserService } from '../../../services/user-profile.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { onlyLettersValidator, alphanumericValidator, emailFormatValidator,numericValidator } from './custom-validators'; // Import custom validators
+import { onlyLettersValidator, alphanumericValidator, emailFormatValidator, numericValidator } from './custom-validators'; // Import custom validators
 
 @Component({
   selector: 'app-update-user-profile',
@@ -17,25 +16,21 @@ import { onlyLettersValidator, alphanumericValidator, emailFormatValidator,numer
 })
 export class UpdateUserProfileComponent implements OnInit {
   updateProfileForm: FormGroup;
-  userId!: number;
   selectedFile: File | null = null;
   errorMessage: string | null = null;
-  emailError: boolean = false;
-  // imageError: boolean = false;
-
 
   constructor(
     private fb: FormBuilder,
-    private userService: UserService, // Correct service injection
+    private userService: UserService,
     private route: ActivatedRoute,
     private router: Router,
     private messageService: MessageService
-  ) { 
+  ) {
     this.updateProfileForm = this.fb.group({
       first_name: ['', [Validators.required, onlyLettersValidator()]],
       last_name: ['', [Validators.required, onlyLettersValidator()]],
       email: ['', [Validators.required, Validators.email, emailFormatValidator()]],
-      phone_number: ['', [Validators.required,numericValidator()]],
+      phone_number: ['', [Validators.required, numericValidator()]],
       gender: ['', Validators.required],
       birthDate: ['', Validators.required],
       territory: ['', [Validators.required, onlyLettersValidator()]],
@@ -47,23 +42,18 @@ export class UpdateUserProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id');
-    if (id !== null) {
-      this.userId = +id;
-      this.loadUserProfile(this.userId);
-    }
+    this.loadUserProfile();
   }
 
-  loadUserProfile(id: number): void {
-    this.userService.getUserProfile(id).subscribe(
-      response => { // Specify response type to avoid implicit any error
+  loadUserProfile(): void {
+    this.userService.getUserProfile().subscribe(
+      response => {
         if (response) {
           this.updateProfileForm.patchValue(response);
         }
       },
-      (error: any) => { // Specify error type to avoid implicit any error
+      error => {
         console.error('Error loading user profile:', error);
-        // Handle error as needed
       }
     );
   }
@@ -76,33 +66,35 @@ export class UpdateUserProfileComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.emailError = false;
-    // this.imageError= false;
     if (this.updateProfileForm.valid) {
-          // Check if image is required
-          if (!this.selectedFile) {
-            this.errorMessage = 'The image is required';
-            return;
-          }
+      if (!this.selectedFile) {
+        this.errorMessage = 'The image is required';
+        return;
+      }
 
       const formData = new FormData();
       Object.keys(this.updateProfileForm.value).forEach(key => {
-        formData.append(key, this.updateProfileForm.value[key]);
+        if (key === 'image') {
+          formData.append(key, this.selectedFile as File);
+        } else {
+          formData.append(key, this.updateProfileForm.value[key]);
+        }
       });
-      if (this.selectedFile) {
-        formData.append('image', this.selectedFile);
-      }
 
-      this.userService.updateUserProfile(this.userId, formData).subscribe(
-        response => {      
+      // Log the formData content
+      formData.forEach((value, key) => {
+        console.log(`${key}: ${value}`);
+      });
+
+      this.userService.updateUserProfile(formData).subscribe(
+        response => {
           this.messageService.showMessage('Profile updated successfully');
-          this.router.navigate(['/user/user-profile', this.userId]);
+          this.router.navigate(['/user/user-profile']);
         },
-         error => {
+        error => {
+          console.error('Error updating user profile:', error);
           if (error.status === 400) {
-            this.emailError = true; // Set email error to true
-            // this.imageError = true; // Set image error to true
-
+            this.errorMessage = 'Bad request. Please check the input values.';
           } else {
             this.errorMessage = 'An error occurred';
           }

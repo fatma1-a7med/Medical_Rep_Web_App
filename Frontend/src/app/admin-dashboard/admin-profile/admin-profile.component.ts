@@ -16,6 +16,8 @@ import { MessageService } from '../../services/message.service';
 })
 export class AdminProfileComponent implements OnInit {
   adminProfile: any = []; // Variable to hold admin profile data
+  // adminProfile: any = []; // Variable to hold admin profile data
+
   adminId!: number; // Using definite assignment assertion
   successMessage: string | null = null;
 
@@ -55,16 +57,18 @@ export class AdminProfileComponent implements OnInit {
     this.adminProfileService.getAdminProfile()
       .subscribe(
         (response) => {
-          console.log(response);
+          // console.log(response);
           
           if (response) { // Assuming the API response has a 'success' fla
 
             this.adminProfile.push(response); // Assuming the API response has a 'data' property
-            console.log(this.adminProfile);
+            // console.log(this.adminProfile);
             
             if (this.adminProfile) {
               // Assuming image path is relative and needs prefixing with server URL
               this.adminProfile.image = `http://localhost:8000/images/${this.adminProfile[0].image}`;
+              console.log('Image Path:', this.adminProfile.image); // طباعة مسار الصورة لفحصه
+
             }
           } else {
             console.error('No data found in API response or API error');

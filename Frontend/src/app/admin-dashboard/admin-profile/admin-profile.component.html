@@ -4,14 +4,7 @@
   <form>
     <div class="profile-form">
       <div class="form-column">
-        <div class="form-group">
-          <label for="first_name">First Name:</label>
-          <div class="profile-text">{{ adminProfile[0]?.first_name }}</div>
-        </div>
-        <div class="form-group">
-          <label for="last_name">Last Name:</label>
-          <div class="profile-text">{{ adminProfile[0]?.last_name }}</div>
-        </div>
+        <p><strong>Full Name:</strong> {{ adminProfile[0]?.first_name }} {{ adminProfile[0]?.last_name }}</p>
         <div class="form-group">
           <label for="email">Email:</label>
           <div class="profile-text">{{ adminProfile[0]?.email }}</div>

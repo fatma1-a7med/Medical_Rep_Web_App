@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable,throwError } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-
 
 @Injectable({
   providedIn: 'root'
@@ -12,15 +11,32 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  getUserProfile(id: number): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/${id}`);
+  private getHeaders(): HttpHeaders {
+    // Ensure correct string interpolation for Authorization header
+    return new HttpHeaders({
+      'Authorization': `Bearer ${localStorage.getItem('token')}`
+    });
   }
 
-  updateUserProfile(id: number, userProfile: any): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/${id}`, userProfile).pipe(
-    catchError(error => {
-      return throwError(error);
-    })
-  );
+  getUserProfile(): Observable<any> {
+    const headers = this.getHeaders();
+    // Use backticks for URL and interpolate apiUrl
+    return this.http.get<any>(`${this.apiUrl}/show`, { headers }).pipe(
+      catchError(error => {
+        return throwError(error);
+      })
+    );
   }
+
+  updateUserProfile(userProfile: any): Observable<any> {
+    const headers = this.getHeaders();
+    // Use backticks for URL and interpolate apiUrl
+    return this.http.post<any>(`${this.apiUrl}/update`, userProfile, { headers }).pipe(
+      catchError(error => {
+        return throwError(error);
+      })
+    );
+  }
+
+  // You can add a logout method here if needed
 }

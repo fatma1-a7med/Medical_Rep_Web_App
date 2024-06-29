@@ -83,8 +83,8 @@ export const routes: Routes = [
         
         {path:'plan', component:UservisitComponent},
 
-        { path: 'user-profile/:id', component: UserProfileComponent },
-    { path: 'user-profile/update/:id', component: UpdateUserProfileComponent },
+        { path: 'user-profile', component: UserProfileComponent },
+    { path: 'user-profile/update', component: UpdateUserProfileComponent },
 
     { path: 'about-us', component: AboutUsComponent },
      
