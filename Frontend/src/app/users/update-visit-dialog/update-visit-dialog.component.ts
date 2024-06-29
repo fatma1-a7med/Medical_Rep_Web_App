@@ -207,6 +207,7 @@ export class UpdateVisitDialogComponent implements OnInit {
         tools: this.visitForm.value.tools
       };
       this.dialogRef.close(updatedVisit);
+      
     }
   }
 }

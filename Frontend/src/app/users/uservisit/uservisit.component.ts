@@ -594,6 +594,7 @@ export class UservisitComponent {
         event.setExtendedProp('tools', result.tools);
 
         this.updateEventOnServer(event);
+        this.loadEvents();
       }
     });
   }
