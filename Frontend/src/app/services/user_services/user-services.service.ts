@@ -80,7 +80,7 @@ export class SalesService {
     const headers = this.getAuthHeaders();
     return this.http.post(`${this.baseUrl}/logout`, {}, { headers }).subscribe(
       () => {
-        localStorage.removeItem('token');
+        localStorage.clear();
         this.router.navigate(['/']);
       },
       (error) => {

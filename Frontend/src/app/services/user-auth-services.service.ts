@@ -54,7 +54,7 @@ export class UserAuthServicesService {
  
 
   logout() {
-    localStorage!.removeItem('token');
+    localStorage.clear();
   }
 
 

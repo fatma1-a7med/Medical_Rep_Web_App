@@ -47,7 +47,7 @@ export class AdminAuthServiceService {
       return localStorage.getItem('auth_token');
     }   
      logout(): void {
-      localStorage.removeItem('auth_token'); // Remove token from localStorage on logout
+      localStorage.clear();
       this.router.navigate(['/admin/login']);
     }
   

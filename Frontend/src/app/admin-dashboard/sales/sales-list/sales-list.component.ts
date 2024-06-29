@@ -3,7 +3,7 @@ import { AdminDashboardService } from '../../../services/admin-dashboard.service
 import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { MatIcon, MatIconModule } from '@angular/material/icon';
+import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
@@ -15,14 +15,9 @@ import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-sales-list',
-  standalone:true,
-  imports:[CommonModule,FormsModule,RouterLink , MatTableModule,
-    MatPaginatorModule,
-    MatSortModule,
-    MatInputModule,
-    MatFormFieldModule,
-    MatIconModule,
-    MatButtonModule],
+  standalone: true,
+  imports: [CommonModule, FormsModule, RouterLink, MatTableModule,
+    MatPaginatorModule, MatSortModule, MatInputModule, MatFormFieldModule, MatIconModule, MatButtonModule],
   templateUrl: './sales-list.component.html',
   styleUrls: ['./sales-list.component.css']
 })
@@ -31,7 +26,7 @@ export class SalesListComponent implements OnInit {
   sales: any[] = [];
   filteredSales: any[] = [];
   users: any[] = [];
-  selectedUserId?: number;
+  selectedUserId: number | null = null;
   userWithNoSalesMessage: string = '';
   pageSizeOptions: number[] = [5, 10, 25, 100];
   totalSales: number = 0;
@@ -39,7 +34,7 @@ export class SalesListComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(private salesService: AdminDashboardService) {}
+  constructor(private salesService: AdminDashboardService) { }
 
   ngOnInit(): void {
     this.loadSales();
@@ -73,7 +68,6 @@ export class SalesListComponent implements OnInit {
         this.dataSource.data = this.sales;
         this.applyPaginator();
         this.calculatePercentageDifference();
-
       }, error => {
         console.error('Error fetching sales:', error);
       });
@@ -135,7 +129,6 @@ export class SalesListComponent implements OnInit {
       }
     });
   }
-  
 
   getUserFullName(userId: number): string {
     const user = this.users.find(u => u.id === userId);
