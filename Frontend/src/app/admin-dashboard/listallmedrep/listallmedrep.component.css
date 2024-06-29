@@ -1,91 +1,123 @@
-.container{
+.container {
   margin-left: 250px;
   width: 70vw;
 }
+
 .main-body {
-    padding-top: 20px;
-    margin: 0 auto;
-    max-width: 1348px;
-    mat-form-field {
-      width: 100%;
-    }
-  }
-  
-  .actions {
-    display: flex;
-    gap: 2px;
+  padding-top: 20px;
+  margin: 0 auto;
+  max-width: 1348px;
+}
+
+.mat-form-field {
+  width: 100%;
+}
+
+.table-responsive {
+  overflow-x: auto;
+}
+
+.custom-table {
+  width: 100%;
+  border: 1px solid #1CA4AC;
+}
+
+.custom-table th {
+  background-color: #1CA4AC;
+  color: white;
+}
+
+.custom-table td {
+  border-color: #1CA4AC;
+}
+
+.custom-table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.custom-table tr:hover {
+  background-color: #e6f7f8;
+}
+
+.mat-icon {
+  height: 35px;
+  width: 35px;
+  line-height: 35px;
+}
+
+.custom-add-icon {
+  font-size: 35px;
+  margin-right: 8px;
+  color: #1CA4AC;
+  vertical-align: middle;
+}
+
+.custom-info-icon {
+  color: #28a745;
+}
+
+.custom-edit-icon {
+  color: #ffc107;
+}
+
+.custom-delete-icon {
+  color: #d40505;
+  border: none;
+  background: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.add-med-rep {
+  background-color: #1CA4AC;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+.add-med-rep:hover {
+  background-color: #139b9f;
+}
+
+.custom-hr {
+  border-top: 3px solid #1CA4AC;
+  width: 100%;
+  margin-top: -0.2rem;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .container {
+    margin-left: 0;
+    width: 100%;
   }
 
-  .container {
-    padding: 20px;
-    margin-top: 5rem;
+  .main-body {
+    padding: 10px;
   }
-  
-  .custom-table {
-    border: 1px solid #1CA4AC;
+
+  .mat-form-field {
+    margin-left: 0;
+    width: 100%;
   }
-  
-  .custom-table th {
-    background-color: #1CA4AC;
-    color: white;
+
+  .d-flex {
+    flex-direction: column;
+    align-items: flex-start;
   }
-  
-  .custom-table td {
-    border-color: #1CA4AC; 
-  }
-  
-  .custom-table tr:nth-child(even) {
-    background-color: #f2f2f2;
-  }
-  
-  .custom-table tr:hover {
-    background-color: #e6f7f8;
-  }
-  
-  .mat-icon {
-    height: 35px;
-    width: 35px;
-    line-height: 35px;
-  }
-  
-  .custom-add-icon {
-    font-size: 35px;
-    margin-right: 8px;
-    color: #1CA4AC;
-    vertical-align: middle;
-  }
-  
-  .custom-info-icon {
-    color: #28a745;
-  }
-  
-  .custom-edit-icon {
-    color: #ffc107;
-  }
-  
-  .custom-delete-icon {
-    color: #d40505;
-    border: none;
-    background: none;
-    outline: none;
-    cursor: pointer;
-  }
-  
+
   .add-med-rep {
-    background-color: #1CA4AC;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    padding: 8px 16px;
-    cursor: pointer;
+    margin-top: 10px;
   }
-  
-  .add-med-rep:hover {
-    background-color: #139b9f;
+
+  .custom-table th, .custom-table td {
+    font-size: 14px;
+    padding: 8px;
   }
-  .custom-hr {
-    border-top: 3px solid #1CA4AC; 
-    width: 100%; 
-   margin-top: -.2rem;
+
+  .custom-table {
+    border: 1px solid #ccc;
   }
-  
+}

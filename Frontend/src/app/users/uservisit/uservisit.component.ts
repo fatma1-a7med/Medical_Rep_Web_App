@@ -606,7 +606,8 @@ handleEventClick(clickInfo: EventClickArg) {
         event.setExtendedProp('tools', result.tools);
 
         this.updateEventOnServer(event);
-        this.loadEvents();
+       
+        
       }
     });
   }
@@ -617,7 +618,6 @@ handleEventClick(clickInfo: EventClickArg) {
       purpose: event.title,
       visit_date: event.startStr.split('T')[0],
       visit_time: event.startStr.split('T')[1].slice(0, 5),
-      
       status: event.extendedProps['status'],
       created_at: new Date(),
       updated_at: new Date(),
@@ -629,6 +629,8 @@ handleEventClick(clickInfo: EventClickArg) {
     this.visitService.updateVisit(visit).subscribe({
       next: (response) => {
         console.log('Event updated successfully:', response);
+        this.loadEvents();
+        
       },
       error: (error) => {
         console.error('Error updating event:', error);

@@ -6,8 +6,6 @@
 
 .fc-event-time, .fc-event-title {
   display: block;
-  
-  
   line-height: 1.2em;
   margin: 0;
   padding: 0;
@@ -23,14 +21,13 @@
   justify-content: space-around;
   margin-bottom: 20px;
   padding: 15px;
-
-  
+  flex-wrap: wrap; /* Added for responsiveness */
 }
 
 .filters, .search-by-name {
   display: flex;
   align-items: center;
-
+  flex-wrap: wrap; /* Added for responsiveness */
 }
 
 .mat-form-field {
@@ -187,4 +184,66 @@ h5 {
   border-top: 3px solid #1CA4AC;
   width: 23%;
   margin-top: -0.2rem;
+}
+
+/* Responsive design */
+@media (max-width: 1200px) {
+  .container {
+    margin-left: 50px;
+    width: 90vw;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    margin-left: 20px;
+    width: 95vw;
+  }
+
+  .centered-filters {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .filters, .search-by-name {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .mat-form-field {
+    margin-bottom: 20px;
+    margin-right: 0;
+  }
+
+  .filter-button, .search-button, .read-more-button {
+    margin: 10px 0;
+    width: 100%;
+  }
+
+  .visit-card {
+    width: 100%; /* Single card per row on smaller screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    margin-left: 10px;
+    width: 100%;
+  }
+
+  .activity-monitoring {
+    padding: 10px;
+  }
+
+  .visit-card {
+    padding: 10px;
+  }
+
+  .visit-card .visit-name {
+    font-size: 1em;
+  }
+
+  .visit-card .visit-date, .visit-card .visit-time {
+    font-size: 0.9em;
+  }
 }
