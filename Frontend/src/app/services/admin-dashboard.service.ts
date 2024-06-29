@@ -41,6 +41,7 @@ export class AdminDashboardService {
     getUsers(): Observable<any[]> {
       return this.http.get<any[]>(`${this.usersUrl}/users`, { headers: this.getAuthHeaders() });
     }
+    
     getTools(): Observable<any[]> {
       return this.http.get<any[]>(`${this.baseUrl}/tools`);
     }
@@ -61,6 +62,28 @@ export class AdminDashboardService {
     getAllVisits(): Observable<any> {
     
       return this.http.get<any>(`http://localhost:8000/api/admin/visits`, { headers: this.getAuthHeaders() })  
+    }
+
+ 
+
+
+    //admin tools
+    getAllTools(): Observable<any[]> {
+      return this.http.get<any[]>(`${this.baseUrl}/tools`);  
+    }
+ 
+    addTool(body: any): Observable<any> {
+      return this.http.post<any>(`${this.baseUrl}/addTool`, body, );  
+    }
+    
+    updateTool(id: number, tool: any): Observable<any> {
+    
+      return this.http.put<any>(`http://localhost:8000/api/admin/updateTool/${id}`, tool)  
+    }
+
+    deleteTool(id: number): Observable<any> {
+    
+      return this.http.delete<any>(`http://localhost:8000/api/admin/deleteTool/${id}`)  
     }
   }
 

@@ -72,7 +72,17 @@ Route::prefix('admin')->group(function () {
 
 
     
+
     });
+
+    
+    //tools
+    Route::get('tools' , [ToolController::class , 'index']);
+    Route::post('addTool' , [ToolController::class , 'store']);
+    Route::put('updateTool/{id}' , [ToolController::class , 'update']);
+    Route::delete('deleteTool/{id}' , [ToolController::class , 'destroy']);
+   
+   
 
     //admin location tracking
     Route::get('/location',[LoctionController::class,'index']);
