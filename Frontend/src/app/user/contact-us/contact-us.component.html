@@ -1,0 +1,32 @@
+<div class="container my-5">
+    <div class="card shadow">
+      <div class="card-body">
+        <h2 class="card-title mb-4">Contact Us</h2>
+        <form (ngSubmit)="submitForm()" #contactForm="ngForm">
+          <div class="mb-3">
+            <label for="name" class="form-label">Your Name:</label>
+            <input type="text" class="form-control" id="name" name="name" [(ngModel)]="formData.name" required>
+            <div class="invalid-feedback" *ngIf="contactForm.controls['name'].touched && contactForm.controls['name'].invalid">
+              Please enter your name.
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="email" class="form-label">Email address:</label>
+            <input type="email" class="form-control" id="email" name="email" [(ngModel)]="formData.email" required>
+            <div class="invalid-feedback" *ngIf="contactForm.controls['email'].touched && contactForm.controls['email'].invalid">
+              Please enter a valid email address.
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="message" class="form-label">Message:</label>
+            <textarea class="form-control" id="message" name="message" [(ngModel)]="formData.message" rows="4" required></textarea>
+            <div class="invalid-feedback" *ngIf="contactForm.controls['message'].touched && contactForm.controls['message'].invalid">
+              Please enter a message.
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary" [disabled]="!contactForm.valid">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  

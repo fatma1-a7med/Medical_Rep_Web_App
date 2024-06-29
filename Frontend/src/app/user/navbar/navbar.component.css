@@ -73,7 +73,9 @@
   align-items: center;
   justify-content: space-between;
 }
-
+.mat-mdc-menu-item .mat-icon-no-color, .mat-mdc-menu-item .mat-mdc-menu-submenu-icon
+{  color: #1CA4AC; 
+}
 
 
 @media (max-width: 991.98px) {
