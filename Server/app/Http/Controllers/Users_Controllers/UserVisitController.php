@@ -58,7 +58,7 @@ class UserVisitController extends Controller
            // 'user_id' => 'integer|exists:users,id',
             'doctor_id' => 'integer|exists:doctors,id',
             'visit_date' => 'required|date',
-            'visit_time' => 'required',
+            'visit_time' => 'required|date_format:H:i',
             'purpose' => 'required|string',
             'status' => 'required|string|in:ongoing,closed,done',
             'tools' => 'array',
@@ -67,8 +67,8 @@ class UserVisitController extends Controller
 
         $visit->update($validatedData);
 
-        if ($request->has('tools')) {
-            $visit->tools()->sync($request->tools);
+        if (isset($validatedData['tools'])) {
+            $visit->tools()->sync($validatedData['tools']);
         }
 
         return response()->json($visit->load('doctor', 'tools', 'user'), 200);

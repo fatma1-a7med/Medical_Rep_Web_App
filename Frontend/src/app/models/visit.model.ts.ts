@@ -13,6 +13,7 @@ export interface VisitModelTs {
 
 export interface GroupedVisits {
   [date: string]: VisitModelTs[];
+  
 }
 
 

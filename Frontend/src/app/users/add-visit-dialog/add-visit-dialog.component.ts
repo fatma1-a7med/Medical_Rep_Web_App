@@ -221,24 +221,68 @@ export class AddVisitDialogComponent implements OnInit {
     this.dialogRef.close();
   }
 
+  // onSave(): void {
+  //   if (this.visitForm.valid) {
+  //     const formData = { ...this.visitForm.value };
+  //     formData.doctor_id = formData.doctorCtrl.id; // Assign doctor_id from doctorCtrl
+  //     delete formData.doctorCtrl; // Remove doctorCtrl to avoid confusion
+
+  //     formData.tools = formData.tools.map((toolId: number) => toolId);
+
+  //     this.visitService.createVisit(formData).subscribe({
+  //       next: (response) => {
+  //         console.log('Visit saved successfully:', response);
+  //         this.dialogRef.close(response);
+  //       },
+  //       error: (error) => {
+  //         console.error('Error saving visit:', error);
+  //         alert('An error occurred while saving the visit.');
+  //       }
+  //     });
+  //   } else {
+  //     console.log('Form is invalid');
+  //     Object.keys(this.visitForm.controls).forEach(field => {
+  //       const control = this.visitForm.get(field);
+  //       console.log(field, control!.errors);
+  //     });
+  //     return;
+  //   }
+  // }
+
   onSave(): void {
     if (this.visitForm.valid) {
       const formData = { ...this.visitForm.value };
       formData.doctor_id = formData.doctorCtrl.id; // Assign doctor_id from doctorCtrl
       delete formData.doctorCtrl; // Remove doctorCtrl to avoid confusion
-
+  
       formData.tools = formData.tools.map((toolId: number) => toolId);
-
-      this.visitService.createVisit(formData).subscribe({
-        next: (response) => {
-          console.log('Visit saved successfully:', response);
-          this.dialogRef.close(response);
-        },
-        error: (error) => {
-          console.error('Error saving visit:', error);
-          alert('An error occurred while saving the visit.');
-        }
-      });
+  
+      if (this.data.id) {
+        // If there's an ID, we're editing an existing visit
+        formData.id = this.data.id;
+        this.visitService.updateVisit(formData).subscribe({
+          next: (response) => {
+            console.log('Visit updated successfully:', response);
+            this.dialogRef.close(response);
+          },
+          error: (error) => {
+            console.error('Error updating visit:', error);
+            alert('An error occurred while updating the visit.');
+          }
+        });
+      } else {
+        // If no ID, we're creating a new visit
+        this.visitService.createVisit(formData).subscribe({
+          next: (response) => {
+            console.log('Visit saved successfully:', response);
+            this.dialogRef.close(response);
+          },
+          error: (error) => {
+            console.error('Error saving visit:', error);
+            alert('An error occurred while saving the visit.');
+          }
+        });
+      }
     } else {
       console.log('Form is invalid');
       Object.keys(this.visitForm.controls).forEach(field => {
@@ -248,4 +292,5 @@ export class AddVisitDialogComponent implements OnInit {
       return;
     }
   }
+  
 }
