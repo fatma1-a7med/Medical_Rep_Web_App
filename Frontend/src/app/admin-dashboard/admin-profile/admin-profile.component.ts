@@ -28,25 +28,31 @@ export class AdminProfileComponent implements OnInit {
 
   ) {}
 
-  ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id');
-    if (id !== null) {
-      this.adminId = +id;
-      this.getAdminProfile(this.adminId);
-    } else {
-      console.error('Admin ID parameter is null or undefined');
-      // Handle the case where 'id' is null, e.g., navigate to an error page
-    }
+  // ngOnInit(): void {
+  //   const id = this.route.snapshot.paramMap.get('id');
+  //   if (id !== null) {
+  //     this.adminId = +id;
+  //     this.getAdminProfile(this.adminId);
+  //   } else {
+  //     console.error('Admin ID parameter is null or undefined');
+  //     // Handle the case where 'id' is null, e.g., navigate to an error page
+  //   }
 
-    this.messageService.message$.subscribe(message => {
-      this.successMessage = message;
-      setTimeout(() => this.successMessage = null, 3000); // Hide message after 3 seconds
-    });
+  //   this.messageService.message$.subscribe(message => {
+  //     this.successMessage = message;
+  //     setTimeout(() => this.successMessage = null, 3000); // Hide message after 3 seconds
+  //   });
+  // }
+
+
+  ngOnInit(): void {
+    this.getAdminProfile();
   }
 
+
   // Method to fetch admin profile based on adminId
-  getAdminProfile(id: number): void {
-    this.adminProfileService.getAdminProfile(id)
+  getAdminProfile(): void {
+    this.adminProfileService.getAdminProfile()
       .subscribe(
         (response) => {
           console.log(response);
@@ -73,6 +79,13 @@ export class AdminProfileComponent implements OnInit {
 
   // Method to navigate to update profile component
   navigateToUpdateProfile(): void {
-    this.router.navigate(['/admin-dashboard/update-profile/update', this.adminId]);
+    const token = localStorage.getItem('token');
+    if (token) {
+      this.router.navigate(['/admin-dashboard/update-profile/update'], { queryParams: { token: token } });
+    } else {
+      console.error('Token not found');
+      // Handle the case where token is not found
+    }
   }
+  
 }

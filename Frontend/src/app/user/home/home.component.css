@@ -7,6 +7,7 @@
 .text-section {
   margin-top: 50px;
 }
+
 .filter-container {
   display: flex;
   justify-content: center;
@@ -20,6 +21,7 @@
   margin-bottom: 20px;
   color: #333;
 }
+
 .main-body {
   margin: auto;
 }
@@ -70,22 +72,21 @@
   color: #333;
 }
 
-
-
-
-.text_tools{
-margin-top: -1rem;
+.text_tools {
+  margin-top: -1rem;
 }
 
 .row {
   margin-left: -15px;
   margin-right: -15px;
 }
+
 .custom-hr {
-  border-top: 3px solid #1CA4AC; 
-  width: 20%; 
-  margin: -.7rem auto;
+  border-top: 3px solid #1CA4AC;
+  width: 20%;
+  margin: -0.7rem auto;
 }
+
 .custom-table {
   border: 1px solid #1CA4AC;
 }
@@ -97,7 +98,7 @@ margin-top: -1rem;
 }
 
 .custom-table td {
-  border-color: #1CA4AC; 
+  border-color: #1CA4AC;
   white-space: nowrap;
 }
 
@@ -107,4 +108,35 @@ margin-top: -1rem;
 
 .custom-table tr:hover {
   background-color: #e6f7f8;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .text-section h1 {
+    font-size: 2rem;
+  }
+  .text-section p {
+    font-size: 1rem;
+  }
+  .image-section img {
+    height: auto;
+    margin-top: 20px;
+  }
+  .latest-visits-container {
+    margin-top: 70px;
+  }
+  .filter-container {
+    width: 100%;
+  }
+  .table-responsive {
+    overflow-x: auto;
+  }
+  .custom-table {
+    width: 100%;
+    min-width: 600px;
+  }
+  .custom-table td,
+  .custom-table th {
+    white-space: normal;
+  }
 }

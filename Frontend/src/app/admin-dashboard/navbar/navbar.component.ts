@@ -10,11 +10,12 @@ import { AdminDashboardService } from '../../services/admin-dashboard.service';
 import { MatMenuTrigger } from '@angular/material/menu'
 import { JarwisService } from '../../services/jarwis.service';
 import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [MatToolbarModule, MatButtonModule, MatIconModule, MatMenuModule,CommonModule],
+  imports: [MatToolbarModule, MatButtonModule, MatIconModule, MatMenuModule,CommonModule,RouterLink],
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })

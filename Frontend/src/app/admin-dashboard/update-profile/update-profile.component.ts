@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AdminProfileService } from '../../services/admin-profile.service';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MessageService } from '../../services/message.service';
-import { ActivatedRoute, Router } from '@angular/router'; // Import ActivatedRoute correctly
-import { onlyLettersValidator, alphanumericValidator, emailFormatValidator,numericValidator } from './custom-validators'; // Import custom validators
+import { Router } from '@angular/router';
+import { onlyLettersValidator, alphanumericValidator, emailFormatValidator, numericValidator } from './custom-validators';
 
 @Component({
   selector: 'app-update-profile',
@@ -16,26 +16,21 @@ import { onlyLettersValidator, alphanumericValidator, emailFormatValidator,numer
 })
 export class UpdateProfileComponent implements OnInit {
   updateProfileForm: FormGroup;
-  adminId!: number;
   selectedFile: File | null = null;
   errorMessage: string | null = null;
-  emailError: boolean = false; // New property
-
+  emailError: boolean = false;
 
   constructor(
     private fb: FormBuilder,
     private adminProfileService: AdminProfileService,
-    private route: ActivatedRoute,
     private router: Router,
     private messageService: MessageService
   ) {
-    
     this.updateProfileForm = this.fb.group({
       first_name: ['', [Validators.required, onlyLettersValidator()]],
       last_name: ['', [Validators.required, onlyLettersValidator()]],
-      email: ['', [Validators.required,Validators.email, emailFormatValidator()]],
-      // email: ['', [Validators.required,Validators.email, Validators.email]],
-      phone_number: ['', [Validators.required,numericValidator()]],
+      email: ['', [Validators.required, Validators.email, emailFormatValidator()]],
+      phone_number: ['', [Validators.required, numericValidator()]],
       territory: ['', [Validators.required, onlyLettersValidator()]],
       city: ['', [Validators.required, onlyLettersValidator()]],
       state: ['', [Validators.required, onlyLettersValidator()]],
@@ -45,38 +40,32 @@ export class UpdateProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id');
-    if (id !== null) {
-      this.adminId = +id;
-      this.loadAdminProfile(this.adminId);
-    }
+    this.loadAdminProfile();
   }
 
-  loadAdminProfile(id: number): void {
-    this.adminProfileService.getAdminProfile(id).subscribe(
+  loadAdminProfile(): void {
+    this.adminProfileService.getAdminProfile().subscribe(
       response => {
-      if (response) {
-        this.updateProfileForm.patchValue(response);
+        if (response) {
+          this.updateProfileForm.patchValue(response);
+        }
+      },
+      error => {
+        console.error('Error loading user profile:', error);
       }
-    },
-    (error: any) => { // Specify error type to avoid implicit any error
-      console.error('Error loading user profile:', error);
-      // Handle error as needed
-    }
-  );
+    );
   }
 
   onFileChange(event: any): void {
     if (event.target.files.length > 0) {
-      this.selectedFile = event.target.files[0];
-      this.updateProfileForm.patchValue({ image: this.selectedFile });
+      const file = event.target.files[0];
+      this.selectedFile = file;
     }
   }
 
   onSubmit(): void {
-    this.emailError = false; // Reset email error
+    this.emailError = false;
     if (this.updateProfileForm.valid) {
-      // Check if image is required
       if (!this.selectedFile) {
         this.errorMessage = 'The image is required';
         return;
@@ -86,18 +75,16 @@ export class UpdateProfileComponent implements OnInit {
       Object.keys(this.updateProfileForm.value).forEach(key => {
         formData.append(key, this.updateProfileForm.value[key]);
       });
-      if (this.selectedFile) {
-        formData.append('image', this.selectedFile);
-      }
+      formData.append('image', this.selectedFile);
 
-      this.adminProfileService.updateAdminProfile(this.adminId, formData).subscribe(
+      this.adminProfileService.updateAdminProfile(formData).subscribe(
         response => {
           this.messageService.showMessage('Profile updated successfully');
-          this.router.navigate(['/admin-dashboard/admin-profile', this.adminId]);
+          this.router.navigate(['/admin-dashboard/admin-profile']);
         },
         error => {
           if (error.status === 400) {
-            this.emailError = true; // Set email error to true
+            this.emailError = true;
           } else {
             this.errorMessage = 'An error occurred';
           }
@@ -105,5 +92,4 @@ export class UpdateProfileComponent implements OnInit {
       );
     }
   }
-  
 }
