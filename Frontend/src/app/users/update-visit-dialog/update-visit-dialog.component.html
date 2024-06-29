@@ -1,37 +1,43 @@
-<h1 mat-dialog-title>Update Visit</h1>
-<div mat-dialog-content>
-  <form [formGroup]="visitForm">
-    <mat-form-field>
-      <input matInput placeholder="Visit Date" formControlName="visit_date" type="date">
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput placeholder="Visit Time" formControlName="visit_time" type="time">
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput placeholder="Purpose" formControlName="purpose">
-    </mat-form-field>
-    <mat-form-field>
-      <mat-select placeholder="Status" formControlName="status">
-        <mat-option *ngFor="let status of statusOptions" [value]="status">{{status}}</mat-option>
-      </mat-select>
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput placeholder="Doctor" formControlName="doctorCtrl" [matAutocomplete]="auto">
-      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayDoctorFn">
-        <mat-option *ngFor="let doctor of filteredDoctors$ | async" [value]="doctor">
-          {{ doctor.first_name }} {{ doctor.last_name }}
-        </mat-option>
-      </mat-autocomplete>
-    </mat-form-field>
-    <mat-form-field appearance="outline" class="form-field">
+<h1 mat-dialog-title class="dialog-title">Update Visit</h1>
+<div mat-dialog-content class="mat-dialog-content add-visit-dialog">
+  <form [formGroup]="visitForm" class="form">
+    <div class="form-row">
+      <mat-form-field class="form-field">
+        <input matInput placeholder="Visit Date" formControlName="visit_date" type="date">
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <input matInput placeholder="Visit Time" formControlName="visit_time" type="time">
+      </mat-form-field>
+    </div>
+    <div class="form-row">
+      <mat-form-field class="form-field">
+        <input matInput placeholder="Purpose" formControlName="purpose">
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <mat-select placeholder="Status" formControlName="status">
+          <mat-option *ngFor="let status of statusOptions" [value]="status">{{status}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="form-row">
+      <mat-form-field class="form-field">
+        <input matInput placeholder="Doctor" formControlName="doctorCtrl" [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayDoctorFn">
+          <mat-option *ngFor="let doctor of filteredDoctors$ | async" [value]="doctor">
+            {{ doctor.first_name }} {{ doctor.last_name }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="form-field">
         <mat-label>Tools</mat-label>
         <mat-select formControlName="tools" multiple>
           <mat-option *ngFor="let tool of tools" [value]="tool.id">{{ tool.name }}</mat-option>
         </mat-select>
       </mat-form-field>
+    </div>
   </form>
 </div>
-<div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">Cancel</button>
-  <button mat-button (click)="onSave()">Save</button>
+<div mat-dialog-actions class="dialog-actions">
+  <button mat-button class="cancel-button" (click)="onNoClick()">Cancel</button>
+  <button mat-button class="save-button" (click)="onSave()">Save</button>
 </div>

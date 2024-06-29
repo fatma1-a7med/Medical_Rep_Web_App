@@ -179,7 +179,7 @@ export class UpdateVisitDialogComponent implements OnInit {
 
     this.visitService.getTools().subscribe(tools => {
       this.tools = tools;
-      this.visitForm.patchValue({ tools: this.data.tools });
+      this.visitForm.patchValue({ tools: this.data.tools.map((tool: any) => tool.id) });
     });
   }
 
@@ -203,7 +203,8 @@ export class UpdateVisitDialogComponent implements OnInit {
       const updatedVisit = {
         ...this.visitForm.value,
         doctor_id: this.visitForm.value.doctorCtrl.id,
-        doctorCtrl: undefined // remove doctorCtrl as it is not needed in the final object
+        doctorCtrl: undefined ,// remove doctorCtrl as it is not needed in the final object
+        tools: this.visitForm.value.tools
       };
       this.dialogRef.close(updatedVisit);
     }
