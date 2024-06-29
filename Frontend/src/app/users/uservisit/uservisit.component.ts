@@ -16,6 +16,7 @@ import { createEventId } from './event-utils';
 import { TokenService } from '../../services/token.service';
 import {  AddVisitDialogComponent } from '../add-visit-dialog/add-visit-dialog.component'; 
 import { UpdateVisitDialogComponent } from '../update-visit-dialog/update-visit-dialog.component';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-uservisit',
@@ -502,14 +503,25 @@ export class UservisitComponent {
     calendarApi.unselect(); // Clear date selection
   }
 
-  handleEventClick(clickInfo: EventClickArg) {
-    if (confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
+
+handleEventClick(clickInfo: EventClickArg) {
+  Swal.fire({
+    title: `Are you sure you want to delete the visit '${clickInfo.event.title}'?`,
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, delete it!',
+    cancelButtonText: 'Cancel'
+  }).then((result) => {
+    if (result.isConfirmed) {
       clickInfo.event.remove();
       this.deleteEventFromServer(Number(clickInfo.event.id));
     } else {
       this.handleEventEdit(clickInfo.event);
     }
-  }
+  });
+}
 
   handleEvents(events: EventApi[]) {
     this.currentEvents = events;
