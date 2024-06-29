@@ -19,7 +19,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\VisitController;
 use App\Http\Controllers\VisitReportingController;
 use App\Http\Controllers\ToolsController;
-
+use App\Http\Controllers\MailController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -160,6 +160,8 @@ Route::prefix('user')->group(function () {
         Route::get('/profile/show', [UserProfileController::class, 'show']);
         Route::post('/profile/update', [UserProfileController::class, 'update']);
     });
+    Route::post('/send-email', [MailController::class, 'sendEmail']);
+
 });
 
 

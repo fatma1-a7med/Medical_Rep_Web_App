@@ -10,7 +10,24 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
-        <!-- Your navigation links -->
+        <li class="nav-item">
+          <button mat-button class="nav-link" [routerLink]="['../user/home']" routerLinkActive="active-link">Home</button>
+        </li>
+        <li class="nav-item">
+          <button mat-button class="nav-link" [routerLink]="['../user/plan']" routerLinkActive="active-link">Plan</button>
+        </li>
+        <li class="nav-item">
+          <button mat-button class="nav-link" [routerLink]="['../user/sales']" routerLinkActive="active-link">Sales</button>
+        </li>
+        <li class="nav-item">
+          <button mat-button class="nav-link" [routerLink]="['../user/list-All-Doctors']" routerLinkActive="active-link">Doctor's List</button>
+        </li>
+        <li class="nav-item">
+          <button mat-button class="nav-link" [routerLink]="['../user/userLocation']" routerLinkActive="active-link">Map</button>
+        </li>
+        <li class="nav-item">
+          <button mat-button class="nav-link" [routerLink]="['../user/contact-us']" routerLinkActive="active-link">Contact Us</button>
+        </li>
       </ul>
       <div class="user-profile d-flex align-items-center">
         <button mat-button [matMenuTriggerFor]="userMenu" class="user-profile-button d-flex align-items-center">
@@ -23,10 +40,19 @@
           <span class="text-white me-2">{{ first_name }} {{ last_name }}</span>
           <mat-icon class="text-white">arrow_drop_down</mat-icon>
         </button>
-        <mat-menu #userMenu="matMenu">
-          <button mat-menu-item [routerLink]="['/user/user-profile']">Profile</button>
-          <button mat-menu-item [routerLink]="['../user/about-us']">About Us</button>
-          <button mat-menu-item (click)="logout()">Logout</button>
+        <mat-menu #userMenu="matMenu" class="dropDownItems">
+          <button mat-menu-item>
+            <mat-icon>person</mat-icon>
+            Profile
+          </button>
+          <button mat-menu-item [routerLink]="['../user/about-us']">
+            <mat-icon>info</mat-icon>
+            About Us
+          </button>
+          <button mat-menu-item (click)="logout()">
+            <mat-icon>exit_to_app</mat-icon>
+            Logout
+          </button>
         </mat-menu>
       </div>
     </div>
