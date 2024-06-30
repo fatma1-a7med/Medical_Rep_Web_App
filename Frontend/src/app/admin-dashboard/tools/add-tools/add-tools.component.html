@@ -1,13 +1,13 @@
-<div mat-dialog-title>
-  {{data ? 'Edit tool' : 'Add New tool'}}
-</div>
 
 <div class="content" mat-dialog-content>
+  <div>
+    <h3>{{data ? 'Edit tool' : 'Add New tool'}}</h3>
+  </div>
   <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
 
     <div class="form-row">
       <!--  Name -->
-      <mat-form-field appearance="outline" class="form-field col-md-5 m-4">
+      <mat-form-field appearance="outline" class="form-field col-md-10 my-4 m-auto">
         <mat-label> Name</mat-label>
         <input matInput formControlName="name">
         <mat-error *ngIf="userForm.get('name')?.hasError('required')">
@@ -19,7 +19,7 @@
       </mat-form-field>
 
       <!-- type -->
-      <mat-form-field appearance="outline" class="form-field col-md-5 m-4">
+      <mat-form-field appearance="outline" class="form-field col-md-10 mb-4">
         <mat-label>Type</mat-label>
         <input matInput formControlName="type">
         <mat-error *ngIf="userForm.get('type')?.hasError('required')">
@@ -33,7 +33,7 @@
 
     <div class="form-row">
       <!-- description -->
-      <mat-form-field appearance="outline" class="form-field col-md-5 m-4">
+      <mat-form-field appearance="outline" class="form-field col-md-10 mb-4">
         <mat-label>Description</mat-label>
         <input matInput formControlName="description">
         <mat-error *ngIf="userForm.get('description')?.hasError('required')">
@@ -47,8 +47,8 @@
      
     <!-- Actions (Cancel and Save buttons) -->
     <div mat-dialog-actions class="action">
-      <button mat-raised-button type="button" [mat-dialog-close]="false">Cancel</button>
-      <button mat-raised-button type="submit" class="save-btn">{{data ? 'Update' : 'Save'}}</button>
+      <button mat-raised-button type="button" class="btn btn-secondary" [mat-dialog-close]="false">Cancel</button>
+      <button mat-raised-button type="submit" class="btn btn-primary">{{data ? 'Update' : 'Save'}}</button>
     </div>
     
 

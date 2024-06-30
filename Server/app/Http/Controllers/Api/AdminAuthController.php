@@ -46,7 +46,7 @@ class AdminAuthController extends Controller
                 $image = $request->file('image');
                 $imageName = time() . '_' . $image->getClientOriginalName();
                 $image->move(public_path('images'), $imageName);
-                $imagePath = 'images/' . $imageName;
+                $imagePath = $imageName;
             } else {
                 $imagePath = null;
             }

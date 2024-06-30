@@ -8,7 +8,7 @@
   <div class="user-profile" *ngIf="loggedInAdmin">
    <div style="margin-right: 100px;">
     <button mat-button [matMenuTriggerFor]="userMenu" class="user-profile-button">
-      <img [src]="'http://localhost:8000/' + loggedInAdmin.image" alt="User Image" class="user-image" />
+      <img [src]="'http://localhost:8000/images/' + loggedInAdmin.image" alt="User Image" class="user-image" />
       <span>{{ loggedInAdmin.first_name }}</span>
     </button>
     <mat-icon>arrow_drop_down</mat-icon>

@@ -66,8 +66,8 @@ export class AdminProfileComponent implements OnInit {
             
             if (this.adminProfile) {
               // Assuming image path is relative and needs prefixing with server URL
-              this.adminProfile.image = `http://localhost:8000/${this.adminProfile[0].image}`;
-              console.log('Image Path:', this.adminProfile.image); // طباعة مسار الصورة لفحصه
+              this.adminProfile.image = `http://localhost:8000/images/${this.adminProfile[0].image}`;
+              console.log('Image Path:', this.adminProfile.image); 
 
             }
           } else {
