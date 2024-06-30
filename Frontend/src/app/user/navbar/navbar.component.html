@@ -41,7 +41,7 @@
           <mat-icon class="text-white">arrow_drop_down</mat-icon>
         </button>
         <mat-menu #userMenu="matMenu" class="dropDownItems">
-          <button mat-menu-item>
+          <button mat-menu-item [routerLink]="['../user/user-profile']">
             <mat-icon>person</mat-icon>
             Profile
           </button>
