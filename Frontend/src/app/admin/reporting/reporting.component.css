@@ -131,7 +131,11 @@
     border: 1px solid #1CA4AC;
     border-collapse: collapse;
   }
+  .custom-table th{
+    text-align: left;
+  }
   .custom-table th,
   .custom-table td {
     border: 1px solid #1CA4AC;
+    
   }
