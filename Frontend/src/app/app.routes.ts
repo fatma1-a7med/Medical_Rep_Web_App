@@ -42,6 +42,7 @@ import { ShowdoctorComponent } from './admin-dashboard/doctors/show-doctor/show-
 import { AllToolsComponent } from './admin-dashboard/tools/all-tools/all-tools.component';
 import { AddToolsComponent } from './admin-dashboard/tools/add-tools/add-tools.component';
 import { UpdateToolsComponent } from './admin-dashboard/tools/update-tools/update-tools.component';
+import { ContactUsComponent } from './user/contact-us/contact-us.component';
 
 
 
@@ -120,7 +121,7 @@ export const routes: Routes = [
       {path: 'loction-tracking', component:LocationComponent},
       { path: 'reporting', component: ReportingComponent },
       { path: 'admin-profile', component: AdminProfileComponent },
-      { path: 'update-profile/update', component: UpdateProfileComponent }
+      { path: 'update-profile/update', component: UpdateProfileComponent },
 
       { path: 'doctors', component: ListdoctorsComponent },
       { path: 'showdoctors/:id', component: ShowdoctorComponent },

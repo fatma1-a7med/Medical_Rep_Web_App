@@ -15,8 +15,12 @@
    </div>
 
     <mat-menu #userMenu="matMenu">
-      <button mat-menu-item [routerLink]="['/admin-dashboard/admin-profile']">Profile</button>
-        <button mat-menu-item class="logout-button" (click)="logout()">Logout</button>
+      <button mat-menu-item [routerLink]="['/admin-dashboard/admin-profile']">
+        <mat-icon>person</mat-icon>
+        Profile</button>
+        <button mat-menu-item class="logout-button" (click)="logout()">
+          <mat-icon>exit_to_app</mat-icon>
+          Logout</button>
     </mat-menu>
   </div>
 </mat-toolbar>

@@ -84,18 +84,21 @@ export class VisitManagementComponent implements OnInit, AfterViewInit {
       const formattedStartDate = this.datePipe.transform(this.startDate, 'yyyy-MM-dd');
       const formattedEndDate = this.datePipe.transform(this.endDate, 'yyyy-MM-dd');
 
-      const url = `http://localhost:8000/api/admin/visits/searchByDateRange/${formattedStartDate}/${formattedEndDate}`;
+      if (formattedStartDate && formattedEndDate) {
+        const url = `http://localhost:8000/api/admin/visits/searchByDateRange/${formattedStartDate}/${formattedEndDate}`;
 
-      this.http.get<Visit[]>(url)
-        .subscribe(
-          data => {
+        this.http.get<Visit[]>(url).subscribe(
+          (data) => {
             this.visitDate = data;
             this.dataSource.data = this.visitDate;
           },
-          error => {
+          (error) => {
             console.error('Error searching by date range:', error);
           }
         );
+      } else {
+        console.error('Invalid date range');
+      }
     } else {
       console.error('Invalid date range');
     }
@@ -112,12 +115,18 @@ export class VisitManagementComponent implements OnInit, AfterViewInit {
             this.dataSource.data = this.visitDate;
           },
           error => {
+          if (error.status === 404) {
+            // Handle 404 error specifically for no data found
+            console.log('No visits found for the specified username');
+            this.dataSource.data = []; // Clear the table data
+          } else {
             console.error('Error searching by username:', error);
           }
-        );
-    } else {
-      console.error('Invalid username criteria');
-    }
+        }
+      );
+  } else {
+    console.error('Invalid username criteria');
+  }
   }
 
 

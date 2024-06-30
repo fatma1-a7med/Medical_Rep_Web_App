@@ -7,6 +7,10 @@
     <mat-icon>shopping_cart</mat-icon>
     <span>Sales Management</span>
   </a>
+  <a routerLink="/admin-dashboard/alltools" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">
+    <mat-icon>local_pharmacy</mat-icon>
+    <span>Tools Management</span>
+  </a>
   <a routerLink="/admin-dashboard/activitymonitor" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">
     <mat-icon>monitor</mat-icon>
     <span>Activity Monitoring</span>
@@ -14,6 +18,10 @@
   <a routerLink="/admin-dashboard/visit-managment" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">
     <mat-icon>visibility</mat-icon>
     <span>Visits Overview</span>
+  </a>
+  <a routerLink="/admin-dashboard/doctors" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">
+    <mat-icon>local_hospital</mat-icon>
+    <span>Doctors Overview</span>
   </a>
   <a routerLink="/admin-dashboard/loction-tracking" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">
     <mat-icon>location_on</mat-icon>
@@ -23,11 +31,5 @@
     <mat-icon>assessment</mat-icon>
     <span>Reports</span>
   </a>
-  <a routerLink="/admin-dashboard/doctors" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">
-    <mat-icon>local_hospital</mat-icon>
-    <span>AllDoctors</span>
-  </a>
-  <a routerLink="/admin-dashboard/alltools" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">
-    <mat-icon>local_pharmacy</mat-icon>
-    <span>your Tools</span>
-  </a>
+
+ 

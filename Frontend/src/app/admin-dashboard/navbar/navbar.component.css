@@ -7,7 +7,9 @@
     top: 0;
     left: 0;
   }
-  
+  .mat-mdc-menu-item .mat-icon-no-color, .mat-mdc-menu-item .mat-mdc-menu-submenu-icon
+{  color: #1CA4AC; 
+}
 
   .logo .logo_text{
     margin-left: 3px;
