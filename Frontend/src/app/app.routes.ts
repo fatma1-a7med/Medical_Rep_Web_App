@@ -89,12 +89,12 @@ export const routes: Routes = [
         
         {path:'plan', component:UservisitComponent},
 
-        { path: 'user-profile', component: UserProfileComponent },
+    { path: 'user-profile', component: UserProfileComponent },
     { path: 'user-profile/update', component: UpdateUserProfileComponent },
-
+  
     { path: 'about-us', component: AboutUsComponent },
     { path: 'contact-us', component: ContactUsComponent },
-     
+    
 
       ]
     },
