@@ -113,12 +113,6 @@ class AdminProfileController extends Controller
         ]);
     }
 
-//     public function checkEmail(Request $request)
-// {
-//     $email = $request->query('email');
-//     $exists = Admin::where('email', $email)->exists();
 
-//     return response()->json(['exists' => $exists]);
-// }
 
 }
