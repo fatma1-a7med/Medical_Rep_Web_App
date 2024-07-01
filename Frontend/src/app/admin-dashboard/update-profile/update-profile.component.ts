@@ -18,7 +18,7 @@ export class UpdateProfileComponent implements OnInit {
   updateProfileForm: FormGroup;
   selectedFile: File | null = null;
   errorMessage: string | null = null;
-  emailError: boolean = false;
+  emailExistsError: boolean = false; // New variable to track email existence error
 
   constructor(
     private fb: FormBuilder,
@@ -35,7 +35,7 @@ export class UpdateProfileComponent implements OnInit {
       city: ['', [Validators.required, onlyLettersValidator()]],
       state: ['', [Validators.required, onlyLettersValidator()]],
       street: ['', [Validators.required, alphanumericValidator()]],
-      image: [null, Validators.required]
+      image: [null]
     });
   }
 
@@ -64,18 +64,17 @@ export class UpdateProfileComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.emailError = false;
+    this.emailExistsError = false; // Reset emailExistsError before submitting
     if (this.updateProfileForm.valid) {
-      if (!this.selectedFile) {
-        this.errorMessage = 'The image is required';
-        return;
-      }
-
       const formData = new FormData();
       Object.keys(this.updateProfileForm.value).forEach(key => {
-        formData.append(key, this.updateProfileForm.value[key]);
+        if (key !== 'image' || this.selectedFile) {
+          formData.append(key, this.updateProfileForm.value[key]);
+        }
       });
-      formData.append('image', this.selectedFile);
+      if (this.selectedFile) {
+        formData.append('image', this.selectedFile);
+      }
 
       this.adminProfileService.updateAdminProfile(formData).subscribe(
         response => {
@@ -83,8 +82,9 @@ export class UpdateProfileComponent implements OnInit {
           this.router.navigate(['/admin-dashboard/admin-profile']);
         },
         error => {
-          if (error.status === 400) {
-            this.emailError = true;
+          if (error.status == 400 && error.error.message.email) {
+            // Handle specific error for duplicate email
+            this.emailExistsError = true;
           } else {
             this.errorMessage = 'An error occurred';
           }

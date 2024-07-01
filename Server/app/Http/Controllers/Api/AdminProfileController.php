@@ -78,6 +78,17 @@ class AdminProfileController extends Controller
             ], 400);
         }
 
+// ///////////////////////////
+  // Check if email exists for another admin
+  $existingAdmin = Admin::where('email', $request->email)->where('id', '!=', $admin->id)->first();
+  if ($existingAdmin) {
+      return response()->json([
+          'success' => false,
+          'message' => 'Email address is already in use by another admin'
+      ], 400);
+  }
+
+// //////////////////////////
         $validatedData = $request->all();
 
         if ($request->hasFile('image')) {

@@ -16,8 +16,6 @@ import { MessageService } from '../../services/message.service';
 })
 export class AdminProfileComponent implements OnInit {
   adminProfile: any = []; // Variable to hold admin profile data
-  // adminProfile: any = []; // Variable to hold admin profile data
-
   adminId!: number; // Using definite assignment assertion
   successMessage: string | null = null;
 
