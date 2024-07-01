@@ -68,6 +68,7 @@
         <input id="image" formControlName="image" type="file" (change)="onFileChange($event)" />
       </div>
     </div>
-    <button type="submit" [disabled]="updateProfileForm.invalid">Update</button>
-  </form>
+    <div class="form-group button-group">
+      <button type="submit" [disabled]="updateProfileForm.invalid">Update</button>
+    </div>  </form>
 </div>

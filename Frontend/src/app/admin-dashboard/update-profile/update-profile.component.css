@@ -41,7 +41,6 @@
   margin-right: 90px;
 } */
 
-
 .update-profile-container label {
   font-weight: bold;
   display: block;
@@ -59,6 +58,12 @@
   font-weight: 600;
   background-color: #1ca4ac;
   color: #ffffff;
+}
+
+.update-profile-container .button-group {
+  width: 100%;
+  display: flex;
+  justify-content:center;
 }
 
 .update-profile-container button {
