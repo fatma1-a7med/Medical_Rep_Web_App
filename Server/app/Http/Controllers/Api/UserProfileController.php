@@ -98,6 +98,17 @@ class UserProfileController extends Controller
             ], 400);
         }
 
+
+         // Check if email exists for another user
+  $existingUser = User::where('email', $request->email)->where('id', '!=', $user->id)->first();
+  if ($existingUser) {
+      return response()->json([
+          'success' => false,
+          'message' => 'Email address is already in use by another user'
+      ], 400);
+  }
+
+  
         // Initialize validated data
         $validatedData = $request->all();
 

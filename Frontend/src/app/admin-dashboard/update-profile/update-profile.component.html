@@ -18,15 +18,10 @@
 
     <div class="form-group">
       <label for="email">Email:</label>
-      <input id="email" formControlName="email" type="email" />
-      <div *ngIf="updateProfileForm.get('email')?.hasError('emailFormat')" class="error-message">
+      <input id="email" formControlName="email" type="email" class="input-field" [placeholder]="adminData?.email || ''" />
+      <div *ngIf="updateProfileForm.get('email')?.hasError('emailFormat')" class="error-message" disabled>
         Invalid email format.
-      </div>
-
-      <div *ngIf="emailExistsError" class="error-message">
-        This email is already exists.
-      </div>
-
+      </div> 
       <div *ngIf="errorMessage" class="error-message">
         {{ errorMessage }}
       </div>

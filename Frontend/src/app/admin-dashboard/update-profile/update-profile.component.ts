@@ -18,7 +18,9 @@ export class UpdateProfileComponent implements OnInit {
   updateProfileForm: FormGroup;
   selectedFile: File | null = null;
   errorMessage: string | null = null;
-  emailExistsError: boolean = false; // New variable to track email existence error
+  adminData: any = null;
+
+  // emailExistsError: boolean = false; // New variable to track email existence error
 
   constructor(
     private fb: FormBuilder,
@@ -29,7 +31,7 @@ export class UpdateProfileComponent implements OnInit {
     this.updateProfileForm = this.fb.group({
       first_name: ['', [Validators.required, onlyLettersValidator()]],
       last_name: ['', [Validators.required, onlyLettersValidator()]],
-      email: ['', [Validators.required, Validators.email, emailFormatValidator()]],
+      email: [{ value: '', disabled: true }, [Validators.email, emailFormatValidator()]],
       phone_number: ['', [Validators.required, numericValidator()]],
       territory: ['', [Validators.required, onlyLettersValidator()]],
       city: ['', [Validators.required, onlyLettersValidator()]],
@@ -47,7 +49,10 @@ export class UpdateProfileComponent implements OnInit {
     this.adminProfileService.getAdminProfile().subscribe(
       response => {
         if (response) {
+          this.adminData = response;
           this.updateProfileForm.patchValue(response);
+          this.updateProfileForm.get('email')?.disable();
+
         }
       },
       error => {
@@ -64,7 +69,7 @@ export class UpdateProfileComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.emailExistsError = false; // Reset emailExistsError before submitting
+    // this.emailExistsError = false; // Reset emailExistsError before submitting
     if (this.updateProfileForm.valid) {
       const formData = new FormData();
       Object.keys(this.updateProfileForm.value).forEach(key => {
@@ -82,12 +87,7 @@ export class UpdateProfileComponent implements OnInit {
           this.router.navigate(['/admin-dashboard/admin-profile']);
         },
         error => {
-          if (error.status == 400 && error.error.message.email) {
-            // Handle specific error for duplicate email
-            this.emailExistsError = true;
-          } else {
-            this.errorMessage = 'An error occurred';
-          }
+          this.errorMessage = 'An error occurred';
         }
       );
     }

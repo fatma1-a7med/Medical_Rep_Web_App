@@ -1,60 +1,93 @@
 /* styles.css or your component-specific CSS file */
+.update-profile-container {
+  max-width: 50%;
+  margin: 0 auto;
+  margin-bottom: 30px;
+  padding: 30px;
+  padding-left: 50px;
+  margin-top: 30px;
+  position: relative;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f7fafb;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  color: #0f0f0f;
+}
 
-.update-user-profile-container {
-    max-width: 400px;
-    margin: auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    background-color: #f9f9f9;
-  }
-  
-  .update-user-profile-container h2 {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  .update-user-profile-container form {
-    display: grid;
-    gap: 15px;
-  }
-  
-  .update-user-profile-container label {
-    font-weight: bold;
-  }
-  
-  .update-user-profile-container input,
-  .update-user-profile-container select {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  
-  .update-user-profile-container button {
-    background-color: #048dcc;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  .update-profile-container button:hover {
-    background-color: #0251a5;
-  }
+.update-profile-container h2 {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  text-align: center;
+}
 
-  .error-message {
-    color: red;
-    font-size: 0.875rem;
-  }
-  
-  .success-message {
-    color: green;
-    font-size: 0.875rem;
-  }
-  
-  
-  
-  
+.update-profile-container form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: space-between;
+}
+
+.update-profile-container .form-group {
+  width: 48%;
+}
+
+.update-profile-container .form-group.image-group {
+  display: flex;
+  align-items: center;
+}
+
+.update-profile-container label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 5px;
+}
+
+
+.update-profile-container input[type="text"],
+.update-profile-container input[type="email"],
+.update-profile-container input[type="file"] {
+  width: calc(100% - 20px);
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+  font-weight: 600;
+  background-color: #1ca4ac;
+  color: #ffffff;
+}
+
+.update-profile-container .button-group {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.update-profile-container button {
+  background-color: #1ca4ac;
+  color: #ffffff;
+  font-weight: 600;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-right: 11px;
+}
+
+.update-profile-container button:hover {
+  background-color: #0251a5;
+}
+
+.error-message {
+  color: rgb(228, 14, 14);
+  font-size: 0.875rem;
+}
+
+.success-message {
+  color: green;
+  font-size: 0.875rem;
+}

@@ -1,16 +1,16 @@
-import { Component,OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatMenuModule } from '@angular/material/menu';
 import { CommonModule } from '@angular/common';
 import { SalesService } from '../../services/user_services/user-services.service';
-import { RouterLink,RouterLinkActive} from '@angular/router';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [MatToolbarModule, MatButtonModule, MatIconModule, MatMenuModule,CommonModule,RouterLink,RouterLinkActive],
+  imports: [MatToolbarModule, MatButtonModule, MatIconModule, MatMenuModule, CommonModule, RouterLink, RouterLinkActive],
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
@@ -18,6 +18,7 @@ export class NavbarComponent implements OnInit {
   first_name: string = '';
   last_name: string = '';
   image: string = '';
+  
 
   constructor(private userService: SalesService) {}
 
@@ -41,8 +42,6 @@ export class NavbarComponent implements OnInit {
   getImageUrl(): string | null {
     return this.image ? `http://localhost:8000/images/${this.image}` : null;
   }
-  
-  
 
   logout() {
     this.userService.logout();

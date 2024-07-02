@@ -67,7 +67,9 @@ class AdminProfileController extends Controller
             'street' => 'required|string|max:255',
             'phone_number' => 'required|string|max:15',
             'territory' => 'required|string|max:255',
-            'email' => 'required|email|unique:admins,email,' . $admin->id,
+            // 'email' => 'required|email|unique:admins,email,' . $admin->id,
+            'email' => 'nullable|email|unique:admins,email,' . $admin->id,
+
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
@@ -80,13 +82,13 @@ class AdminProfileController extends Controller
 
 // ///////////////////////////
   // Check if email exists for another admin
-  $existingAdmin = Admin::where('email', $request->email)->where('id', '!=', $admin->id)->first();
-  if ($existingAdmin) {
-      return response()->json([
-          'success' => false,
-          'message' => 'Email address is already in use by another admin'
-      ], 400);
-  }
+//   $existingAdmin = Admin::where('email', $request->email)->where('id', '!=', $admin->id)->first();
+//   if ($existingAdmin) {
+//       return response()->json([
+//           'success' => false,
+//           'message' => 'Email address is already in use by another admin'
+//       ], 400);
+//   }
 
 // //////////////////////////
         $validatedData = $request->all();
