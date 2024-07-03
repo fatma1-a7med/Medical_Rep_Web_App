@@ -1,25 +1,25 @@
 <div class="update-profile-container">
-  <h2>Update Admin Profile</h2>
+  <h2>Update Profile</h2>
   <form [formGroup]="updateProfileForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
-      <label for="first_name">First Name:</label>
-      <input id="first_name" formControlName="first_name" type="text" />
+      <label for="first_name" class="form-label">First Name:</label>
+      <input class="form-control" id="first_name" formControlName="first_name" type="text" />
       <div *ngIf="updateProfileForm.get('first_name')?.hasError('onlyLetters')" class="error-message">
         Only letters are allowed.
       </div>
     </div>
     <div class="form-group">
-      <label for="last_name">Last Name:</label>
-      <input id="last_name" formControlName="last_name" type="text" />
+      <label for="last_name" class="form-label">Last Name:</label>
+      <input class="form-control" id="last_name" formControlName="last_name" type="text" />
       <div *ngIf="updateProfileForm.get('last_name')?.hasError('onlyLetters')" class="error-message">
         Only letters are allowed.
       </div>
     </div>
 
     <div class="form-group">
-      <label for="email">Email:</label>
-      <input id="email" formControlName="email" type="email" class="input-field" [placeholder]="adminData?.email || ''" />
-      <div *ngIf="updateProfileForm.get('email')?.hasError('emailFormat')" class="error-message" disabled>
+      <label for="email" class="form-label">Email:</label>
+      <input class="form-control" id="email" formControlName="email" type="email" class="input-field" [placeholder]="adminData?.email || ''" />
+      <div *ngIf="updateProfileForm.get('email')?.hasError('emailFormat')" class="error-message" disabled >
         Invalid email format.
       </div> 
       <div *ngIf="errorMessage" class="error-message">
@@ -27,43 +27,41 @@
       </div>
     </div>
     <div class="form-group">
-      <label for="phone_number">Phone Number:</label>
-      <input id="phone_number" formControlName="phone_number" type="text" />
+      <label for="phone_number" class="form-label">Phone Number:</label>
+      <input class="form-control" id="phone_number" formControlName="phone_number" type="text" />
       <div *ngIf="updateProfileForm.get('phone_number')?.hasError('numeric')" class="error-message">
         Phone number should be number.
       </div>
     </div>
     <div class="form-group">
-      <label for="city">City:</label>
-      <input id="city" formControlName="city" type="text" />
+      <label for="city" class="form-label">City:</label>
+      <input class="form-control" id="city" formControlName="city" type="text" />
       <div *ngIf="updateProfileForm.get('city')?.hasError('onlyLetters')" class="error-message">
         Only letters are allowed.
       </div>
     </div>
     <div class="form-group">
-      <label for="state">State:</label>
-      <input id="state" formControlName="state" type="text" />
+      <label for="state" class="form-label">State:</label>
+      <input class="form-control" id="state" formControlName="state" type="text" />
       <div *ngIf="updateProfileForm.get('state')?.hasError('onlyLetters')" class="error-message">
         Only letters are allowed.
       </div>
     </div>
     <div class="form-group">
-      <label for="street">Street:</label>
-      <input id="street" formControlName="street" type="text" />
+      <label for="street" class="form-label">Street:</label>
+      <input id="street" formControlName="street" type="text" class="form-control"/>
       <div *ngIf="updateProfileForm.get('street')?.hasError('alphanumeric')" class="error-message">
         Only alphanumeric characters are allowed.
       </div>
     </div>
     <div class="form-group image-group">
-      <div class="image-preview">
-        <!-- Optionally display existing image here -->
-      </div>
       <div class="image-upload">
-        <label for="image">Image:</label>
-        <input id="image" formControlName="image" type="file" (change)="onFileChange($event)" />
+        <label for="image" class="form-label">Image:</label>
+        <input class="form-control" id="image" formControlName="image" type="file" (change)="onFileChange($event)" />
       </div>
     </div>
-    <div class="form-group button-group">
-      <button type="submit" [disabled]="updateProfileForm.invalid">Update</button>
+    <div class="form-group button-group mt-4">
+      <button type="submit" [disabled]="updateProfileForm.invalid" class="w-25">Update</button>
+      <a [routerLink]="['/admin-dashboard/admin-profile']" class="btn btn-secondary mx-2 w-25">Cancle</a>
     </div>  </form>
 </div>

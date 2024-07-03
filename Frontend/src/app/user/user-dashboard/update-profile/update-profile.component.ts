@@ -4,14 +4,14 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MessageService } from '../../../services/message.service';
 import { UserService } from '../../../services/user-profile.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { onlyLettersValidator, alphanumericValidator, emailFormatValidator, numericValidator } from './custom-validators'; // Import custom validators
 
 @Component({
   selector: 'app-update-user-profile',
   templateUrl: './update-profile.component.html',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule,RouterLink],
   styleUrls: ['./update-profile.component.css']
 })
 export class UpdateUserProfileComponent implements OnInit {
@@ -31,7 +31,7 @@ export class UpdateUserProfileComponent implements OnInit {
     this.updateProfileForm = this.fb.group({
       first_name: ['', [Validators.required, onlyLettersValidator()]],
       last_name: ['', [Validators.required, onlyLettersValidator()]],
-      email: ['', [Validators.required, Validators.email, emailFormatValidator()]],
+      email: [{ value: '', disabled: true }, [Validators.required, Validators.email, emailFormatValidator()]],
       phone_number: ['', [Validators.required, numericValidator()]],
       gender: ['', Validators.required],
       birthDate: ['', Validators.required],

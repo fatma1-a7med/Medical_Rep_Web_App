@@ -4,6 +4,7 @@
     margin-left: 250px;
     width: 70vw;
     padding: 30px;
+    padding-top: 80PX;
   }
   .custom-table th {
     background-color: #1CA4AC;
@@ -31,6 +32,7 @@
   }
 
 .custom-table {
+  width: 900px;
     border: 1px solid #1CA4AC;
 }
 
@@ -71,7 +73,7 @@
 .custom-hr {
     border-top: 3px solid #1CA4AC; 
     width: 33%; 
-   margin-top: -2rem auto;
+   margin-top: -2rem;
   }
   .btn-primary {
     background-color: #1CA4AC;

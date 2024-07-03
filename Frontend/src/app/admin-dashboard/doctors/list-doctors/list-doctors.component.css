@@ -1,6 +1,6 @@
 
 .container{
-  margin-left: 200px;
+  margin-left: 150px;
   width: 77vw;
 }
 .custom-table {
@@ -40,6 +40,7 @@ align-items: center;
 
 
 .custom-hr {
+  margin-left: 50px;
   border-top: 3px solid #1CA4AC; 
   width: 17%; 
  margin-top: -.3rem;
