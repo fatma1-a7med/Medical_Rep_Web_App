@@ -18,7 +18,9 @@ export class UpdateProfileComponent implements OnInit {
   updateProfileForm: FormGroup;
   selectedFile: File | null = null;
   errorMessage: string | null = null;
-  emailError: boolean = false;
+  adminData: any = null;
+
+  // emailExistsError: boolean = false; // New variable to track email existence error
 
   constructor(
     private fb: FormBuilder,
@@ -29,13 +31,13 @@ export class UpdateProfileComponent implements OnInit {
     this.updateProfileForm = this.fb.group({
       first_name: ['', [Validators.required, onlyLettersValidator()]],
       last_name: ['', [Validators.required, onlyLettersValidator()]],
-      email: ['', [Validators.required, Validators.email, emailFormatValidator()]],
+      email: [{ value: '', disabled: true }, [Validators.email, emailFormatValidator()]],
       phone_number: ['', [Validators.required, numericValidator()]],
       territory: ['', [Validators.required, onlyLettersValidator()]],
       city: ['', [Validators.required, onlyLettersValidator()]],
       state: ['', [Validators.required, onlyLettersValidator()]],
       street: ['', [Validators.required, alphanumericValidator()]],
-      image: [null, Validators.required]
+      image: [null]
     });
   }
 
@@ -47,7 +49,10 @@ export class UpdateProfileComponent implements OnInit {
     this.adminProfileService.getAdminProfile().subscribe(
       response => {
         if (response) {
+          this.adminData = response;
           this.updateProfileForm.patchValue(response);
+          this.updateProfileForm.get('email')?.disable();
+
         }
       },
       error => {
@@ -64,18 +69,17 @@ export class UpdateProfileComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.emailError = false;
+    // this.emailExistsError = false; // Reset emailExistsError before submitting
     if (this.updateProfileForm.valid) {
-      if (!this.selectedFile) {
-        this.errorMessage = 'The image is required';
-        return;
-      }
-
       const formData = new FormData();
       Object.keys(this.updateProfileForm.value).forEach(key => {
-        formData.append(key, this.updateProfileForm.value[key]);
+        if (key !== 'image' || this.selectedFile) {
+          formData.append(key, this.updateProfileForm.value[key]);
+        }
       });
-      formData.append('image', this.selectedFile);
+      if (this.selectedFile) {
+        formData.append('image', this.selectedFile);
+      }
 
       this.adminProfileService.updateAdminProfile(formData).subscribe(
         response => {
@@ -83,11 +87,7 @@ export class UpdateProfileComponent implements OnInit {
           this.router.navigate(['/admin-dashboard/admin-profile']);
         },
         error => {
-          if (error.status === 400) {
-            this.emailError = true;
-          } else {
-            this.errorMessage = 'An error occurred';
-          }
+          this.errorMessage = 'An error occurred';
         }
       );
     }

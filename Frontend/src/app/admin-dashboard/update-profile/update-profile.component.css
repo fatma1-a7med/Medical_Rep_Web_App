@@ -3,24 +3,19 @@
   margin: 0 auto;
   padding: 30px;
   padding-left: 50px;
-  /* margin-left: auto; */
   margin-top: 110px;
-
-
+  position: relative;
   border: 1px solid #ccc;
   border-radius: 5px;
-  /* background-color: #f9f9f9; */
+  background-color: #f7fafb;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  background-color: #eff8f9;
-  /* background-color: #1CA4AC; */
-  color: #191818;
+  color: #0f0f0f;
 }
 
 .update-profile-container h2 {
-  /* width: 100%; */
   font-size: 1.5rem;
   margin-bottom: 20px;
   text-align: center;
@@ -31,11 +26,20 @@
   flex-wrap: wrap;
   gap: 10px;
   justify-content: space-between;
-  
 }
 
 .update-profile-container .form-group {
   width: 48%;
+}
+
+.update-profile-container .form-group.image-group {
+  display: flex;
+  align-items: center;
+}
+
+/* CSS for UpdateProfileComponent */
+.input-field::placeholder {
+  color: white; 
 }
 
 .update-profile-container label {
@@ -52,17 +56,28 @@
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 1rem;
+  font-weight: 600;
+  background-color: #1ca4ac;
+  color: #ffffff;
+}
+
+.update-profile-container .button-group {
+  width: 100%;
+  display: flex;
+  justify-content:center;
 }
 
 .update-profile-container button {
   background-color: #1ca4ac;
-  color: #fff;
+  color: #ffffff;
+  font-weight: 600;
   border: none;
   padding: 10px 20px;
   border-radius: 5px;
   font-size: 1rem;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  margin-right: 11px;
 }
 
 .update-profile-container button:hover {
@@ -70,7 +85,7 @@
 }
 
 .error-message {
-  color: red;
+  color: rgb(228, 14, 14);
   font-size: 0.875rem;
 }
 

@@ -3,7 +3,7 @@ import { AbstractControl, FormControl, ValidatorFn,Validators } from '@angular/f
 // Validator to allow only letters
 export function onlyLettersValidator(): ValidatorFn {
   return (control: AbstractControl): { [key: string]: any } | null => {
-    const valid = /^[a-zA-Z]+$/.test(control.value);
+    const valid = /^[a-zA-Z\s]+$/.test(control.value);
     return valid ? null : { onlyLetters: true };
   };
 }
@@ -12,7 +12,7 @@ export function onlyLettersValidator(): ValidatorFn {
 // Validator to allow only alphanumeric characters
 export function alphanumericValidator(): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } | null => {
-      const valid = /^[a-zA-Z0-9]+$/.test(control.value);
+      const valid = /^[9a-zA-Z0-9\s]+$/.test(control.value);
       return valid ? null : { alphanumeric: true };
     };
   }

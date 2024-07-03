@@ -1,23 +1,43 @@
-<div class="user-profile-container">
-  <h2>User Profile</h2>
-  <div *ngIf="successMessage" class="success-message">{{ successMessage }}</div>
-  <div class="profile-info">
-    <div class="left-column">
-      <div *ngIf="userProfile.length > 0">
-        <div class="profile-box">
-          <p><strong>Full Name:</strong> {{ userProfile[0]?.first_name }} {{ userProfile[0]?.last_name }}</p>
-          <p><strong>State:</strong> {{ userProfile[0]?.state }}</p>
-          <p><strong>City:</strong> {{ userProfile[0]?.city }}</p>
-          <p><strong>Street:</strong> {{ userProfile[0]?.street }}</p>
-          <p><strong>Phone Number:</strong> {{ userProfile[0]?.phone_number }}</p>
-          <p><strong>Territory:</strong> {{ userProfile[0]?.territory }}</p>
-          <p><strong>Email:</strong> {{ userProfile[0]?.email }}</p>
-          <p><strong>Gender:</strong> {{ userProfile[0]?.gender }}</p>
-          <p><strong>Birth Date:</strong> {{ userProfile[0]?.birthDate }}</p>
-          <p><strong>Image:</strong> <img [src]="userProfile?.image" class="profile-image"></p>
-        </div>
-      </div>
-      <button class="update-button" (click)="navigateToUpdateProfile()">Update</button>
+<div class="admin-profile-container user-profile-container">
+  <div class="profile-header">
+    <div class="profile-image-container">
+      <img [src]="userProfile[0]?.image || defaultImage" class="profile-image" alt="User Image">
     </div>
+    <h2 class="profile-name">{{ userProfile[0]?.first_name }} {{ userProfile[0]?.last_name }}</h2>
+  </div>
+  <div class="profile-details">
+    <div class="form-group">
+      <label>State:</label>
+      <span class="profile-text">{{ userProfile[0]?.state }}</span>
+    </div>
+    <div class="form-group">
+      <label>City:</label>
+      <span class="profile-text">{{ userProfile[0]?.city }}</span>
+    </div>
+    <div class="form-group">
+      <label>Street:</label>
+      <span class="profile-text">{{ userProfile[0]?.street }}</span>
+    </div>
+    <div class="form-group">
+      <label>Phone Number:</label>
+      <span class="profile-text">{{ userProfile[0]?.phone_number }}</span>
+    </div>
+    <div class="form-group">
+      <label>Territory:</label>
+      <span class="profile-text">{{ userProfile[0]?.territory }}</span>
+    </div>
+    <div class="form-group">
+      <label>Email:</label>
+      <span class="profile-text">{{ userProfile[0]?.email }}</span>
+    </div>
+    <div class="form-group">
+      <label>Gender:</label>
+      <span class="profile-text" placeholder="Enter your gender">{{ userProfile[0]?.gender }}</span>
+    </div>
+    <div class="form-group">
+      <label>Birth Date:</label>
+      <span class="profile-text">{{ userProfile[0]?.birthDate }}</span>
+    </div>
+    <button class="update-button" (click)="navigateToUpdateProfile()">Update</button>
   </div>
 </div>

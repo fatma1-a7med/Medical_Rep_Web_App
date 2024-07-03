@@ -18,6 +18,8 @@ export class UpdateUserProfileComponent implements OnInit {
   updateProfileForm: FormGroup;
   selectedFile: File | null = null;
   errorMessage: string | null = null;
+  emailExistsError: boolean = false; // New variable to track email existence error
+
 
   constructor(
     private fb: FormBuilder,
@@ -37,7 +39,7 @@ export class UpdateUserProfileComponent implements OnInit {
       city: ['', [Validators.required, onlyLettersValidator()]],
       state: ['', [Validators.required, onlyLettersValidator()]],
       street: ['', [Validators.required, alphanumericValidator()]],
-      image: [null, Validators.required]
+      image: [null]
     });
   }
 
@@ -60,31 +62,30 @@ export class UpdateUserProfileComponent implements OnInit {
 
   onFileChange(event: any): void {
     if (event.target.files.length > 0) {
-      this.selectedFile = event.target.files[0];
-      this.updateProfileForm.patchValue({ image: this.selectedFile });
+      const file = event.target.files[0];
+      this.selectedFile = file;
     }
   }
 
   onSubmit(): void {
+    this.emailExistsError = false; // Reset emailExistsError before submitting
     if (this.updateProfileForm.valid) {
-      if (!this.selectedFile) {
-        this.errorMessage = 'The image is required';
-        return;
-      }
-
       const formData = new FormData();
       Object.keys(this.updateProfileForm.value).forEach(key => {
-        if (key === 'image') {
-          formData.append(key, this.selectedFile as File);
-        } else {
+        if (key !== 'image' || this.selectedFile) {
           formData.append(key, this.updateProfileForm.value[key]);
         }
       });
+      if (this.selectedFile) {
+        formData.append('image', this.selectedFile);
+      }
 
-      // Log the formData content
+      // /////////////////////////////
+      // // Log the formData content
       formData.forEach((value, key) => {
         console.log(`${key}: ${value}`);
       });
+     // //////////////////////////////
 
       this.userService.updateUserProfile(formData).subscribe(
         response => {
@@ -92,9 +93,9 @@ export class UpdateUserProfileComponent implements OnInit {
           this.router.navigate(['/user/user-profile']);
         },
         error => {
-          console.error('Error updating user profile:', error);
-          if (error.status === 400) {
-            this.errorMessage = 'Bad request. Please check the input values.';
+          if (error.status == 400 && error.error.message.email) {
+            // Handle specific error for duplicate email
+            this.emailExistsError = true;
           } else {
             this.errorMessage = 'An error occurred';
           }
