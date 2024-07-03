@@ -10,6 +10,7 @@ use App\Mail\UserCreated;
 use App\Http\Controllers\Admin;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Facade;
 class UserController extends Controller
 {
     /**
@@ -32,7 +33,7 @@ class UserController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
-    {
+    {  
         // Validate and create a new user
         $validatedData = $request->validate([
             'first_name' => 'required|string|max:255',

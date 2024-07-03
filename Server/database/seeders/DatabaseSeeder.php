@@ -21,14 +21,19 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         $this->call([
-             AdminsTableSeeder::class,
-             UsersTableSeeder::class,
-             LocationsTableSeeder::class,
-              DoctorsTableSeeder::class,
-             ToolsTableSeeder::class,
-             SalesTableSeeder::class, 
+            //  AdminsTableSeeder::class,
+            //  UsersTableSeeder::class,
+            //  LocationsTableSeeder::class,
+            //   DoctorsTableSeeder::class,
+            //  ToolsTableSeeder::class,
+            //  SalesTableSeeder::class, 
             //  VisitsTableSeeder::class,
             //  DoctorsToolsSeeder::class,
+
+            
+                //StateSeeder::class,
+                CitySeeder::class,
+            
 
         ]);
 

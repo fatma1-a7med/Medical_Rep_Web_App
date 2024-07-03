@@ -101,7 +101,7 @@ console.log(data)
       confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
       if (result.isConfirmed) {
-        this._medrepservice.deletemedrip(id).subscribe({
+        this._medrepservice.deleteMedrep(id).subscribe({
           next: (res) => {
             Swal.fire({
               icon: 'success',

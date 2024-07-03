@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AddressController;
 use App\Http\Controllers\Api\AdminProfileController;
 use App\Http\Controllers\Api\SalesController;
 use App\Http\Controllers\Api\UserAuthController;
@@ -31,6 +32,7 @@ use App\Http\Controllers\MailController;
 |
 */
 
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
@@ -54,6 +56,8 @@ Route::prefix('admin')->group(function () {
       Route::get('/visit/{id}', [VisitController::class, 'getVisitInformationById']);
       Route::get('visits/searchByUsername/{username}', [VisitController :: class, 'searchByUsername' ]);
       Route::get('visits/searchByDateRange/{startDate}/{endDate}', [VisitController::class, 'searchByDateRange']); 
+      Route::get('/states', [AddressController::class, 'getStates']);
+      Route::get('/cities/{stateId}', [AddressController::class, 'getCities']);
   
   
   
@@ -70,8 +74,7 @@ Route::prefix('admin')->group(function () {
 
         Route::get('visits', [VisitController::class, 'index']);
 
-
-    
+        
 
     });
 
