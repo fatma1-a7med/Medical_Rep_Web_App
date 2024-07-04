@@ -36,16 +36,16 @@ export class VisitService {
   }
 
   getDoctors(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.dapiUrl}`);
+    return this.http.get<any[]>(`${this.dapiUrl}`,{ headers: this.getAuthHeaders() });
   }
 
   getLocations(): Observable<any[]> {
-    return this.http.get<any[]>(this.lapi);
+    return this.http.get<any[]>(this.lapi,{ headers: this.getAuthHeaders() });
   }
 
   
   getTools(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.vurl}user/tools`);
+    return this.http.get<any[]>(`${this.vurl}user/tools`,{ headers: this.getAuthHeaders() });
   }
 
   getUsers(): Observable<any[]> {

@@ -503,25 +503,22 @@ export class UservisitComponent {
     calendarApi.unselect(); // Clear date selection
   }
 
-
-handleEventClick(clickInfo: EventClickArg) {
-  Swal.fire({
-    title: `Are you sure you want to delete the visit '${clickInfo.event.title}'?`,
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonColor: '#3085d6',
-    cancelButtonColor: '#d33',
-    confirmButtonText: 'Yes, delete it!',
-    cancelButtonText: 'Cancel'
-  }).then((result) => {
-    if (result.isConfirmed) {
-      clickInfo.event.remove();
-      this.deleteEventFromServer(Number(clickInfo.event.id));
-    } else {
-      this.handleEventEdit(clickInfo.event);
-    }
-  });
-}
+  handleEventClick(clickInfo: EventClickArg) {
+    Swal.fire({
+      title: `Are you sure you want to delete the visit '${clickInfo.event.title}'?`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'Cancel'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        clickInfo.event.remove();
+        this.deleteEventFromServer(Number(clickInfo.event.id));
+      }
+    });
+  }
 
   handleEvents(events: EventApi[]) {
     this.currentEvents = events;
@@ -531,6 +528,7 @@ handleEventClick(clickInfo: EventClickArg) {
   loadEvents() {
     this.visitService.getVisits().subscribe((visits) => {
       const calendarApi = this.calendarComponent.getApi();
+      calendarApi.removeAllEvents(); // Clear existing events
       visits.forEach(visit => {
         calendarApi.addEvent({
           id: visit.id.toString(),
@@ -553,7 +551,7 @@ handleEventClick(clickInfo: EventClickArg) {
       id: Number(event.id),
       purpose: event.title,
       visit_date: event.start.split('T')[0],
-      visit_time: event.startStr.split('T')[1].slice(0, 5),
+      visit_time: event.startStr!.split('T')[1].slice(0, 5),
       status: 'ongoing',
       created_at: new Date(),
       updated_at: new Date(),
@@ -587,27 +585,37 @@ handleEventClick(clickInfo: EventClickArg) {
     const dialogRef = this.dialog.open(UpdateVisitDialogComponent, {
       width: '400px',
       data: {
-        id: event.id,
-        visit_date: event.startStr.split('T')[0],
-        visit_time: event.startStr.split('T')[1].slice(0, 5),
-        purpose: event.title,
-        status: event.extendedProps['status'],
-        doctor_id: event.extendedProps['doctor_id'],
-        tools: event.extendedProps['tools'],
+        visit: {
+          id: event.id,
+          visit_date: event.startStr.split('T')[0],
+          visit_time: event.startStr.split('T')[1].slice(0, 5),
+          purpose: event.title,
+          status: event.extendedProps['status'],
+          doctor_id: event.extendedProps['doctor_id'],
+          tools: event.extendedProps['tools'],
+        },
       }
+    });
+
+    dialogRef.componentInstance.visitUpdated.subscribe((updatedVisit: VisitModelTs) => {
+      // Update the event in the calendar
+      const calendarApi = this.calendarComponent.getApi();
+      const eventToUpdate = calendarApi.getEventById(updatedVisit.id.toString());
+      if (eventToUpdate) {
+        eventToUpdate.setProp('title', updatedVisit.purpose);
+        eventToUpdate.setStart(`${updatedVisit.visit_date}T${updatedVisit.visit_time}`);
+        eventToUpdate.setExtendedProp('status', updatedVisit.status);
+        eventToUpdate.setExtendedProp('doctor_id', updatedVisit.doctor_id);
+        eventToUpdate.setExtendedProp('tools', updatedVisit.tools);
+        eventToUpdate.setExtendedProp('user_id', updatedVisit.user_id);
+      }
+
+      this.updateEventOnServer(eventToUpdate!); // Update the event on the server
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        event.setProp('title', result.purpose);
-        event.setStart(`${result.visit_date}T${result.visit_time}`);
-        event.setExtendedProp('status', result.status);
-        event.setExtendedProp('doctor_id', result.doctor_id);
-        event.setExtendedProp('tools', result.tools);
-
-        this.updateEventOnServer(event);
-       
-        
+        this.loadEvents(); // Optionally reload events to ensure calendar is up-to-date
       }
     });
   }
@@ -630,7 +638,6 @@ handleEventClick(clickInfo: EventClickArg) {
       next: (response) => {
         console.log('Event updated successfully:', response);
         this.loadEvents();
-        
       },
       error: (error) => {
         console.error('Error updating event:', error);

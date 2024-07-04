@@ -14,6 +14,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { map, startWith } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 
@@ -152,6 +153,150 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 
 
+// export class AddVisitDialogComponent implements OnInit {
+//   visitForm: FormGroup;
+//   doctors: any[] = [];
+//   users: any[] = [];
+//   tools: any[] = [];
+//   statusOptions: string[] = ['ongoing', 'closed', 'done'];
+//   filteredDoctors$!: Observable<any[]>;
+
+//   constructor(
+//     private fb: FormBuilder,
+//     private visitService: VisitService,
+//     public dialogRef: MatDialogRef<AddVisitDialogComponent>,
+//     @Inject(MAT_DIALOG_DATA) public data: any
+//   ) {
+//     this.visitForm = this.fb.group({
+//       visit_date: [data?.visit_date || '', Validators.required],
+//       visit_time: [data?.visit_time || '', Validators.required],
+//       purpose: ['', Validators.required],
+//       status: ['ongoing', Validators.required],
+//       doctorCtrl: ['', Validators.required], // Add doctorCtrl here
+//     //user_id: ['',],
+//       tools: [[]],  // Initialize as an array
+//     });
+
+//     if (data.tools) {
+//       this.setTools(data.tools);  // Set tools if data already exists
+//     }
+//   }
+
+//   ngOnInit(): void {
+//     this.filteredDoctors$ = this.visitForm.get('doctorCtrl')!.valueChanges.pipe(
+//       startWith(''),
+//       map(value => typeof value === 'string' ? value : value.first_name),
+//       map(name => name ? this._filterDoctors(name) : this.doctors.slice())
+//     );
+
+//     this.visitService.getTools().subscribe(tools => {
+//       this.tools = tools;
+//     });
+
+//     this.visitService.getDoctors().subscribe(doctors => {
+//       this.doctors = doctors;
+//     });
+
+//     this.visitService.getUsers().subscribe(users => {
+//       this.users = users;
+//     });
+//   }
+
+//   private _filterDoctors(value: string): any[] {
+//     const filterValue = value.toLowerCase();
+//     return this.doctors.filter(doctor => doctor.first_name.toLowerCase().includes(filterValue));
+//   }
+
+//   displayDoctorFn(doctor?: any): string {
+//     return doctor ? `${doctor.first_name} ${doctor.last_name}` : '';
+//   }
+
+//     setTools(toolIds: number[]): void {
+//     const toolsFormArray = this.visitForm.get('tools') as FormArray;
+//     toolIds.forEach(toolId => {
+//       toolsFormArray.push(this.fb.control(toolId));
+//     });
+//   }
+
+//   onNoClick(): void {
+//     this.dialogRef.close();
+//   }
+
+//   // onSave(): void {
+//   //   if (this.visitForm.valid) {
+//   //     const formData = { ...this.visitForm.value };
+//   //     formData.doctor_id = formData.doctorCtrl.id; // Assign doctor_id from doctorCtrl
+//   //     delete formData.doctorCtrl; // Remove doctorCtrl to avoid confusion
+
+//   //     formData.tools = formData.tools.map((toolId: number) => toolId);
+
+//   //     this.visitService.createVisit(formData).subscribe({
+//   //       next: (response) => {
+//   //         console.log('Visit saved successfully:', response);
+//   //         this.dialogRef.close(response);
+//   //       },
+//   //       error: (error) => {
+//   //         console.error('Error saving visit:', error);
+//   //         alert('An error occurred while saving the visit.');
+//   //       }
+//   //     });
+//   //   } else {
+//   //     console.log('Form is invalid');
+//   //     Object.keys(this.visitForm.controls).forEach(field => {
+//   //       const control = this.visitForm.get(field);
+//   //       console.log(field, control!.errors);
+//   //     });
+//   //     return;
+//   //   }
+//   // }
+
+//   onSave(): void {
+//     if (this.visitForm.valid) {
+//       const formData = { ...this.visitForm.value };
+//       formData.doctor_id = formData.doctorCtrl.id; // Assign doctor_id from doctorCtrl
+//       delete formData.doctorCtrl; // Remove doctorCtrl to avoid confusion
+  
+//       formData.tools = formData.tools.map((toolId: number) => toolId);
+  
+//       if (this.data.id) {
+//         // If there's an ID, we're editing an existing visit
+//         formData.id = this.data.id;
+//         this.visitService.updateVisit(formData).subscribe({
+//           next: (response) => {
+//             console.log('Visit updated successfully:', response);
+//             this.dialogRef.close(response);
+//           },
+//           error: (error) => {
+//             console.error('Error updating visit:', error);
+//             alert('An error occurred while updating the visit.');
+//           }
+//         });
+//       } else {
+//         // If no ID, we're creating a new visit
+//         this.visitService.createVisit(formData).subscribe({
+//           next: (response) => {
+//             console.log('Visit saved successfully:', response);
+//             this.dialogRef.close(response);
+//           },
+//           error: (error) => {
+//             console.error('Error saving visit:', error);
+//             alert('An error occurred while saving the visit.');
+//           }
+//         });
+//       }
+//     } else {
+//       console.log('Form is invalid');
+//       Object.keys(this.visitForm.controls).forEach(field => {
+//         const control = this.visitForm.get(field);
+//         console.log(field, control!.errors);
+//       });
+//       return;
+//     }
+//   }
+  
+// }
+
+
 export class AddVisitDialogComponent implements OnInit {
   visitForm: FormGroup;
   doctors: any[] = [];
@@ -163,6 +308,7 @@ export class AddVisitDialogComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private visitService: VisitService,
+    private snackBar: MatSnackBar, // Include MatSnackBar in the constructor
     public dialogRef: MatDialogRef<AddVisitDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
@@ -171,13 +317,12 @@ export class AddVisitDialogComponent implements OnInit {
       visit_time: [data?.visit_time || '', Validators.required],
       purpose: ['', Validators.required],
       status: ['ongoing', Validators.required],
-      doctorCtrl: ['', Validators.required], // Add doctorCtrl here
-    //user_id: ['',],
-      tools: [[]],  // Initialize as an array
+      doctorCtrl: ['', Validators.required],
+      tools: [[]],
     });
 
     if (data.tools) {
-      this.setTools(data.tools);  // Set tools if data already exists
+      this.setTools(data.tools);
     }
   }
 
@@ -210,7 +355,7 @@ export class AddVisitDialogComponent implements OnInit {
     return doctor ? `${doctor.first_name} ${doctor.last_name}` : '';
   }
 
-    setTools(toolIds: number[]): void {
+  setTools(toolIds: number[]): void {
     const toolsFormArray = this.visitForm.get('tools') as FormArray;
     toolIds.forEach(toolId => {
       toolsFormArray.push(this.fb.control(toolId));
@@ -221,68 +366,28 @@ export class AddVisitDialogComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  // onSave(): void {
-  //   if (this.visitForm.valid) {
-  //     const formData = { ...this.visitForm.value };
-  //     formData.doctor_id = formData.doctorCtrl.id; // Assign doctor_id from doctorCtrl
-  //     delete formData.doctorCtrl; // Remove doctorCtrl to avoid confusion
-
-  //     formData.tools = formData.tools.map((toolId: number) => toolId);
-
-  //     this.visitService.createVisit(formData).subscribe({
-  //       next: (response) => {
-  //         console.log('Visit saved successfully:', response);
-  //         this.dialogRef.close(response);
-  //       },
-  //       error: (error) => {
-  //         console.error('Error saving visit:', error);
-  //         alert('An error occurred while saving the visit.');
-  //       }
-  //     });
-  //   } else {
-  //     console.log('Form is invalid');
-  //     Object.keys(this.visitForm.controls).forEach(field => {
-  //       const control = this.visitForm.get(field);
-  //       console.log(field, control!.errors);
-  //     });
-  //     return;
-  //   }
-  // }
-
   onSave(): void {
     if (this.visitForm.valid) {
       const formData = { ...this.visitForm.value };
       formData.doctor_id = formData.doctorCtrl.id; // Assign doctor_id from doctorCtrl
       delete formData.doctorCtrl; // Remove doctorCtrl to avoid confusion
-  
+
       formData.tools = formData.tools.map((toolId: number) => toolId);
-  
-      if (this.data.id) {
-        // If there's an ID, we're editing an existing visit
-        formData.id = this.data.id;
-        this.visitService.updateVisit(formData).subscribe({
-          next: (response) => {
-            console.log('Visit updated successfully:', response);
-            this.dialogRef.close(response);
-          },
-          error: (error) => {
-            console.error('Error updating visit:', error);
-            alert('An error occurred while updating the visit.');
-          }
-        });
-      } else {
-        // If no ID, we're creating a new visit
-        this.visitService.createVisit(formData).subscribe({
-          next: (response) => {
-            console.log('Visit saved successfully:', response);
-            this.dialogRef.close(response);
-          },
-          error: (error) => {
-            console.error('Error saving visit:', error);
-            alert('An error occurred while saving the visit.');
-          }
-        });
-      }
+
+      this.visitService.createVisit(formData).subscribe({
+        next: (response) => {
+          console.log('Visit saved successfully:', response);
+          this.snackBar.open('Visit added successfully!', 'Close', {
+            duration: 4000,
+            panelClass: ['snackbar-success']
+          });
+          this.dialogRef.close(response);
+        },
+        error: (error) => {
+          console.error('Error saving visit:', error);
+          alert('An error occurred while saving the visit.');
+        }
+      });
     } else {
       console.log('Form is invalid');
       Object.keys(this.visitForm.controls).forEach(field => {
@@ -292,5 +397,4 @@ export class AddVisitDialogComponent implements OnInit {
       return;
     }
   }
-  
 }

@@ -138,7 +138,7 @@ class UserController extends Controller
         'admin_id' => 'nullable|integer',
         'phone_number' => 'sometimes|required|string|max:20',
         'territory' => 'sometimes|required|string|max:255',
-        'image' => 'nullable|file|max:1024',
+       'image' => 'nullable|max:1024',
         'email' => 'sometimes|string|email|max:255|unique:users,email,' . $id,
         'password' => 'sometimes|required|string|min:8',
     ]);

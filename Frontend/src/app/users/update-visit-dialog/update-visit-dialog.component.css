@@ -54,4 +54,8 @@
   .save-button {
     background-color: #00bcd4;
   }
+  .snackbar-success {
+    background-color: #4caf50; /* Green background */
+    color: white; /* White text */
+  }
   
