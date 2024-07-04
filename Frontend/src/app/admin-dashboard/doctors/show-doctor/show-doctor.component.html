@@ -1,55 +1,54 @@
 <div class="container  mt-4">
    
-      <h3 class="text-center">Doctor Name: {{ doctor?.first_name + " " + doctor?.last_name }}</h3>
-      <hr class="custom-hr text-center mx-auto">
-    
-    <div *ngIf="doctor" class="table-responsive mt-4">
-    
-          <table class="table table-bordered table-striped custom-table">
-            <tbody>
-              <tr>
-                <td><strong>Phone Number</strong></td>
-                <td>{{ doctor?.phone_number }}</td>
-              </tr>
-              <tr>
-                <td><strong>Specialization</strong></td>
-                <td>{{ doctor?.specialization }}</td>
-              </tr>
-              <tr>
-                <td><strong>Email</strong></td>
-                <td>{{ doctor?.email }}</td>
-              </tr>
-              <tr>
-                <td><strong>Class Rate</strong></td>
-                <td>{{ doctor?.class_rate }}</td>
-              </tr>
-              <tr>
-                <td><strong>Territory</strong></td>
-                <td>{{ doctor?.territory }}</td>
-              </tr>
-              <tr>
-                <td><strong>State</strong></td>
-                <td>{{ doctor?.state }}</td>
-              </tr>
-              <tr>
-                <td><strong>City</strong></td>
-                <td>{{ doctor?.city }}</td>
-              </tr>
-              <tr>
-                <td><strong>Street</strong></td>
-                <td>{{ doctor?.street }}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-   
-      <div class=" my-3">
-        <a routerLink="/admin-dashboard/doctors" class="btn btn-primary">Back to Doctors List</a>
-      </div>
- 
-  
-    <div *ngIf="!doctor" class="container">
-      <p class="alert alert-danger">Loading...</p>
+  <h3 class="text-center">Doctor Name: {{ doctor?.first_name + " " + doctor?.last_name }}</h3>
+  <hr class="custom-hr text-center m-auto">
+
+<div *ngIf="doctor" class="table-responsive mt-4">
+
+      <table class="table table-bordered table-striped custom-table">
+        <tbody>
+          <tr>
+            <td><strong>Phone Number</strong></td>
+            <td>{{ doctor?.phone_number }}</td>
+          </tr>
+          <tr>
+            <td><strong>Specialization</strong></td>
+            <td>{{ doctor?.specialization }}</td>
+          </tr>
+          <tr>
+            <td><strong>Email</strong></td>
+            <td>{{ doctor?.email }}</td>
+          </tr>
+          <tr>
+            <td><strong>Class Rate</strong></td>
+            <td>{{ doctor?.class_rate }}</td>
+          </tr>
+          <tr>
+            <td><strong>Territory</strong></td>
+            <td>{{ doctor?.territory }}</td>
+          </tr>
+          <tr>
+            <td><strong>State</strong></td>
+            <td>{{ doctor?.state }}</td>
+          </tr>
+          <tr>
+            <td><strong>City</strong></td>
+            <td>{{ doctor?.city }}</td>
+          </tr>
+          <tr>
+            <td><strong>Street</strong></td>
+            <td>{{ doctor?.street }}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-  </div>
-  
+
+    <div class=" my-3">
+      <a routerLink="/admin-dashboard/doctors" class="btn btn-primary">Back to Doctors List</a>
+    </div>
+
+
+<div *ngIf="!doctor" class="container">
+  <p class="alert alert-danger">Loading...</p>
+</div>
+</div>

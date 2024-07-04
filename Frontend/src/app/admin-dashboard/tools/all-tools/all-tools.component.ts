@@ -20,7 +20,11 @@ import Swal from 'sweetalert2';  // Import SweetAlert2
 import { AddToolsComponent } from '../add-tools/add-tools.component';
 import { AdminDashboardService } from '../../../services/admin-dashboard.service';
 
-interface Tool{
+
+
+
+
+interface Tool {
   id: number;
   name: string;
   description: string;
@@ -30,7 +34,8 @@ interface Tool{
 @Component({
   selector: 'app-all-tools',
   standalone: true,
-  imports: [ CommonModule,
+  imports: [
+    CommonModule,
     FormsModule,
     RouterLink,
     MatTableModule,
@@ -43,36 +48,33 @@ interface Tool{
     MatFormFieldModule,
     MatInputModule,
     CommonModule,
-    FormsModule
+    FormsModule,
   ],
   templateUrl: './all-tools.component.html',
   styleUrl: './all-tools.component.css'
 })
-export class AllToolsComponent implements OnInit {
+export class AllToolsComponent implements OnInit, AfterViewInit {
+  dataSource = new MatTableDataSource<Tool>();
   displayedColumns: string[] = ['name', 'description', 'type', 'actions'];
   pageSizeOptions: number[] = [5, 10, 25, 100];
-  totalTools: number = 0;
   filterValue: string = '';
-  toolName: string = '';
-  tools: Tool[] = []; 
-  dataSource = new MatTableDataSource<Tool>();
+
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(
-    private dialog: MatDialog,
-    private toolsService: AdminDashboardService
-  ) {}
+  constructor(private dialog: MatDialog, private toolsService: AdminDashboardService) {}
 
   ngOnInit(): void {
     this.loadTools();
+  }
+
+  ngAfterViewInit(): void {
+    this.dataSource.paginator = this.paginator;
   }
 
   loadTools(): void {
     this.toolsService.getAllTools().subscribe(
       (data: Tool[]) => {
         this.dataSource.data = data;
-        this.totalTools = data.length;
-        this.applyPaginator();
       },
       (error: any) => {
         console.error('Error fetching tools:', error);
@@ -80,7 +82,7 @@ export class AllToolsComponent implements OnInit {
     );
   }
 
-  applyFilter(event: Event): void {
+  applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
 
@@ -132,17 +134,5 @@ export class AllToolsComponent implements OnInit {
         this.loadTools();
       }
     });
-  }
-
-  onPageChange(event: PageEvent): void {
-    const startIndex = event.pageIndex * event.pageSize;
-    const endIndex = startIndex + event.pageSize;
-    this.dataSource.data = this.dataSource.filteredData.slice(startIndex, endIndex);
-  }
-
-  private applyPaginator(): void {
-    this.paginator.length = this.totalTools;
-    this.paginator.pageSizeOptions = this.pageSizeOptions;
-    this.dataSource.paginator = this.paginator;
   }
 }

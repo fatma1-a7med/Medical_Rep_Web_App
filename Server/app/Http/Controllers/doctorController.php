@@ -82,6 +82,7 @@ class doctorController extends Controller
       */
       public function gettAllDoctors(): JsonResponse{
         $allDoctors = Doctor::all();
+
         return response()->json($allDoctors);
       }
 

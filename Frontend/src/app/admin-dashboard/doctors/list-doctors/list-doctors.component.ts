@@ -16,7 +16,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableDataSource } from '@angular/material/table';
-import Swal from 'sweetalert2';  // Import SweetAlert2
+
+
 
 interface Doctor {
   id: number;
@@ -46,6 +47,7 @@ interface Doctor {
   templateUrl: './list-doctors.component.html',
   styleUrls: ['./list-doctors.component.css']
 })
+
 export class ListdoctorsComponent implements OnInit, AfterViewInit {
   doctors: Doctor[] = [];
   dataSource = new MatTableDataSource<Doctor>();
@@ -88,6 +90,8 @@ export class ListdoctorsComponent implements OnInit, AfterViewInit {
     );
   }
 
+  
+
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -96,10 +100,10 @@ export class ListdoctorsComponent implements OnInit, AfterViewInit {
       this.dataSource.paginator.firstPage();
     }
   }
+
   navigateToDoctor(doctorId: number) {
     this.router.navigate(['/user/show-doctor', doctorId]);
   }
-
 
   search() {
     this.dataSource.filter = this.username.trim().toLowerCase();

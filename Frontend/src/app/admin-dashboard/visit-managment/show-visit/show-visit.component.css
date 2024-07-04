@@ -55,3 +55,25 @@
     border: 1px solid #1CA4AC;
     text-align: center;
   }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+
+      .Visit_content{
+        margin-left:10px;
+      }
+    
+        .card-body {
+          padding: 20px;
+        }
+      
+        .card-title {
+          font-size: 2rem;
+        }
+      
+        .btn-primary {
+          font-size: 0.9rem;
+          padding: 10px 20px;
+        }
+      }
+    

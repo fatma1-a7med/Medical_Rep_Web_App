@@ -1,69 +1,62 @@
-<div class="container">
+<div class="container doctors-list-container">
   <div class="main-body">
     <div class="d-flex justify-content-between align-items-center my-3">
       <div class="d-flex align-items-center">
-        <h3 style="margin-left: 50px;" class="text-dark">List Of Doctors </h3>
+        <h3 class="text-dark">Doctors List</h3>
       </div>
     </div>
     <hr class="custom-hr">
     <div class="container-fluid">
       <div class="row justify-content-center align-items-center">
         <!-- Search form -->
-        <form class="mb-3">
+        <form class="mb-3 filter-container">
           <div class="input-group">
             <input type="text" class="form-control" id="username" name="username" [(ngModel)]="username" placeholder="Search by doctor full name">
             <button type="button" class="btn text-light" (click)="search()" style="background-color: #1CA4AC;">Search</button>
           </div>
         </form>
+    <div class="table-responsive">
+      <table mat-table [dataSource]="dataSource" matSort class="custom-table w-100">
+      
+        <!-- Full Name Column -->
+        <ng-container matColumnDef="full_name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Full Name</th>
+          <td mat-cell *matCellDef="let doctor">{{ doctor.first_name }} {{ doctor.last_name }}</td>
+        </ng-container>
 
-        <div *ngIf="dataSource.data.length > 0" class="container text-center">
-          <table mat-table [dataSource]="dataSource" matSort class="table table-striped custom-table center-text w-100">
-            <ng-container matColumnDef="full_name">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-center">Full Name</th>
-              <td mat-cell *matCellDef="let doctor">{{ doctor.first_name }} {{ doctor.last_name }}</td>
-            </ng-container>
-            
-            <ng-container matColumnDef="phone_number">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-center">Phone Number</th>
-              <td mat-cell *matCellDef="let doctor">{{ doctor.phone_number }}</td>
-            </ng-container>
-            
-            <ng-container matColumnDef="specialization">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-center">Specialization</th>
-              <td mat-cell *matCellDef="let doctor">{{ doctor.specialization }}</td>
-            </ng-container>
-            
-            <ng-container matColumnDef="actions">
-              <th mat-header-cell *matHeaderCellDef class="text-center" style="padding-right: 130px;">Show</th>
-              <td mat-cell *matCellDef="let doctor">
-                <a [routerLink]="['/admin-dashboard/showdoctors', doctor.id]">
-                  <mat-icon class="custom-info-icon">visibility</mat-icon>
-                </a>
-              </td>
-            </ng-container>
-            
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        <!-- Phone Number Column -->
+        <ng-container matColumnDef="phone_number">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Phone Number</th>
+          <td mat-cell *matCellDef="let doctor">{{ doctor.phone_number }}</td>
+        </ng-container>
+      
+        <!-- Specialization Column -->
+        <ng-container matColumnDef="specialization">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Specialization</th>
+          <td mat-cell *matCellDef="let doctor">{{ doctor.specialization }}</td>
+        </ng-container>
 
-            <!-- Row shown when there is no matching data. -->
-            <tr class="mat-row" *matNoDataRow>
-              <td class="mat-cell" colspan="4">No data matching the filter "{{ filterValue }}"</td>
-            </tr>
-          </table>
-
-          <mat-paginator [length]="totalDoctors" [pageSizeOptions]="pageSizeOptions" (page)="onPageChange($event)">
-          </mat-paginator>
-        </div>
-
-        <div *ngIf="dataSource.data.length === 0" class="container">
-          <h3 class="alert alert-info">No doctors data available.</h3>
-        </div>
-
-        <div *ngIf="!doctors" class="container">
-          <p class="alert alert-danger">Loading...</p>
-        </div>
-      </div>
-    </div>
-    <br>
+        <!-- Actions Column --> 
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef>Show</th>
+          <td mat-cell *matCellDef="let doctor">
+            <a [routerLink]="['/admin-dashboard/showdoctors', doctor.id]">
+              <mat-icon class="custom-info-icon">visibility</mat-icon>
+            </a>
+          </td>
+        </ng-container>
+        
+      
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="4">No data matching the filter "{{ filterValue }}"</td>
+        </tr>
+      </table>
+    </div>      
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of doctors"></mat-paginator>
   </div>
+  <br>
+</div>
 </div>

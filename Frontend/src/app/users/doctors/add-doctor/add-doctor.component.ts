@@ -10,6 +10,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatRadioModule } from '@angular/material/radio';
 import { HttpClientModule } from '@angular/common/http';
+import Swal from 'sweetalert2';
 import { DatePipe } from '@angular/common'; 
 import { MatSelectModule } from '@angular/material/select';
 import { SalesService } from '../../../services/user_services/user-services.service';
@@ -79,50 +80,51 @@ export class AddDoctorComponent implements OnInit {
           ...this.initialDoctorData,
           ...formData
         };
-        //update doctor
+//update doctor
 
-        this.doctorService.updateDoctor(this.data.id, updatedDoctorData).subscribe({
-          next: (val: any) => {
-            alert('Doctor details updated successfully');
-            this._dialogRef.close(true);
-          },
-          error: (err: any) => {
-            console.error('Update Error:', err);
-            this.handleErrorResponse(err);
-          }
-        });
-            } else {
-        // Add new doctor
-        this.doctorService.AddDoctor(formData).subscribe({
-          next: (val: any) => {
-            alert('Doctor added successfully');
-            this._dialogRef.close(true);
-          },
-          error: (err: any) => {
-            console.error('Add Error:', err);
-            if (err.status === 422) {
-              alert('Failed to add Doctor. Please check the input data.');
-              if (err.error.errors) {
-                console.error('Validation Errors:', err.error.errors);
-              }
-            } else {
-              alert('An unexpected error occurred. Please try again.');
-            }
-          }
-        });
-      }
-    }
+this.doctorService.updateDoctor(this.data.id, updatedDoctorData).subscribe({
+  next: (val: any) => {
+    Swal.fire('Success', 'Doctor details updated successfully', 'success');
+    this._dialogRef.close(true);
+  },
+  error: (err: any) => {
+    console.error('Update Error:', err);
+    this.handleErrorResponse(err);
   }
-  private handleErrorResponse(err: any): void {
+});
+} else {
+// Add new doctor
+this.doctorService.AddDoctor(formData).subscribe({
+  next: (val: any) => {
+    Swal.fire('Success', 'Doctor added successfully', 'success');
+    this._dialogRef.close(true);
+  },
+  error: (err: any) => {
+    console.error('Add Error:', err);
     if (err.status === 422) {
-      if (err.error.errors && err.error.errors.email) {
-        alert('The email has already been taken. Please use a different email.');
-      } else {
-        alert('Failed to update Doctor details. Please check the input data.');
+      Swal.fire('Error', 'Failed to add Doctor. Please check the input data.', 'error');
+      if (err.error.errors) {
+        console.error('Validation Errors:', err.error.errors);
       }
-      console.error('Validation Errors:', err.error.errors);
     } else {
-      alert('An unexpected error occurred. Please try again.');
+      Swal.fire('Error', 'An unexpected error occurred. Please try again.', 'error');
     }
   }
+});
+}
+}
+}
+
+private handleErrorResponse(err: any): void {
+if (err.status === 422) {
+if (err.error.errors && err.error.errors.email) {
+Swal.fire('Error', 'The email has already been taken. Please use a different email.', 'error');
+} else {
+Swal.fire('Error', 'Failed to update Doctor details. Please check the input data.', 'error');
+}
+console.error('Validation Errors:', err.error.errors);
+} else {
+Swal.fire('Error', 'An unexpected error occurred. Please try again.', 'error');
+}
+}
 }

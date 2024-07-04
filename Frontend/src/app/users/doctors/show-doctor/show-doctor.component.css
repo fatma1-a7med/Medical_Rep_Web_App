@@ -55,3 +55,21 @@
     background-color: #0C728C;
     border-color: #0C728C;
   }
+
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .card-body {
+          padding: 20px;
+        }
+      
+        .card-title {
+          font-size: 2rem;
+        }
+      
+        .btn-primary {
+          font-size: 0.9rem;
+          padding: 10px 20px;
+        }
+      }
+    
