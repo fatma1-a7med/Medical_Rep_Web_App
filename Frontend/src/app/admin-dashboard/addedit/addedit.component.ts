@@ -68,7 +68,6 @@ export class AddeditComponent implements OnInit {
       admin_id: [''],
       phone_number: ['', [Validators.required, Validators.maxLength(20)]],
       territory: ['', [Validators.required, Validators.maxLength(255)]],
-      image: [null],
       email: ['', [Validators.required, Validators.email, Validators.maxLength(255)]],
       password: ['', [Validators.required, Validators.minLength(8)]]
     });

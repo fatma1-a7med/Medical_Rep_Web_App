@@ -1,6 +1,6 @@
 <!-- update-user-profile.component.html -->
 <div class="update-profile-container">
-  <h2>Update User Profile</h2>
+  <h2>Update Profile</h2>
   <form [formGroup]="updateProfileForm" (ngSubmit)="onSubmit()">
     <!-- First Name -->
     <div class="form-group">
@@ -20,6 +20,33 @@
       </div>
     </div>
 
+    <!-- Email -->
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input id="email" type="email" formControlName="email">
+      <div *ngIf="updateProfileForm.get('email')?.hasError('emailFormat')" class="error-message">
+       Invalid email format.
+      </div>
+      
+      <div *ngIf="emailExistsError" class="error-message">
+        This email is already exists.
+      </div>
+
+      <div *ngIf="errorMessage" class="error-message">
+        {{ errorMessage }}
+      </div>
+
+    </div>
+    
+    <!-- Phone Number -->
+    <div class="form-group">
+      <label for="phone_number">Phone Number</label>
+      <input id="phone_number" type="text" formControlName="phone_number">
+      <div *ngIf="updateProfileForm.get('phone_number')?.hasError('numeric')">
+        <span class="error-message">Phone number should be number.</span>
+      </div>
+    </div>
+    
     <!-- State -->
     <div class="form-group">
       <label for="state">State</label>
@@ -47,14 +74,6 @@
       </div>
     </div>
 
-    <!-- Phone Number -->
-    <div class="form-group">
-      <label for="phone_number">Phone Number</label>
-      <input id="phone_number" type="text" formControlName="phone_number">
-      <div *ngIf="updateProfileForm.get('phone_number')?.hasError('numeric')">
-        <span class="error-message">Phone number should be number.</span>
-      </div>
-    </div>
 
     <!-- Territory -->
     <div class="form-group">
@@ -65,39 +84,24 @@
       </div>
     </div>
 
-    <!-- Email -->
-    <div class="form-group">
-      <label for="email">Email</label>
-      <input id="email" type="email" formControlName="email">
-      <div *ngIf="updateProfileForm.get('email')?.hasError('emailFormat')" class="error-message">
-       Invalid email format.
-      </div>
-      
-      <div *ngIf="emailExistsError" class="error-message">
-        This email is already exists.
-      </div>
-
-      <div *ngIf="errorMessage" class="error-message">
-        {{ errorMessage }}
-      </div>
-
-    </div>
+    
     
     <!-- Birth Date -->
     <div class="form-group">
       <label for="birthDate">Birth Date</label>
-      <input id="birthDate" type="date" formControlName="birthDate">
+      <input id="birthDate" type="date" formControlName="birthDate" class="form-control">
     </div>
 
     <!-- Image -->
     <div class="form-group image-group">
-      <label for="image">Image</label>
-      <input id="image" type="file" (change)="onFileChange($event)" class="image-input">
+      <label for="image" class="form-label">Image</label>
+      <input id="image" type="file" (change)="onFileChange($event)" class="image-input form-control">
     </div>
 
     <!-- Submit Button -->
     <div class="button-group">
-      <button type="submit" [disabled]="updateProfileForm.invalid">Update</button>
+      <button type="submit" [disabled]="updateProfileForm.invalid" >Update</button>
+      <a [routerLink]="['/user/user-profile']" class="btn btn-secondary mx-2 ">Cancle</a>
     </div>
   </form>
 </div>

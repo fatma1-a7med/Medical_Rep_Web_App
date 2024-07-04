@@ -4,14 +4,14 @@ import { AdminProfileService } from '../../services/admin-profile.service';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MessageService } from '../../services/message.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { onlyLettersValidator, alphanumericValidator, emailFormatValidator, numericValidator } from './custom-validators';
 
 @Component({
   selector: 'app-update-profile',
   templateUrl: './update-profile.component.html',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule,RouterLink],
   styleUrls: ['./update-profile.component.css']
 })
 export class UpdateProfileComponent implements OnInit {

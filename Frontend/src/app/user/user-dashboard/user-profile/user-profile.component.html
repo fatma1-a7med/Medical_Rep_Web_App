@@ -1,43 +1,56 @@
-<div class="admin-profile-container user-profile-container">
-  <div class="profile-header">
-    <div class="profile-image-container">
-      <img [src]="userProfile[0]?.image || defaultImage" class="profile-image" alt="User Image">
+<div class="container">
+  <div class="admin-profile-container">
+    <div class="row">
+      <div class="col-md-5">
+        <div class="profile-header text-center">
+          <div class="profile-image-container mx-auto">
+            <img [src]="userProfile[0]?.image || defaultImage" class="profile-image" alt="User Image">
+          </div>
+          <h2 class="profile-name"><span style=" font-size:11; color:  black; margin-right: 150px;">Welcome,</span> <br>{{ userProfile[0]?.first_name }} {{ userProfile[0]?.last_name }}</h2>
+          <button class="update-button mt-5 w-100" (click)="navigateToUpdateProfile()">Edit Your Profile</button>
+        </div>
+      </div>
+      <div class="col-md-7">
+        <div class="profile-details">
+          <div class="form-group">
+            <label>Name:</label>
+            <span class="profile-text">{{ userProfile[0]?.first_name }} {{ userProfile[0]?.last_name }}</span>
+          </div>
+          <div class="form-group">
+            <label>Email:</label>
+            <span class="profile-text">{{ userProfile[0]?.email }}</span>
+          </div>
+          <div class="form-group">
+            <label>Phone Number:</label>
+            <span class="profile-text">{{ userProfile[0]?.phone_number }}</span>
+          </div>
+          <div class="form-group">
+            <label>State:</label>
+            <span class="profile-text">{{ userProfile[0]?.state }}</span>
+          </div>
+          <div class="form-group">
+            <label>City:</label>
+            <span class="profile-text">{{ userProfile[0]?.city }}</span>
+          </div>
+          <div class="form-group">
+            <label>Street:</label>
+            <span class="profile-text">{{ userProfile[0]?.street }}</span>
+          </div>
+          <div class="form-group">
+            <label>Territory:</label>
+            <span class="profile-text">{{ userProfile[0]?.territory }}</span>
+          </div>
+          <div class="form-group">
+            <label>Gender:</label>
+            <span class="profile-text" placeholder="Enter your gender">{{ userProfile[0]?.gender }}</span>
+          </div>
+          <div class="form-group">
+            <label>Birth Date:</label>
+            <span class="profile-text">{{ userProfile[0]?.birthDate }}</span>
+          </div>
+        </div>
+      </div>
     </div>
-    <h2 class="profile-name">{{ userProfile[0]?.first_name }} {{ userProfile[0]?.last_name }}</h2>
   </div>
-  <div class="profile-details">
-    <div class="form-group">
-      <label>State:</label>
-      <span class="profile-text">{{ userProfile[0]?.state }}</span>
-    </div>
-    <div class="form-group">
-      <label>City:</label>
-      <span class="profile-text">{{ userProfile[0]?.city }}</span>
-    </div>
-    <div class="form-group">
-      <label>Street:</label>
-      <span class="profile-text">{{ userProfile[0]?.street }}</span>
-    </div>
-    <div class="form-group">
-      <label>Phone Number:</label>
-      <span class="profile-text">{{ userProfile[0]?.phone_number }}</span>
-    </div>
-    <div class="form-group">
-      <label>Territory:</label>
-      <span class="profile-text">{{ userProfile[0]?.territory }}</span>
-    </div>
-    <div class="form-group">
-      <label>Email:</label>
-      <span class="profile-text">{{ userProfile[0]?.email }}</span>
-    </div>
-    <div class="form-group">
-      <label>Gender:</label>
-      <span class="profile-text" placeholder="Enter your gender">{{ userProfile[0]?.gender }}</span>
-    </div>
-    <div class="form-group">
-      <label>Birth Date:</label>
-      <span class="profile-text">{{ userProfile[0]?.birthDate }}</span>
-    </div>
-    <button class="update-button" (click)="navigateToUpdateProfile()">Update</button>
-  </div>
+  
 </div>

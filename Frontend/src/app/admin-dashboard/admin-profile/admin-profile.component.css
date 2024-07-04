@@ -1,83 +1,88 @@
 .admin-profile-container {
-  width: 450px;
-  margin: 150px 550px;
+  margin-top: 25px;
+  margin-left: 350px;
+  width: 900px;
+  height: 78vh;
   padding: 40px;
   background-color: #f7fafb;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  font-family: Arial, sans-serif;
-  position: relative;
+  border-radius: 15px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  font-family: 'Roboto', sans-serif;
 }
 
 .profile-header {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: -75px; /* Adjust based on image height */
 }
 
 .profile-image-container {
-  position: absolute;
-  top: -95px; 
-  left: 50%;
-  transform: translateX(-50%);
-  width: 180px; /* Increased size */
-  height: 150px; /* Increased size */
-  border-radius: 50%;
+  width: 280px;
+  height: 250px;
+  border-radius: 20%;
   overflow: hidden;
-  background-color: #ffffff; /* Match background color */
-  border: 2px solid #fff;
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  border: 3px solid #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
 }
 
 .profile-image {
   width: 100%;
   height: 100%;
-  border-radius: 50%;
+  border-radius: 20%;
   border: 3px solid #1CA4AC;
-
 }
 
 .profile-name {
-  margin-top: 130px;
-  font-weight: bold;
-  font-size: 20px;
-  color:#1CA4AC;
-}
-
-.profile-details {
   margin-top: 20px;
+  font-weight: bold;
+  font-size: 24px;
+  color: #1CA4AC;
 }
 
-.form-group {
-  display: flex;
-  justify-content:space-between;
+.profile-details .form-group {
+  text-align: center;
+  background: #ffffff;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
   margin-bottom: 15px;
+  transition: transform 0.2s;
+}
+
+.profile-details .form-group:hover {
+  transform: translateY(-5px);
 }
 
 label {
   font-weight: bold;
-  margin-right: 10px;
+  margin-bottom: 5px;
+  color: #1CA4AC;
 }
 
 .profile-text {
-  font-size: 14px;
+  font-size: 16px;
   color: #555;
+  margin-left: 5px;
 }
 
 .update-button {
-  width: 100%;
-  margin-top: 20px;
   padding: 10px 20px;
   background-color: #1CA4AC;
   color: #fff;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
+  font-size: 16px;
   cursor: pointer;
-
+  transition: background-color 0.3s ease;
 }
 
 .update-button:hover {
-  background-color: #0056b3;
+  background-color: #217579;
+}
+.custom-hr {
+  margin-left: 245px;
+  border-top: 3px solid #1CA4AC;
+  width: 15%;
+  margin-top: -0.2rem;
 }

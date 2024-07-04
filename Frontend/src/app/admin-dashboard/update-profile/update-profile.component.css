@@ -1,14 +1,15 @@
 .update-profile-container {
-  max-width: 50%;
-  margin: 0 auto;
+  max-width: 70%;
+  margin-left: 300px;
   padding: 30px;
-  padding-left: 50px;
-  margin-top: 110px;
+  padding-left: 80px;
+  margin-top: 100px;
   position: relative;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  padding: 40px;
   background-color: #f7fafb;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  font-family: 'Roboto', sans-serif;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -16,6 +17,8 @@
 }
 
 .update-profile-container h2 {
+  color: #1ca4ac;
+  text-shadow: 2px 2px 4px rgba(62, 60, 60, 0.5);
   font-size: 1.5rem;
   margin-bottom: 20px;
   text-align: center;
@@ -37,15 +40,13 @@
   align-items: center;
 }
 
-/* CSS for UpdateProfileComponent */
-.input-field::placeholder {
-  color: white; 
-}
+
 
 .update-profile-container label {
   font-weight: bold;
   display: block;
   margin-bottom: 5px;
+  color: #1ca4ac;
 }
 
 .update-profile-container input[type="text"],
@@ -56,32 +57,36 @@
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 1rem;
-  font-weight: 600;
-  background-color: #1ca4ac;
-  color: #ffffff;
+  color:black;
 }
-
-.update-profile-container .button-group {
-  width: 100%;
-  display: flex;
-  justify-content:center;
+.update-profile-container input[type="file"]{
+  width: 445px;
 }
 
 .update-profile-container button {
   background-color: #1ca4ac;
   color: #ffffff;
-  font-weight: 600;
+  font-weight: 400;
   border: none;
   padding: 10px 20px;
   border-radius: 5px;
   font-size: 1rem;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  margin-right: 11px;
+}
+.update-profile-container a {
+  color: #ffffff;
+  font-weight: 400;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .update-profile-container button:hover {
-  background-color: #0251a5;
+  background-color: #217579;
 }
 
 .error-message {

@@ -1,35 +1,54 @@
+<div class="containr">
+  <div>
+    <h3 style="margin-top: 50px; margin-left: 250px;">Profile Details</h3>
+  <hr class="custom-hr">
+  </div>
+  
 <div class="admin-profile-container">
-  <div class="profile-header">
-    <div class="profile-image-container">
-      <img [src]="adminProfile?.image" class="profile-image" alt="Profile Image" />
+  <div class="row">
+    <div class="col-md-5">
+      <div class="profile-header text-center">
+        <div class="profile-image-container mx-auto">
+          <img [src]="adminProfile?.image" class="profile-image" alt="Profile Image" />
+        </div>
+        <div class="profile-name"><span style=" font-size:11; color:  black; margin-right: 150px;">Welcome,</span> <br>{{ adminProfile[0]?.first_name }} {{ adminProfile[0]?.last_name }}</div>
+        <button class="update-button mt-5 w-100" (click)="navigateToUpdateProfile()">Edit Your Profile</button>
+      </div>
     </div>
-    <div class="profile-name">{{ adminProfile[0]?.first_name }} {{ adminProfile[0]?.last_name }}</div>
+    <div class="col-md-7">
+      <div class="profile-details">
+        <div class="form-group">
+          <label for="email">Name:  </label>
+          <span class="profile-text">{{ adminProfile[0]?.first_name }} {{ adminProfile[0]?.last_name }}</span>
+        </div>
+        <div class="form-group">
+          <label for="email">Email:  </label>
+          <span class="profile-text"> {{ adminProfile[0]?.email }}</span>
+        </div>
+        <div class="form-group">
+          <label for="phone_number">Phone Number:   </label>
+          <span class="profile-text"> {{ adminProfile[0]?.phone_number }}</span>
+        </div>
+        <div class="form-group">
+          <label for="territory">Territory:   </label>
+          <span class="profile-text">{{ adminProfile[0]?.territory }}</span>
+        </div>
+        <div class="form-group">
+          <label for="city">City:   </label>
+          <span class="profile-text">{{ adminProfile[0]?.city }}</span>
+        </div>
+        <div class="form-group">
+          <label for="state">State:   </label>
+          <span class="profile-text">{{ adminProfile[0]?.state }}</span>
+        </div>
+        <div class="form-group">
+          <label for="street">Street:   </label>
+          <span class="profile-text">{{ adminProfile[0]?.street }}</span>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="profile-details">
-    <div class="form-group">
-      <label for="email">Email:</label>
-      <div class="profile-text">{{ adminProfile[0]?.email }}</div>
-    </div>
-    <div class="form-group">
-      <label for="phone_number">Phone Number:</label>
-      <div class="profile-text">{{ adminProfile[0]?.phone_number }}</div>
-    </div>
-    <div class="form-group">
-      <label for="territory">Territory:</label>
-      <div class="profile-text">{{ adminProfile[0]?.territory }}</div>
-    </div>
-    <div class="form-group">
-      <label for="city">City:</label>
-      <div class="profile-text">{{ adminProfile[0]?.city }}</div>
-    </div>
-    <div class="form-group">
-      <label for="state">State:</label>
-      <div class="profile-text">{{ adminProfile[0]?.state }}</div>
-    </div>
-    <div class="form-group">
-      <label for="street">Street:</label>
-      <div class="profile-text">{{ adminProfile[0]?.street }}</div>
-    </div>
-  </div>
-  <button class="update-button" (click)="navigateToUpdateProfile()">Update</button>
+</div>
+
+
 </div>
