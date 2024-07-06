@@ -9,7 +9,9 @@ class VisitReportingController extends Controller
 {
     public function getVisitReports()
     {
-        $visits = Visit::with(['doctor', 'user', 'location'])->get();
+        $visits = Visit::with(['doctor', 'user', 'location'])
+               ->where('status', 'done')
+               ->get();
         
         // Transforming the visits data to include doctor details in a separate field.
         $visitReports = $visits->map(function($visit) {

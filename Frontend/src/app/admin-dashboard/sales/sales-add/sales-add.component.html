@@ -27,6 +27,14 @@
             Total Units is required.
           </div>
         </div>
+       
+        <div class="form-group mb-3">
+          <label for="total_actual_price">Total Actual Price</label>
+          <input type="number" id="total_actual_price" class="form-control" [(ngModel)]="sale.total_actual_price" name="total_actual_price" required>
+          <div class="invalid-feedback">
+            Total Actual Price is required.
+          </div>
+        </div>
         <div class="form-group mb-3">
           <label for="start_date">Start Date</label>
           <input type="date" id="start_date" class="form-control" [(ngModel)]="sale.start_date" name="start_date" required>
@@ -34,6 +42,8 @@
             Start Date is required.
           </div>
         </div>
+      </div>
+      <div class="col-md-6">
         <div class="form-group mb-3">
           <label for="product_name">Product Name</label>
           <input type="text" id="product_name" class="form-control" [(ngModel)]="sale.product_name" name="product_name" required>
@@ -41,8 +51,6 @@
             Product Name is required.
           </div>
         </div>
-      </div>
-      <div class="col-md-6">
         <div class="form-group mb-3">
           <label for="unit_target_price">Unit Target Price</label>
           <input type="number" id="unit_target_price" class="form-control" [(ngModel)]="sale.unit_target_price" name="unit_target_price" required>
@@ -57,11 +65,13 @@
             Target Units is required.
           </div>
         </div>
+       
+        
         <div class="form-group mb-3">
-          <label for="total_actual_price">Total Actual Price</label>
-          <input type="number" id="total_actual_price" class="form-control" [(ngModel)]="sale.total_actual_price" name="total_actual_price" required>
+          <label for="total_target_price">Total Target Price</label>
+          <input type="number" id="total_target_price" class="form-control" [(ngModel)]="sale.total_target_price" name="total_target_price" required>
           <div class="invalid-feedback">
-            Total Actual Price is required.
+            Total Target Price is required.
           </div>
         </div>
         <div class="form-group mb-3">
@@ -69,13 +79,6 @@
           <input type="date" id="end_date" class="form-control" [(ngModel)]="sale.end_date" name="end_date" required>
           <div class="invalid-feedback">
             End Date is required.
-          </div>
-        </div>
-        <div class="form-group mb-3">
-          <label for="total_target_price">Total Target Price</label>
-          <input type="number" id="total_target_price" class="form-control" [(ngModel)]="sale.total_target_price" name="total_target_price" required>
-          <div class="invalid-feedback">
-            Total Target Price is required.
           </div>
         </div>
       </div>
