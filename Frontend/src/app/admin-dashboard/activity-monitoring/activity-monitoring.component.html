@@ -28,13 +28,14 @@
     </div>
 
     <div>
-      <h3>Activity Monitoring</h3>
+      <h3 class="fw-bold">Activity Monitoring</h3>
       <hr class="custom-hr">
     </div>
 
     <div class="visit-section">
       <div class="visit-history">
-        <h5>Visit History</h5>
+        <h4 class="fw-bold">Visit History </h4>
+        <hr class="cust-hr">
         <div class="visit-cards-container">
           <div class="visit-card" *ngFor="let visit of visitHistory">
             <p class="visit-name">{{ visit.purpose }}</p>
@@ -48,7 +49,8 @@
       </div>
 
       <div class="planned-visits">
-        <h5>Planned Visits</h5>
+        <h4  class="fw-bold">Planned Visits</h4>
+        <hr class="cust-hr">
         <full-calendar [options]="calendarOptions" *ngIf="calendarOptions"></full-calendar>
       </div>
     </div>

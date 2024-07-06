@@ -186,6 +186,11 @@ h5 {
   margin-top: -0.2rem;
 }
 
+.cust-hr{
+  border-top: 3px solid #1CA4AC;
+  width: 17%;
+  margin-top: -0.2rem;
+  }
 /* Responsive design */
 @media (max-width: 1200px) {
   .container {
@@ -246,4 +251,6 @@ h5 {
   .visit-card .visit-date, .visit-card .visit-time {
     font-size: 0.9em;
   }
+  
 }
+

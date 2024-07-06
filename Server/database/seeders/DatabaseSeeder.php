@@ -24,15 +24,15 @@ class DatabaseSeeder extends Seeder
             //  AdminsTableSeeder::class,
             //  UsersTableSeeder::class,
             //  LocationsTableSeeder::class,
-              DoctorsTableSeeder::class,
+             // DoctorsTableSeeder::class,
             //  ToolsTableSeeder::class,
             //  SalesTableSeeder::class, 
             //  VisitsTableSeeder::class,
             //  DoctorsToolsSeeder::class,
 
             
-                // StateSeeder::class,
-                // CitySeeder::class,
+                StateSeeder::class,
+                CitySeeder::class,
             
 
         ]);
