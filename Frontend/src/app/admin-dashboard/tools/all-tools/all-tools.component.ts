@@ -20,10 +20,6 @@ import Swal from 'sweetalert2';  // Import SweetAlert2
 import { AddToolsComponent } from '../add-tools/add-tools.component';
 import { AdminDashboardService } from '../../../services/admin-dashboard.service';
 
-
-
-
-
 interface Tool {
   id: number;
   name: string;
@@ -47,11 +43,9 @@ interface Tool {
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
-    CommonModule,
-    FormsModule,
   ],
   templateUrl: './all-tools.component.html',
-  styleUrl: './all-tools.component.css'
+  styleUrls: ['./all-tools.component.css']
 })
 export class AllToolsComponent implements OnInit, AfterViewInit {
   dataSource = new MatTableDataSource<Tool>();
@@ -60,6 +54,7 @@ export class AllToolsComponent implements OnInit, AfterViewInit {
   filterValue: string = '';
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
 
   constructor(private dialog: MatDialog, private toolsService: AdminDashboardService) {}
 
@@ -69,6 +64,7 @@ export class AllToolsComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
   loadTools(): void {

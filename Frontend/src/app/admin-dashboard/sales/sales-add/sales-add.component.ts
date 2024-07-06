@@ -30,6 +30,7 @@ export class SalesAddComponent {
   };
   users: any[] = [];
   formSubmitted = false; // Track form submission
+  areDatesValid = true; // Track date validity
 
   constructor(private salesService: AdminDashboardService, private router: Router) { }
 
@@ -47,7 +48,9 @@ export class SalesAddComponent {
   addSale(): void {
     this.formSubmitted = true; // Mark form as submitted
 
-    if (this.isValidForm()) { // Check if form is valid
+    this.validateDates(); // Validate dates before form submission
+
+    if (this.isValidForm() && this.areDatesValid) { // Check if form is valid and dates are valid
       this.salesService.createSale(this.sale).subscribe(() => {
         Swal.fire({
           title: 'Success!',
@@ -57,6 +60,14 @@ export class SalesAddComponent {
         }).then(() => {
           this.router.navigate(['admin-dashboard/sales']);
         });
+      });
+    } else {
+      // Display an error message if form is invalid
+      Swal.fire({
+        title: 'Error!',
+        text: 'Please ensure all fields are filled correctly and dates are valid.',
+        icon: 'error',
+        confirmButtonText: 'OK'
       });
     }
   }
@@ -69,5 +80,16 @@ export class SalesAddComponent {
   isValidForm(): boolean {
     const form = document.querySelector('form.needs-validation') as HTMLFormElement;
     return form.checkValidity();
+  }
+
+  // Method to validate dates
+  validateDates(): void {
+    const startDate = new Date(this.sale.start_date);
+    const endDate = new Date(this.sale.end_date);
+    this.areDatesValid = startDate < endDate;
+
+    if (!this.areDatesValid) {
+      console.log('End Date must be after Start Date');
+    }
   }
 }

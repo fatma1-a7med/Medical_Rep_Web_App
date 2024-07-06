@@ -8,6 +8,7 @@
 .btn-primary {
     background-color: #1CA4AC;
     border-color: #1CA4AC;
+    margin-right: 780px;
   }
   .custom-hr {
     border-top: 3px solid #1CA4AC; 
@@ -44,5 +45,3 @@
   .card-title {
     color: #333;
   }
- 
-  

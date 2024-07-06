@@ -43,7 +43,7 @@
 
 .custom-hr {
   border-top: 3px solid #1CA4AC;
-  width: 17%;
+  width: 10vw;
   margin-top: -.3rem;
   padding-left: 10px;
 }
@@ -53,6 +53,7 @@
   margin-right: 8px;
   color: #1CA4AC;
   vertical-align: middle;
+  margin-left: -1rem;
 }
 
 .mat-icon {
@@ -113,9 +114,6 @@
     text-align: center;
   }
 
-  .custom-hr {
-    width: 80px;
-  }
 
   .justify-content-between {
     justify-content: space-between;
@@ -155,9 +153,7 @@
     margin-left: 5px;
   }
 
-  .custom-hr {
-    width: 80px;
-  }
+ 
 
   .filter-product {
     margin-top: 20px;
