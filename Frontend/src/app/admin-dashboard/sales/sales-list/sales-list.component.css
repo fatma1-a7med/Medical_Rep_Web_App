@@ -66,7 +66,7 @@
 
 .custom-hr {
   border-top: 3px solid #1CA4AC;
-  width: 13vw;
+  width: 20vw !important;
   margin-top: -.2rem;
 }
 
@@ -100,9 +100,7 @@
     width: 80vw;
   }
 
-  .custom-hr {
-    width: 10vw;
-  }
+
 
   .add-sale-btn {
     margin-left: 0;
@@ -122,9 +120,6 @@
     overflow-x: hidden;
   }
 
-  .custom-hr {
-    width: 9vw;
-  }
 
   .add-sale-btn {
     margin-left: 0;
@@ -158,9 +153,7 @@
     margin-left: 5px;
   }
 
-  .custom-hr {
-    width: 80px;
-  }
+ 
 
   .add-sale-btn {
     margin-left: 5px;
@@ -204,10 +197,7 @@
     margin-left: 5px;
   }
 
-  .custom-hr {
-    width: 80px;
-  }
-
+  
   .filter-product {
     margin-top: 20px;
   }
