@@ -77,7 +77,7 @@ export class ListdoctorsComponent implements OnInit, AfterViewInit {
   }
 
   loadDoctors() {
-    this.doctorServices.ListAllDoctors().subscribe(
+    this.doctorServices.AllDoctors().subscribe(
       data => {
         this.doctors = data;
         this.dataSource.data = this.doctors;

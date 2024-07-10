@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit, EventEmitter, Output } from '@angular/core';
 import { CommonModule } from '@angular/common'; // Import CommonModule
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, AbstractControl, ValidationErrors } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
@@ -11,13 +11,22 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatOption } from '@angular/material/core';
 import { MedicalrepService } from '../../services/medicalrep.service';
-import { DatePipe } from '@angular/common'
-import { HttpClient, HttpClientModule, HttpErrorResponse } from '@angular/common/http';; 
+import { DatePipe } from '@angular/common';
+import { HttpClient, HttpClientModule, HttpErrorResponse } from '@angular/common/http'; 
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormField } from '@angular/material/form-field';
 import Swal from 'sweetalert2';
 import { FormsModule } from '@angular/forms';
 
+// Custom validator function
+function ageValidator(control: AbstractControl): ValidationErrors | null {
+  const birthDate = new Date(control.value);
+  const age = new Date().getFullYear() - birthDate.getFullYear();
+  if (age < 20 || (age === 20 && new Date().getMonth() < birthDate.getMonth())) {
+    return { ageInvalid: true };
+  }
+  return null;
+}
 
 @Component({
   selector: 'app-addedit',
@@ -43,7 +52,6 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./addedit.component.css']
 })
 
-  
 export class AddeditComponent implements OnInit {
   @Output() medrepAdded = new EventEmitter<any>();
   userForm: FormGroup;
@@ -64,12 +72,11 @@ export class AddeditComponent implements OnInit {
       city: ['', [Validators.required]],
       street: ['', [Validators.required, Validators.maxLength(255)]],
       gender: ['', [Validators.required, Validators.pattern(/^(Male|Female)$/)]],
-      birthDate: [null, [Validators.required]],
+      birthDate: [null, [Validators.required, ageValidator]], // Apply custom validator here
       admin_id: [''],
       phone_number: ['', [Validators.required, Validators.maxLength(20)]],
       territory: ['', [Validators.required, Validators.maxLength(255)]],
       email: ['', [Validators.required, Validators.email, Validators.maxLength(255)]],
-      password: ['', [Validators.required, Validators.minLength(8)]]
     });
   }
 

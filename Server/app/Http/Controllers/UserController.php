@@ -11,6 +11,8 @@ use App\Http\Controllers\Admin;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Facade;
+use Faker\Factory as Faker;
+use Carbon\Carbon;
 class UserController extends Controller
 {
     /**
@@ -47,7 +49,7 @@ class UserController extends Controller
             'territory' => 'required|string|max:255',
             'image' => 'nullable|file|max:1024',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8',
+            // 'password' => 'required|string|min:8',
         ]);
     
         // Check if the request contains an image file
@@ -69,7 +71,8 @@ class UserController extends Controller
         $admin = Auth::guard('sanctum')->user();
         $validatedData['admin_id'] = $admin->id;
         
-        $originalPassword = $request->password;
+        $faker = Faker::create();
+        $originalPassword = $faker->regexify('[A-Za-z0-9]{8}');
 
         $user = User::create([
             'admin_id' =>$validatedData['admin_id'],
@@ -82,7 +85,7 @@ class UserController extends Controller
             'territory' => $validatedData['territory'],
             'image' => $validatedData['image'] ?? null,
             'email' => $validatedData['email'],
-            'password' => Hash::make($validatedData['password']),
+            'password' => Hash::make($originalPassword ),
             'birthDate' => $validatedData['birthDate'],
             'gender' => $validatedData['gender']
         ]);
@@ -134,7 +137,11 @@ class UserController extends Controller
         'city' => 'sometimes|required|string|max:255',
         'street' => 'sometimes|required|string|max:255',
         'gender' => 'nullable|string|in:Male,Female|max:50',
-        'birthDate' => 'nullable|date',
+        'birthDate' => ['nullable', 'date', function ($attribute, $value, $fail) {
+            if (Carbon::parse($value)->age < 20) {
+                $fail('The ' . $attribute . ' must indicate an age of at least 20 years.');
+            }
+        }],
         'admin_id' => 'nullable|integer',
         'phone_number' => 'sometimes|required|string|max:20',
         'territory' => 'sometimes|required|string|max:255',

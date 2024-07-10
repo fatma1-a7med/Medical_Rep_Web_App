@@ -99,10 +99,19 @@ export class SalesService {
       return this.http.post<any>(`${this.baseUrl}/add-doctor`, doctor);
     }
   
-    ListAllDoctors(): Observable<any>{
-      return this.http.get(`${this.baseUrl}/get-all-doctors`)
+    ListAllDoctors(): Observable<any> {
+      const headers = this.getAuthHeaders();
+      return this.http.get<any>(`${this.baseUrl}/get-all-doctors`, { headers })
+        .pipe(
+          catchError(this.handleError)
+        );
+    }
+
+    AllDoctors(): Observable<any> {
+      return this.http.get<any>(`${this.baseUrl}/get-doctors`)
     }
   
+    
     GetDoctorById(id: number): Observable<any> {
       return this.http.get<any>(`${this.baseUrl}/get-doctor-byId/${id}`);
     }

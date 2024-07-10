@@ -124,7 +124,8 @@ Route::prefix('user')->group(function () {
 
     //doctor Routes
     Route::post('add-doctor', [doctorController:: class, 'AddDoctor']);
-    Route::get('get-all-doctors', [doctorController:: class, 'gettAllDoctors']);
+    Route::middleware('auth:sanctum')->get('get-all-doctors', [doctorController:: class, 'gettAllDoctors']);
+    Route::get('get-doctors', [doctorController:: class, 'getDoctors']);
     Route::get('get-doctor-byId/{id}', [doctorController:: class, 'show']);
     Route::delete('delete-doctor-byId/{id}', [doctorController:: class, 'destroy']);
     Route::put('update-doctor-byId/{id}', [doctorController:: class, 'update']);

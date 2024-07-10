@@ -200,64 +200,57 @@
           This email is already in use.
         </mat-error>
       </mat-form-field>
-
-      <mat-form-field appearance="outline" class="form-field">
-        <mat-label>Password</mat-label>
-        <input matInput formControlName="password" type="password">
-        <mat-error *ngIf="userForm.get('password')?.hasError('required')">
-          Password is required.
-        </mat-error>
-        <mat-error *ngIf="userForm.get('password')?.hasError('minlength')">
-          Minimum length is 8 characters.
-        </mat-error>
-      </mat-form-field>
     </div>
 
-    <div class="form-row">
-      <mat-form-field appearance="outline" class="form-field">
-        <mat-label>State</mat-label>
-        <mat-select formControlName="state" (selectionChange)="onStateChange($event.value)">
-          <mat-option *ngFor="let state of states" [value]="state.id">{{ state.name }}</mat-option>
-        </mat-select>
-        <mat-error *ngIf="userForm.get('state')?.hasError('required')">
-          State is required.
-        </mat-error>
-      </mat-form-field>
+    <fieldset>
+      <legend>Medical Rep Address*</legend>
+      
+      <div class="form-row">
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>State</mat-label>
+          <mat-select formControlName="state" (selectionChange)="onStateChange($event.value)">
+            <mat-option *ngFor="let state of states" [value]="state.id">{{ state.name }}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="userForm.get('state')?.hasError('required')">
+            State is required.
+          </mat-error>
+        </mat-form-field>
 
-      <mat-form-field appearance="outline" class="form-field">
-        <mat-label>City</mat-label>
-        <mat-select formControlName="city">
-          <mat-option *ngFor="let city of cities" [value]="city.id">{{ city.name }}</mat-option>
-        </mat-select>
-        <mat-error *ngIf="userForm.get('city')?.hasError('required')">
-          City is required.
-        </mat-error>
-      </mat-form-field>
-    </div>
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>City</mat-label>
+          <mat-select formControlName="city">
+            <mat-option *ngFor="let city of cities" [value]="city.id">{{ city.name }}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="userForm.get('city')?.hasError('required')">
+            City is required.
+          </mat-error>
+        </mat-form-field>
+      </div>
 
-    <div class="form-row">
-      <mat-form-field appearance="outline" class="form-field">
-        <mat-label>Street</mat-label>
-        <input matInput formControlName="street">
-        <mat-error *ngIf="userForm.get('street')?.hasError('required')">
-          Street is required.
-        </mat-error>
-        <mat-error *ngIf="userForm.get('street')?.hasError('maxlength')">
-          Maximum length is 255 characters.
-        </mat-error>
-      </mat-form-field>
+      <div class="form-row">
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Street</mat-label>
+          <input matInput formControlName="street">
+          <mat-error *ngIf="userForm.get('street')?.hasError('required')">
+            Street is required.
+          </mat-error>
+          <mat-error *ngIf="userForm.get('street')?.hasError('maxlength')">
+            Maximum length is 255 characters.
+          </mat-error>
+        </mat-form-field>
 
-      <mat-form-field appearance="outline" class="form-field">
-        <mat-label>Territory</mat-label>
-        <input matInput formControlName="territory">
-        <mat-error *ngIf="userForm.get('territory')?.hasError('required')">
-          Territory is required.
-        </mat-error>
-        <mat-error *ngIf="userForm.get('territory')?.hasError('maxlength')">
-          Maximum length is 255 characters.
-        </mat-error>
-      </mat-form-field>
-    </div>
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Territory</mat-label>
+          <input matInput formControlName="territory">
+          <mat-error *ngIf="userForm.get('territory')?.hasError('required')">
+            Territory is required.
+          </mat-error>
+          <mat-error *ngIf="userForm.get('territory')?.hasError('maxlength')">
+            Maximum length is 255 characters.
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </fieldset>
 
     <div class="form-row">
       <mat-form-field appearance="outline" class="form-field">
@@ -286,11 +279,16 @@
 
     <div class="form-row">
       <mat-form-field appearance="outline" class="form-field">
-        <mat-label>Choose a date</mat-label>
+        <mat-label>Birth Date</mat-label>
         <input matInput [matDatepicker]="picker" formControlName="birthDate">
-        <mat-hint>MM/DD/YYYY</mat-hint>
-        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
+        <mat-error *ngIf="userForm.get('birthDate')?.hasError('required')">
+          Birth Date is required.
+        </mat-error>
+        <mat-error *ngIf="userForm.get('birthDate')?.hasError('ageInvalid')">
+          User must be older than 20 years.
+        </mat-error>
       </mat-form-field>
     </div>
 

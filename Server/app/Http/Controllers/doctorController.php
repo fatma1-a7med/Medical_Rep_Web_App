@@ -9,7 +9,7 @@ use App\Http\Requests\updateDoctor;
 use App\Models\Doctor;
 use Illuminate\Contracts\Support\ValidatedData;
 use Illuminate\Http\JsonResponse;
-
+use Illuminate\Support\Facades\Auth;
 
 class doctorController extends Controller
 {
@@ -80,9 +80,23 @@ class doctorController extends Controller
       *
      * @return \Illuminate\Http\JsonResponse
       */
-      public function gettAllDoctors(): JsonResponse{
-        $allDoctors = Doctor::all();
+      public function gettAllDoctors(): JsonResponse
+      {
+          $user = Auth::user(); // Get the logged-in user
+  
+          // Check if the user has a territory set
+          if (!$user || !$user->territory) {
+              return response()->json(['message' => 'User territory not set'], 400);
+          }
+  
+          // Get all doctors in the same territory as the logged-in user
+          $allDoctors = Doctor::where('territory', $user->territory)->get();
+  
+          return response()->json($allDoctors);
+      }
 
+      public function getDoctors(): JsonResponse{
+        $allDoctors = Doctor::all();
         return response()->json($allDoctors);
       }
 
