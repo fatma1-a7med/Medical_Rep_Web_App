@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 })
 export class JarwisService {
   private baseUrl = 'http://localhost:8000/api/admin';
+  private baseurl = 'http://localhost:8000/api/user';
   private adminSubject: BehaviorSubject<any>;
   public admin: Observable<any>;
 
@@ -42,6 +43,18 @@ export class JarwisService {
   }
   resetPassword(token: string, email: string, password: string, password_confirmation: string): Observable<any> {
     return this.http.post(`${this.baseUrl}/password/reset/${token}`, {
+      email,
+      password,
+      password_confirmation,
+      token 
+    });
+  }
+  //user
+  sendresetLink(email: string): Observable<any> {
+    return this.http.post(`${this.baseurl}/password/email`, { email });
+  }
+  resetpassword(token: string, email: string, password: string, password_confirmation: string): Observable<any> {
+    return this.http.post(`${this.baseurl}/password/reset/${token}`, {
       email,
       password,
       password_confirmation,

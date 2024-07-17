@@ -19,4 +19,6 @@ class ForgotPasswordAdminController extends Controller
             ? response()->json(['message' => __($status)])
             : response()->json(['message' => __($status)], 400);
     }
+
+   
 }

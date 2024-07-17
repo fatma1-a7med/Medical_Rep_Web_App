@@ -167,8 +167,11 @@ Route::get('/visit-reports', [VisitReportingController::class, 'getVisitReports'
 Route::prefix('user')->group(function () {
     Route::post('register', [UserAuthController::class, 'createUser']);
     Route::post('login', [UserAuthController::class, 'loginUser']);
-    Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
 
+     // User Password Reset Routes
+    Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('user.password.email');
+    Route::post('password/reset', [ResetPasswordController::class, 'reset'])->name('user.password.reset');
+     
     Route::middleware('auth:sanctum')->group(function () {
         // Route::get('/user/profile', [UserProfileController::class, 'index']);
         Route::get('/profile/show', [UserProfileController::class, 'show']);

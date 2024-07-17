@@ -37,6 +37,10 @@
                 <small *ngIf="password?.errors?.['minlength']">Password must be at least 8 characters long.</small>
               </div>
             </div>
+
+            <div class="forgetPss mt-4">
+              <a routerLink="../../user/password/email">Forgetten password?</a>
+            </div>
             
             <div class="col-12 d-grid 2">
               <button type="submit" class="btn custom-button text-center mt-2"  [disabled]="userForm.invalid" routerLink="/user/home">SignIn</button>

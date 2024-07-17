@@ -1,3 +1,4 @@
+import { forgetpasswordComponent } from './user-auth/forgetpassword/forgetpassword.component';
 import { ShowVisitComponent } from './admin-dashboard/visit-managment/show-visit/show-visit.component';
 import { UserGuard } from './services/auth/userAuthGuard.service';
 import { UserLocationComponent } from './user/user-location/user-location.component';
@@ -12,7 +13,6 @@ import { LoginComponent } from './admin/login/login.component';
 import { RegisterComponent } from './admin/register/register.component';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { ActivityMonitoringComponent } from './admin-dashboard/activity-monitoring/activity-monitoring.component';
-import { ForgetpasswordComponent } from './admin/forgetpassword/forgetpassword.component';
 import { ResetPasswordComponent } from './admin/reset-password/reset-password.component';
 import { SalesListComponent } from './admin-dashboard/sales/sales-list/sales-list.component';
 import { SalesAddComponent } from './admin-dashboard/sales/sales-add/sales-add.component';
@@ -43,6 +43,8 @@ import { AllToolsComponent } from './admin-dashboard/tools/all-tools/all-tools.c
 import { AddToolsComponent } from './admin-dashboard/tools/add-tools/add-tools.component';
 import { UpdateToolsComponent } from './admin-dashboard/tools/update-tools/update-tools.component';
 import { ContactUsComponent } from './user/contact-us/contact-us.component';
+import { ForgetpasswordComponent } from './admin/forgetpassword/forgetpassword.component';
+import { resetPasswordComponent } from './user-auth/reset-password/reset-password.component';
 
 
 
@@ -61,9 +63,14 @@ export const routes: Routes = [
     { path: 'password/reset/:token', component: ResetPasswordComponent }, 
     { path: 'reporting', component: ReportingComponent }, 
   
-     //user auth
-     { path:'user/login', component:UserLoginComponent},
-  
+ //user auth
+ { path:'user/login', component:UserLoginComponent},
+ { path: 'user/password/email', component: 
+  forgetpasswordComponent
+  },
+  { path: 'user/password/reset/:token', component: resetPasswordComponent }, 
+
+
   
     //user routes
     {

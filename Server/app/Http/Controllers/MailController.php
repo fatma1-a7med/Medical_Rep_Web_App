@@ -26,4 +26,6 @@ class MailController extends Controller
 
         return response()->json(['message' => 'Email sent successfully'], 200);
     }
+
+    
 }
