@@ -81,6 +81,20 @@
   background-color: #139b9f;
 }
 
+.search-med-rep {
+  background-color: #1CA4AC;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 5px 14px;
+  width: 65px;
+  height: 36px;
+  cursor: pointer;
+}
+
+.search-med-rep:hover {
+  background-color: #139b9f;
+}
 .custom-hr {
   border-top: 3px solid #1CA4AC;
   width: 100%;

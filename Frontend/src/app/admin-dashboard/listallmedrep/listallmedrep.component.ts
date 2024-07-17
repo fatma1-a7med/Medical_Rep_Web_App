@@ -7,15 +7,18 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import {MatDialog} from '@angular/material/dialog'
+import { MatDialog } from '@angular/material/dialog';
 import { AddeditComponent } from '../addedit/addedit.component';
 import { MedrepDetailComponent } from '../medrep-detail/medrep-detail.component';
 import { AuthService } from '../../services/auth.service';
 import Swal from 'sweetalert2';
+import { CommonModule } from '@angular/common';
+
 @Component({
   selector: 'app-listallmedrep',
   standalone: true,
   imports: [
+    CommonModule,
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
@@ -24,49 +27,49 @@ import Swal from 'sweetalert2';
     MatIconModule,
     MatButtonModule,
     MedrepDetailComponent
-
   ],
   templateUrl: './listallmedrep.component.html',
   styleUrls: ['./listallmedrep.component.css']
 })
 export class ListallmedrepComponent implements OnInit, AfterViewInit {
   userId: number | null = null;
+  searchInputVisible: boolean = false;
 
+  onShow(data: any) {
+    console.log(data);
+  }
 
-onShow(data: any) {
-console.log(data)
-}
-
-  displayedColumns: string[] = ['id', 'first_name', 'last_name', 'email', 'phone_number','actions' ];
-  dataSource!: MatTableDataSource<any> ;
+  displayedColumns: string[] = ['id', 'first_name', 'last_name', 'email', 'phone_number', 'actions'];
+  dataSource!: MatTableDataSource<any>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private _medrepservice: MedicalrepService,private _dialog : MatDialog,private authService: AuthService) {}
+  constructor(private _medrepservice: MedicalrepService, private _dialog: MatDialog, private authService: AuthService) {}
 
   ngOnInit(): void {
     this.getMedreplist();
-    console.log('id',this.userId = this.authService.getUserId());
+    console.log('id', this.userId = this.authService.getUserId());
   }
+
   ngAfterViewInit(): void {
-  
     if (this.dataSource) {
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
-  }
+    }
   }
 
   openaddeditform() {
     const dialogRef = this._dialog.open(AddeditComponent);
     dialogRef.afterClosed().subscribe({
-        next: (val) => {
-            if (val) {
-                this.getMedreplist(); 
-            }
-        },
+      next: (val) => {
+        if (val) {
+          this.getMedreplist();
+        }
+      },
     });
-}
+  }
+
   getMedreplist(): void {
     this._medrepservice.getMedreplist().subscribe({
       next: (res) => {
@@ -79,7 +82,6 @@ console.log(data)
       }
     });
   }
-
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -123,24 +125,27 @@ console.log(data)
     });
   }
 
+  openeditform(data: any) {
+    const dialogRef = this._dialog.open(AddeditComponent, {
+      data,
+    });
+    dialogRef.afterClosed().subscribe({
+      next: (val) => {
+        if (val) {
+          this.getMedreplist();
+        }
+      },
+    });
+  }
 
-openeditform(data:any) {
-  const dialogRef=this._dialog.open(AddeditComponent, {
-    data,
-  });
-  dialogRef.afterClosed().subscribe({
-    next: (val) => {
-      if (val) {
-        this.getMedreplist();
-      }
-    },
-  });
- 
-}
-show(data: any) {
-  this._dialog.open(MedrepDetailComponent, {
-    data,
-    width: '400px'  // Adjust width as needed
-  });
-}
+  show(data: any) {
+    this._dialog.open(MedrepDetailComponent, {
+      data,
+      width: '400px'  // Adjust width as needed
+    });
+  }
+
+  toggleSearchInput() {
+    this.searchInputVisible = !this.searchInputVisible;
+  }
 }
